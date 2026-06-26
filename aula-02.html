@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula 2 · Como o mercado imobiliário funciona no digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf8;
+  --text: #111111;
+  --muted: rgba(17,17,17,.46);
+  --subtle: rgba(17,17,17,.28);
+  --border: rgba(0,0,0,.08);
+  --surface: rgba(0,0,0,.035);
+  --grad: linear-gradient(120deg, #f97316, #e11d48 45%, #7c3aed);
+  --orange: #f97316;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui, sans-serif; overflow: hidden; }
+
+/* ── STAGE ── */
+#stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+
+/* ── SLIDE BASE ── */
+.slide {
+  position: absolute;
+  width: min(94vw, 1280px);
+  aspect-ratio: 16 / 9;
+  background: var(--bg);
+  border-radius: 20px;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(.97) translateY(8px);
+  transition: opacity .36s ease, transform .36s ease;
+  pointer-events: none;
+  box-shadow: 0 32px 96px rgba(0,0,0,.2), 0 2px 8px rgba(0,0,0,.1);
+  color: var(--text);
+}
+.slide.active { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
+
+/* marca d'água */
+.slide::after {
+  content: 'IMOB IN DIGITAL';
+  position: absolute; bottom: 20px; right: 26px;
+  font-size: .58rem; font-weight: 700; letter-spacing: .2em;
+  color: rgba(17,17,17,.18); pointer-events: none;
+}
+
+/* ── LAYOUT ── */
+.pad { position: absolute; inset: 0; padding: 6.5% 7.5%; display: flex; flex-direction: column; }
+
+/* ── UTILS ── */
+.gradtext {
+  background: var(--grad);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.eyebrow { font-size: .7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.rule { width: 44px; height: 3px; background: var(--grad); border-radius: 2px; }
+
+/* ══════════════════════════════════════════
+   1. COVER
+══════════════════════════════════════════ */
+.s-cover {
+  background:
+    radial-gradient(ellipse at 96% 96%, rgba(124,58,237,.055) 0%, transparent 45%),
+    radial-gradient(ellipse at 4% 4%, rgba(249,115,22,.04) 0%, transparent 38%),
+    var(--bg);
+}
+.s-cover .pad { justify-content: flex-end; }
+.s-cover .eyebrow { margin-bottom: auto; }
+.s-cover .rule { margin-bottom: 20px; }
+.s-cover h1 { font-size: 4.8rem; font-weight: 800; letter-spacing: -.045em; line-height: 1.02; }
+
+/* ══════════════════════════════════════════
+   2. DATA — número grande
+══════════════════════════════════════════ */
+.s-data .pad { justify-content: center; }
+.data-hero { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; line-height: .85; }
+.data-hero .num { font-size: 13rem; font-weight: 800; letter-spacing: -.05em; }
+.data-hero .unit { font-size: 3.6rem; font-weight: 700; letter-spacing: -.03em; color: var(--muted); }
+.datacap { font-size: 2rem; font-weight: 600; letter-spacing: -.025em; line-height: 1.25; max-width: 72%; }
+.src { margin-top: 14px; font-size: .73rem; font-weight: 500; letter-spacing: .04em; color: var(--subtle); }
+
+/* ══════════════════════════════════════════
+   3. PHASES — 3 colunas
+══════════════════════════════════════════ */
+.s-phases .pad { justify-content: center; }
+.s-phases h2 { font-size: 1.9rem; font-weight: 800; letter-spacing: -.035em; margin-bottom: 28px; }
+.phases-grid { display: grid; grid-template-columns: repeat(3,1fr); }
+.phase { padding: 22px 26px; }
+.phase + .phase { border-left: 1px solid var(--border); }
+.ph-label { font-size: .63rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 9px; }
+.ph-name { font-size: 1.6rem; font-weight: 700; letter-spacing: -.03em; line-height: 1.1; margin-bottom: 11px; }
+.ph-desc { font-size: .9rem; color: var(--muted); line-height: 1.6; }
+
+/* ══════════════════════════════════════════
+   4. PLATFORM ROWS — 3 linhas por fase
+══════════════════════════════════════════ */
+.s-platform .pad { justify-content: center; }
+.s-platform h2 { font-size: 1.9rem; font-weight: 800; letter-spacing: -.035em; margin-bottom: 22px; }
+.prows { display: flex; flex-direction: column; }
+.prow {
+  display: grid; grid-template-columns: 140px 1fr; gap: 20px;
+  align-items: start; padding: 16px 0; border-top: 1px solid var(--border);
+}
+.prow:last-child { border-bottom: 1px solid var(--border); }
+.ptag { font-size: .62rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--muted); line-height: 1.5; padding-top: 2px; }
+.pcontent { display: flex; flex-direction: column; gap: 3px; }
+.ptitle { font-size: 1.15rem; font-weight: 700; letter-spacing: -.02em; }
+.pdesc { font-size: .86rem; color: var(--muted); line-height: 1.55; }
+.ptags { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+.ptags span {
+  font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 100px; background: var(--surface); border: 1px solid var(--border);
+}
+
+/* ══════════════════════════════════════════
+   5. COMPARE — dois lados
+══════════════════════════════════════════ */
+.s-compare .pad { justify-content: center; }
+.s-compare h2 { font-size: 1.85rem; font-weight: 800; letter-spacing: -.035em; margin-bottom: 22px; }
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ccol { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px 26px; }
+.ccol .ctitle { font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.ccol ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.ccol ul li { font-size: 1.05rem; font-weight: 500; display: flex; align-items: center; gap: 10px; line-height: 1.3; }
+.ccol ul li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; background: rgba(0,0,0,.22); }
+.ccol.strong ul li::before { background: var(--orange); }
+
+/* ══════════════════════════════════════════
+   6. INSIGHT — fechamento
+══════════════════════════════════════════ */
+.s-insight {
+  background:
+    radial-gradient(ellipse at 100% 100%, rgba(124,58,237,.06) 0%, transparent 48%),
+    var(--bg);
+}
+.s-insight .pad { justify-content: center; }
+.insight-text { font-size: 3.75rem; font-weight: 800; letter-spacing: -.045em; line-height: 1.08; }
+.next-label {
+  margin-top: 40px; font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 10px;
+}
+.next-label::before { content: '→'; color: var(--orange); font-size: .85rem; letter-spacing: 0; }
+
+/* ── NAV ── */
+#ui {
+  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 50;
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(255,255,255,.72); border: 1px solid rgba(0,0,0,.1);
+  backdrop-filter: blur(16px); padding: 8px 16px; border-radius: 100px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.12);
+}
+#ui button {
+  background: none; border: none; font-size: 1.15rem; cursor: pointer;
+  opacity: .55; padding: 4px 8px; border-radius: 8px; color: #111; line-height: 1;
+}
+#ui button:hover { opacity: 1; background: rgba(0,0,0,.07); }
+#counter { font-size: .78rem; color: rgba(0,0,0,.5); font-variant-numeric: tabular-nums; min-width: 44px; text-align: center; font-weight: 600; }
+#hint { position: fixed; top: 14px; right: 16px; z-index: 50; font-size: .68rem; color: rgba(0,0,0,.3); letter-spacing: .04em; }
+</style>
+</head>
+<body>
+<div id="hint">← → navegar · F tela cheia</div>
+<div id="stage"></div>
+<div id="ui">
+  <button id="prev">‹</button>
+  <span id="counter">1 / 8</span>
+  <button id="next">›</button>
+</div>
+
+<script>
+const slides = [
+
+/* 1 ── COVER ─────────────────────────────── */
+{ cls:'s-cover', html:`
+<div class="pad">
+  <div class="eyebrow">Módulo 1 · Aula 2</div>
+  <div class="rule"></div>
+  <h1>Como o mercado<br>imobiliário funciona<br>no <span class="gradtext">digital</span></h1>
+</div>`},
+
+/* 2 ── 4 MESES ───────────────────────────── */
+{ cls:'s-data', html:`
+<div class="pad">
+  <div class="data-hero">
+    <span class="num gradtext">4</span>
+    <span class="unit">meses</span>
+  </div>
+  <div class="datacap">A jornada do comprador antes do primeiro contato com qualquer corretor.</div>
+  <div class="src">DataZAP · Pesquisa com compradores reais, 2024</div>
+</div>`},
+
+/* 3 ── A JORNADA ─────────────────────────── */
+{ cls:'s-phases', html:`
+<div class="pad">
+  <h2>A jornada que ninguém vê</h2>
+  <div class="phases-grid">
+    <div class="phase">
+      <div class="ph-label gradtext">Início</div>
+      <div class="ph-name">Gatilho</div>
+      <div class="ph-desc">Uma mudança de vida coloca a decisão em movimento — nascimento de filho, separação, saída do aluguel. O comprador começa a pesquisar sem saber ainda o que quer.</div>
+    </div>
+    <div class="phase">
+      <div class="ph-label gradtext">Meio</div>
+      <div class="ph-name">Pesquisa</div>
+      <div class="ph-desc">Meses de busca ativa: bairros, financiamentos, portais, perfis. Ele forma opinião sobre quem sabe do que fala. Você não está presente nessa fase.</div>
+    </div>
+    <div class="phase">
+      <div class="ph-label gradtext">Fim</div>
+      <div class="ph-name">Decisão</div>
+      <div class="ph-desc">Pronto para contato. Escolhe 2–5 corretores por confiança acumulada — ou por quem responder primeiro quando a mensagem sair.</div>
+    </div>
+  </div>
+</div>`},
+
+/* 4 ── 78% ───────────────────────────────── */
+{ cls:'s-data', html:`
+<div class="pad">
+  <div class="data-hero">
+    <span class="num gradtext">78%</span>
+  </div>
+  <div class="datacap">dos compradores fecham com quem responde primeiro.</div>
+  <div class="src">MIT / InsideSales · 100 mil+ tentativas de contato analisadas ao longo de 3 anos</div>
+</div>`},
+
+/* 5 ── ONDE ESTÁ ─────────────────────────── */
+{ cls:'s-platform', html:`
+<div class="pad">
+  <h2>Onde o comprador está em cada fase</h2>
+  <div class="prows">
+    <div class="prow">
+      <div class="ptag">Início<br>4 meses antes</div>
+      <div class="pcontent">
+        <div class="ptitle">Google — quer aprender, não comprar</div>
+        <div class="pdesc">11 buscas em média antes de acessar qualquer site imobiliário. Ele pesquisa financiamento, bairros e o que precisa entender — ainda não procura corretor.</div>
+        <div class="ptags"><span>Google</span><span>YouTube</span><span>Conteúdo</span></div>
+      </div>
+    </div>
+    <div class="prow">
+      <div class="ptag">Meio<br>Afunilando</div>
+      <div class="pcontent">
+        <div class="ptitle">Instagram e portais — construindo referência</div>
+        <div class="pdesc">64% dos compradores assistem pelo menos um vídeo durante a jornada. Ele segue quem aparece com consistência e começa a construir preferência.</div>
+        <div class="ptags"><span>Instagram</span><span>ZAP</span><span>Viva Real</span></div>
+      </div>
+    </div>
+    <div class="prow">
+      <div class="ptag">Fim<br>Pronto para comprar</div>
+      <div class="pcontent">
+        <div class="ptitle">Contato — a fase que todo corretor disputa</div>
+        <div class="pdesc">A fase que a maioria dos corretores tenta jogar. A fase anterior, onde a confiança é construída, fica sem ninguém presente.</div>
+        <div class="ptags"><span>WhatsApp</span><span>Formulário</span><span>DM</span></div>
+      </div>
+    </div>
+  </div>
+</div>`},
+
+/* 6 ── PORTAL VS PRESENÇA ────────────────── */
+{ cls:'s-compare', html:`
+<div class="pad">
+  <h2>Portal funciona.<br>Mas não como canal principal.</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Depender do portal</div>
+      <ul>
+        <li>Lead comprado e compartilhado com outros corretores</li>
+        <li>Sem relação construída antes do contato</li>
+        <li>Disputa de velocidade de resposta</li>
+        <li>R$4.800–12.000 por ano em espaço alugado</li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Presença digital estratégica</div>
+      <ul>
+        <li>Lead conquistado ao longo da jornada</li>
+        <li>4 meses de confiança antes da primeira mensagem</li>
+        <li>Já ganhou antes da conversa começar</li>
+        <li>Ativo próprio — não depende de plataforma</li>
+      </ul>
+    </div>
+  </div>
+</div>`},
+
+/* 7 ── 580 MIL ───────────────────────────── */
+{ cls:'s-data', html:`
+<div class="pad">
+  <div class="data-hero">
+    <span class="num gradtext">580</span>
+    <span class="unit">mil</span>
+  </div>
+  <div class="datacap">corretores registrados no Brasil. +40% em 5 anos. O 2º maior mercado do mundo.</div>
+  <div class="src">COFECI, 2024 · Em 2020 eram 413 mil</div>
+</div>`},
+
+/* 8 ── INSIGHT FINAL ─────────────────────── */
+{ cls:'s-insight', html:`
+<div class="pad">
+  <div class="insight-text">O trabalho digital<br>não começa quando<br>o lead está pronto.<br><span class="gradtext">Começa 4 meses antes.</span></div>
+  <div class="next-label">Próxima aula — quem é esse comprador com precisão</div>
+</div>`},
+
+];
+
+/* RENDER */
+const stage = document.getElementById('stage');
+slides.forEach(s => {
+  const el = document.createElement('div');
+  el.className = 'slide ' + s.cls;
+  el.innerHTML = s.html;
+  stage.appendChild(el);
+});
+
+const els = [...document.querySelectorAll('.slide')];
+let cur = 0;
+
+function show(n) {
+  cur = Math.max(0, Math.min(slides.length - 1, n));
+  els.forEach((e, i) => e.classList.toggle('active', i === cur));
+  document.getElementById('counter').textContent = `${cur + 1} / ${slides.length}`;
+}
+
+document.getElementById('next').onclick = () => show(cur + 1);
+document.getElementById('prev').onclick = () => show(cur - 1);
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(cur + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); show(cur - 1); }
+  if (e.key.toLowerCase() === 'f') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+show(0);
+</script>
+</body>
+</html>
