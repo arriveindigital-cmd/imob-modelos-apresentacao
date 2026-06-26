@@ -25,7 +25,7 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
 
 .slide {
   position: absolute;
-  width: min(94vw, 1280px);
+  width: min(94vw, 1280px, calc((100vh - 64px) * 16 / 9));
   aspect-ratio: 16 / 9;
   background: var(--bg);
   border-radius: 20px;
@@ -132,15 +132,15 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
 
 /* ══ NAV ══ */
 #ui {
-  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 50;
-  display: flex; align-items: center; gap: 12px;
+  position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 50;
+  display: flex; align-items: center; gap: 6px;
   background: rgba(255,255,255,.72); border: 1px solid rgba(0,0,0,.1);
-  backdrop-filter: blur(16px); padding: 8px 16px; border-radius: 100px;
-  box-shadow: 0 4px 20px rgba(0,0,0,.12);
+  backdrop-filter: blur(16px); padding: 4px 10px; border-radius: 100px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.1);
 }
-#ui button { background: none; border: none; font-size: 1.15rem; cursor: pointer; opacity: .55; padding: 4px 8px; border-radius: 8px; color: #111; line-height: 1; }
+#ui button { background: none; border: none; font-size: .85rem; cursor: pointer; opacity: .5; padding: 2px 5px; border-radius: 6px; color: #111; line-height: 1; }
 #ui button:hover { opacity: 1; background: rgba(0,0,0,.07); }
-#counter { font-size: .78rem; color: rgba(0,0,0,.5); font-variant-numeric: tabular-nums; min-width: 44px; text-align: center; font-weight: 600; }
+#counter { font-size: .62rem; color: rgba(0,0,0,.45); font-variant-numeric: tabular-nums; min-width: 32px; text-align: center; font-weight: 600; }
 #hint { position: fixed; top: 14px; right: 16px; z-index: 50; font-size: .68rem; color: rgba(0,0,0,.3); letter-spacing: .04em; }
 </style>
 </head>
