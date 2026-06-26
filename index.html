@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imob In Digital — Modelos de Apresentação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#f97316; --pink:#e11d48; --purple:#7c3aed;
+    --grad:linear-gradient(120deg,#f97316,#e11d48 45%,#7c3aed);
+    --bg:#000;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;background:#050505;font-family:'Inter',system-ui,sans-serif;color:#fff;overflow:hidden;}
+
+  /* ---------- STAGE ---------- */
+  #stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+  .slide{
+    position:absolute;width:min(92vw,1280px);aspect-ratio:16/9;
+    border-radius:22px;overflow:hidden;opacity:0;transform:scale(.98);
+    transition:opacity .45s ease,transform .45s ease;pointer-events:none;
+    box-shadow:0 40px 120px rgba(0,0,0,.7);
+  }
+  .slide.active{opacity:1;transform:scale(1);pointer-events:auto;}
+
+  /* shared slide chrome */
+  .pad{position:absolute;inset:0;padding:6.5% 7.5%;display:flex;flex-direction:column;}
+  .tag{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;}
+  .gradtext{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .modellabel{
+    position:absolute;top:18px;left:22px;z-index:20;font-size:.62rem;font-weight:700;
+    letter-spacing:.16em;text-transform:uppercase;padding:5px 11px;border-radius:100px;
+    background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);
+  }
+  .grid-bg{
+    position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+    background-size:64px 64px;
+  }
+
+  /* =========================================================
+     MODELO A — EDITORIAL DARK (preto puro, tipo grande, gradiente só na palavra-chave)
+  ========================================================= */
+  .mA{background:#000;}
+  .mA .pad{justify-content:flex-end;}
+  .mA .eyebrow{color:rgba(255,255,255,.4);margin-bottom:auto;}
+  .mA h1{font-weight:800;font-size:5.4rem;line-height:.98;letter-spacing:-.04em;}
+  .mA .sub{margin-top:26px;font-size:1.25rem;font-weight:400;color:rgba(255,255,255,.5);max-width:70%;line-height:1.5;}
+  .mA .rule{width:54px;height:4px;background:var(--grad);border-radius:4px;margin-bottom:28px;}
+
+  /* data slide A */
+  .mA .bignum{font-weight:800;font-size:14rem;line-height:.85;letter-spacing:-.05em;margin-bottom:auto;}
+  .mA .datacap{font-size:2rem;font-weight:600;line-height:1.25;letter-spacing:-.02em;max-width:80%;}
+  .mA .src{margin-top:22px;font-size:.8rem;color:rgba(255,255,255,.32);letter-spacing:.04em;}
+
+  /* list slide A */
+  .mA .listttl{font-size:2.4rem;font-weight:800;letter-spacing:-.03em;margin-bottom:auto;}
+  .mA ol.clean{list-style:none;display:flex;flex-direction:column;gap:0;}
+  .mA ol.clean li{display:flex;align-items:baseline;gap:22px;padding:18px 0;border-top:1px solid rgba(255,255,255,.09);font-size:1.5rem;font-weight:500;}
+  .mA ol.clean li:last-child{border-bottom:1px solid rgba(255,255,255,.09);}
+  .mA ol.clean .n{font-size:.85rem;font-weight:700;color:var(--orange);letter-spacing:.1em;min-width:26px;}
+
+  /* =========================================================
+     MODELO B — GRID SYSTEM (grid sutil + glow de canto + cards de borda fina)
+  ========================================================= */
+  .mB{background:radial-gradient(ellipse at 100% 25%,rgba(76,29,149,.55) 0%,rgba(76,29,149,.18) 32%,transparent 60%),radial-gradient(ellipse at 88% 0%,rgba(220,38,38,.18) 0%,transparent 38%),#000;}
+  .mB .grid-bg{opacity:.7;}
+  .mB .pad{justify-content:center;position:relative;z-index:2;}
+  .mB .kicker{color:var(--purple);font-weight:700;margin-bottom:20px;}
+  .mB .kicker.gradtext{color:transparent;}
+  .mB h1{font-weight:800;font-size:4.2rem;line-height:1;letter-spacing:-.035em;}
+  .mB .sub{margin-top:22px;font-size:1.15rem;color:rgba(255,255,255,.5);max-width:64%;line-height:1.55;}
+
+  .mB .bignum{font-weight:800;font-size:11rem;line-height:.85;letter-spacing:-.04em;}
+  .mB .datacap{margin-top:18px;font-size:1.7rem;font-weight:600;max-width:75%;line-height:1.3;letter-spacing:-.02em;}
+  .mB .src{margin-top:18px;font-size:.78rem;color:rgba(255,255,255,.34);}
+
+  .mB .listttl{font-size:2rem;font-weight:800;letter-spacing:-.03em;margin-bottom:30px;}
+  .mB .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .mB .cards.five{grid-template-columns:repeat(5,1fr);}
+  .mB .card{background:#121212;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px 20px;min-height:150px;display:flex;flex-direction:column;}
+  .mB .card .cn{font-size:.74rem;font-weight:700;letter-spacing:.14em;color:var(--orange);margin-bottom:14px;}
+  .mB .card .ct{font-size:1.05rem;font-weight:600;line-height:1.25;}
+  .mB .card.accent{border-color:rgba(124,58,237,.4);background:#16121f;}
+
+  /* =========================================================
+     MODELO C — SPOTLIGHT (cinematográfico, glow forte atrás do elemento central)
+  ========================================================= */
+  .mC{background:#000;}
+  .mC .glow{position:absolute;inset:0;background:radial-gradient(circle at 50% 58%,rgba(124,58,237,.45) 0%,rgba(225,29,72,.12) 28%,transparent 55%);}
+  .mC .pad{align-items:center;justify-content:center;text-align:center;position:relative;z-index:2;}
+  .mC .eyebrow{color:rgba(255,255,255,.45);margin-bottom:28px;}
+  .mC h1{font-weight:800;font-size:4.6rem;line-height:1;letter-spacing:-.04em;}
+  .mC .sub{margin-top:24px;font-size:1.2rem;color:rgba(255,255,255,.55);max-width:62%;line-height:1.55;}
+
+  .mC .bignum{font-weight:800;font-size:15rem;line-height:.82;letter-spacing:-.05em;filter:drop-shadow(0 0 60px rgba(124,58,237,.45));}
+  .mC .datacap{margin-top:18px;font-size:1.85rem;font-weight:600;max-width:70%;line-height:1.3;letter-spacing:-.02em;}
+  .mC .src{margin-top:22px;font-size:.8rem;color:rgba(255,255,255,.35);}
+
+  .mC .listttl{font-size:2.3rem;font-weight:800;letter-spacing:-.03em;margin-bottom:34px;}
+  .mC .pills{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;max-width:88%;}
+  .mC .pill{padding:16px 26px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);font-size:1.2rem;font-weight:600;backdrop-filter:blur(6px);}
+  .mC .pill .pn{color:var(--orange);font-weight:700;margin-right:10px;}
+
+  /* =========================================================
+     MODELO D — LIGHT CLEAN (keynote claro, gradiente como acento) — alternativa de contraste
+  ========================================================= */
+  .mD{background:#f5f3ef;color:#0a0a0a;}
+  .mD .pad{justify-content:flex-end;}
+  .mD .eyebrow{color:rgba(0,0,0,.4);margin-bottom:auto;}
+  .mD h1{font-weight:800;font-size:5rem;line-height:.98;letter-spacing:-.04em;color:#0a0a0a;}
+  .mD .sub{margin-top:24px;font-size:1.22rem;color:rgba(0,0,0,.55);max-width:70%;line-height:1.5;}
+  .mD .rule{width:54px;height:4px;background:var(--grad);border-radius:4px;margin-bottom:26px;}
+
+  .mD .bignum{font-weight:800;font-size:14rem;line-height:.85;letter-spacing:-.05em;margin-bottom:auto;}
+  .mD .datacap{font-size:2rem;font-weight:600;max-width:80%;line-height:1.25;letter-spacing:-.02em;color:#111;}
+  .mD .src{margin-top:22px;font-size:.8rem;color:rgba(0,0,0,.4);}
+
+  .mD .listttl{font-size:2.4rem;font-weight:800;letter-spacing:-.03em;margin-bottom:auto;color:#0a0a0a;}
+  .mD ol.clean{list-style:none;display:flex;flex-direction:column;}
+  .mD ol.clean li{display:flex;align-items:baseline;gap:22px;padding:18px 0;border-top:1px solid rgba(0,0,0,.12);font-size:1.5rem;font-weight:500;color:#161616;}
+  .mD ol.clean li:last-child{border-bottom:1px solid rgba(0,0,0,.12);}
+  .mD ol.clean .n{font-size:.85rem;font-weight:800;letter-spacing:.06em;min-width:26px;}
+
+  /* ---------- COVER ---------- */
+  .cover{background:radial-gradient(ellipse at 100% 100%,rgba(76,29,149,.5) 0%,transparent 55%),radial-gradient(ellipse at 0% 0%,rgba(220,38,38,.15) 0%,transparent 45%),#000;}
+  .cover .pad{justify-content:center;}
+  .cover .tag{color:rgba(255,255,255,.45);margin-bottom:26px;}
+  .cover h1{font-size:4.4rem;font-weight:800;letter-spacing:-.04em;line-height:1;}
+  .cover p{margin-top:26px;font-size:1.2rem;color:rgba(255,255,255,.55);max-width:60%;line-height:1.6;}
+  .cover .legend{margin-top:42px;display:flex;gap:30px;flex-wrap:wrap;}
+  .cover .legend div{font-size:.92rem;color:rgba(255,255,255,.7);}
+  .cover .legend b{display:block;font-weight:700;color:#fff;margin-bottom:3px;}
+
+  /* ---------- UI ---------- */
+  #ui{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:18px;
+      background:rgba(20,20,20,.7);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(12px);padding:9px 16px;border-radius:100px;}
+  #ui button{background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer;opacity:.7;padding:4px 8px;border-radius:8px;line-height:1;}
+  #ui button:hover{opacity:1;background:rgba(255,255,255,.1);}
+  #counter{font-size:.82rem;color:rgba(255,255,255,.6);font-variant-numeric:tabular-nums;min-width:46px;text-align:center;}
+  #hint{position:fixed;top:16px;right:20px;z-index:50;font-size:.74rem;color:rgba(255,255,255,.35);}
+  @media(max-width:640px){
+    .mA h1,.mD h1{font-size:3rem;} .mA .bignum,.mC .bignum,.mD .bignum{font-size:7rem;}
+    .mB .cards,.mB .cards.five{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+<div id="hint">← → para navegar · F = fullscreen</div>
+<div id="stage"></div>
+<div id="ui">
+  <button id="prev">‹</button>
+  <span id="counter">1 / 1</span>
+  <button id="next">›</button>
+</div>
+
+<script>
+const slides = [
+  /* ---------- COVER ---------- */
+  {cls:'cover', html:`
+    <div class="grid-bg" style="opacity:.5"></div>
+    <div class="pad">
+      <div class="tag">Imob In Digital · Modelos de Apresentação</div>
+      <h1>4 modelos de slide<br>para você escolher.</h1>
+      <p>Cada modelo aparece em 3 telas: <b style="color:#fff">capa de aula</b>, <b style="color:#fff">dado de impacto</b> e <b style="color:#fff">framework</b> — os três tipos de slide que mais se repetem no curso.</p>
+      <div class="legend">
+        <div><b>A · Editorial Dark</b>Preto puro, tipografia gigante</div>
+        <div><b>B · Grid System</b>Grid + glow + cards</div>
+        <div><b>C · Spotlight</b>Cinematográfico, glow central</div>
+        <div><b>D · Light Clean</b>Claro, alternativa de contraste</div>
+      </div>
+    </div>`},
+
+  /* ============ MODELO A ============ */
+  {cls:'mA', label:'A · Editorial Dark', html:`
+    <div class="pad">
+      <div class="eyebrow tag">Módulo 2 · Aula 6</div>
+      <div class="rule"></div>
+      <h1>Construindo seu <span class="gradtext">posicionamento</span> digital</h1>
+      <div class="sub">A decisão estratégica de onde você ocupa espaço na cabeça do comprador.</div>
+    </div>`},
+  {cls:'mA', label:'A · Editorial Dark', html:`
+    <div class="pad">
+      <div class="bignum gradtext">78%</div>
+      <div class="datacap">dos fechamentos vão para quem <strong>responde primeiro</strong>.</div>
+      <div class="src">Fonte: MIT / InsideSales</div>
+    </div>`},
+  {cls:'mA', label:'A · Editorial Dark', html:`
+    <div class="pad">
+      <div class="listttl">Os 5 elementos do posicionamento</div>
+      <ol class="clean">
+        <li><span class="n">01</span> Para quem, especificamente</li>
+        <li><span class="n">02</span> Em que categoria você compete</li>
+        <li><span class="n">03</span> Qual é o atributo único</li>
+        <li><span class="n">04</span> Em relação a quais alternativas</li>
+        <li><span class="n">05</span> Qual é a prova</li>
+      </ol>
+    </div>`},
+
+  /* ============ MODELO B ============ */
+  {cls:'mB', label:'B · Grid System', html:`
+    <div class="grid-bg"></div>
+    <div class="pad">
+      <div class="kicker gradtext tag">Módulo 2 · Aula 6</div>
+      <h1>Construindo seu<br>posicionamento digital</h1>
+      <div class="sub">A decisão estratégica de onde você ocupa espaço na cabeça do comprador.</div>
+    </div>`},
+  {cls:'mB', label:'B · Grid System', html:`
+    <div class="grid-bg"></div>
+    <div class="pad">
+      <div class="bignum gradtext">78%</div>
+      <div class="datacap">dos fechamentos vão para quem responde primeiro.</div>
+      <div class="src">Fonte: MIT / InsideSales</div>
+    </div>`},
+  {cls:'mB', label:'B · Grid System', html:`
+    <div class="grid-bg"></div>
+    <div class="pad">
+      <div class="listttl">Os 5 elementos do posicionamento</div>
+      <div class="cards five">
+        <div class="card"><div class="cn">01</div><div class="ct">Para quem, especificamente</div></div>
+        <div class="card"><div class="cn">02</div><div class="ct">Categoria onde compete</div></div>
+        <div class="card accent"><div class="cn">03</div><div class="ct">Atributo único</div></div>
+        <div class="card"><div class="cn">04</div><div class="ct">Contra quais alternativas</div></div>
+        <div class="card"><div class="cn">05</div><div class="ct">Qual é a prova</div></div>
+      </div>
+    </div>`},
+
+  /* ============ MODELO C ============ */
+  {cls:'mC', label:'C · Spotlight', html:`
+    <div class="glow"></div>
+    <div class="pad">
+      <div class="eyebrow tag">Módulo 2 · Aula 6</div>
+      <h1>Construindo seu<br>posicionamento digital</h1>
+      <div class="sub">A decisão estratégica de onde você ocupa espaço na cabeça do comprador.</div>
+    </div>`},
+  {cls:'mC', label:'C · Spotlight', html:`
+    <div class="glow"></div>
+    <div class="pad">
+      <div class="bignum gradtext">78%</div>
+      <div class="datacap">dos fechamentos vão para quem responde primeiro.</div>
+      <div class="src">Fonte: MIT / InsideSales</div>
+    </div>`},
+  {cls:'mC', label:'C · Spotlight', html:`
+    <div class="glow"></div>
+    <div class="pad">
+      <div class="listttl">Os 5 elementos do posicionamento</div>
+      <div class="pills">
+        <div class="pill"><span class="pn">01</span>Para quem</div>
+        <div class="pill"><span class="pn">02</span>Categoria</div>
+        <div class="pill"><span class="pn">03</span>Atributo único</div>
+        <div class="pill"><span class="pn">04</span>Alternativas</div>
+        <div class="pill"><span class="pn">05</span>Prova</div>
+      </div>
+    </div>`},
+
+  /* ============ MODELO D ============ */
+  {cls:'mD', label:'D · Light Clean', html:`
+    <div class="pad">
+      <div class="eyebrow tag">Módulo 2 · Aula 6</div>
+      <div class="rule"></div>
+      <h1>Construindo seu <span class="gradtext">posicionamento</span> digital</h1>
+      <div class="sub">A decisão estratégica de onde você ocupa espaço na cabeça do comprador.</div>
+    </div>`},
+  {cls:'mD', label:'D · Light Clean', html:`
+    <div class="pad">
+      <div class="bignum gradtext">78%</div>
+      <div class="datacap">dos fechamentos vão para quem <strong>responde primeiro</strong>.</div>
+      <div class="src">Fonte: MIT / InsideSales</div>
+    </div>`},
+  {cls:'mD', label:'D · Light Clean', html:`
+    <div class="pad">
+      <div class="listttl">Os 5 elementos do posicionamento</div>
+      <ol class="clean">
+        <li><span class="n gradtext">01</span> Para quem, especificamente</li>
+        <li><span class="n gradtext">02</span> Em que categoria você compete</li>
+        <li><span class="n gradtext">03</span> Qual é o atributo único</li>
+        <li><span class="n gradtext">04</span> Em relação a quais alternativas</li>
+        <li><span class="n gradtext">05</span> Qual é a prova</li>
+      </ol>
+    </div>`},
+];
+
+const stage=document.getElementById('stage');
+slides.forEach((s,i)=>{
+  const d=document.createElement('div');
+  d.className='slide '+s.cls;
+  d.innerHTML=(s.label?`<div class="modellabel">${s.label}</div>`:'')+s.html;
+  stage.appendChild(d);
+});
+const els=[...document.querySelectorAll('.slide')];
+let cur=0;
+const counter=document.getElementById('counter');
+function show(n){
+  cur=Math.max(0,Math.min(slides.length-1,n));
+  els.forEach((e,i)=>e.classList.toggle('active',i===cur));
+  counter.textContent=`${cur+1} / ${slides.length}`;
+}
+document.getElementById('next').onclick=()=>show(cur+1);
+document.getElementById('prev').onclick=()=>show(cur-1);
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')show(cur+1);
+  if(e.key==='ArrowLeft')show(cur-1);
+  if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
+});
+show(0);
+</script>
+</body>
+</html>
