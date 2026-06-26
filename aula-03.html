@@ -3,294 +3,507 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Aula 3 — Seu negócio | Imob In Digital</title>
+<title>Aula 3 · Seu negócio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fafaf8;--text:#111;--muted:rgba(17,17,17,.44);--subtle:rgba(17,17,17,.26);--border:rgba(0,0,0,.08);--surface:rgba(0,0,0,.04);--grad:linear-gradient(120deg,#f97316,#e11d48 45%,#7c3aed);--orange:#f97316}
-*,::before,::after{box-sizing:border-box;margin:0;padding:0}
-body{background:#1a1a1a;display:flex;flex-direction:column;min-height:100vh;align-items:center;justify-content:center;font-family:'Inter',system-ui,sans-serif;overflow:hidden}
-#stage{width:min(94vw,1280px,calc((100vh - 64px)*16/9));aspect-ratio:16/9;background:var(--bg);position:relative;overflow:hidden;border-radius:4px;box-shadow:0 24px 64px rgba(0,0,0,.5)}
-#stage::after{content:'IMOB IN DIGITAL';position:absolute;bottom:18px;right:22px;font-size:.52rem;font-weight:700;letter-spacing:.14em;color:var(--subtle);pointer-events:none;z-index:10}
-.slide{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg);opacity:0;transition:opacity .22s;pointer-events:none}
-.slide.active{opacity:1;pointer-events:auto}
-.pad{flex:1;display:flex;flex-direction:column;padding:5% 6%}
-.grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+:root{
+  --bg:#fafaf8; --text:#111111;
+  --muted:rgba(17,17,17,.46); --subtle:rgba(17,17,17,.28);
+  --border:rgba(0,0,0,.08); --surface:rgba(0,0,0,.035);
+  --grad:linear-gradient(120deg,#f97316,#e11d48 45%,#7c3aed);
+  --orange:#f97316;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;background:#e6e5e2;font-family:'Inter',system-ui,sans-serif;overflow:hidden;}
 
-.s-cover .pad{justify-content:center}
-.s-cover .cov-mod{font-size:.6rem;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:12px}
-.s-cover .cov-rule{width:36px;height:2px;background:var(--grad);border-radius:2px;margin-bottom:20px}
-.s-cover h1{font-size:4rem;font-weight:800;line-height:1.02;color:var(--text);margin-bottom:14px}
-.s-cover .cov-sub{font-size:.95rem;color:var(--muted);max-width:58%;line-height:1.5}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
 
-.s-data .pad{justify-content:center}
-.s-data .dat-eye{font-size:.6rem;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
-.s-data .dat-num{font-size:9rem;font-weight:800;line-height:.88;margin-bottom:10px}
-.s-data .dat-lbl{font-size:1.4rem;font-weight:700;color:var(--text);line-height:1.25;margin-bottom:6px;max-width:72%}
-.s-data .dat-src{font-size:.62rem;color:var(--subtle);font-weight:500;letter-spacing:.04em;margin-top:14px}
-.s-data .dat-list{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:5px}
-.s-data .dat-list li{font-size:.82rem;color:var(--muted);padding-left:12px;position:relative;line-height:1.35}
-.s-data .dat-list li::before{content:'—';position:absolute;left:0;color:var(--subtle)}
+.slide{
+  position:absolute;
+  width:min(94vw,1280px,calc((100vh - 64px)*16/9));
+  aspect-ratio:16/9;
+  background:var(--bg);
+  border-radius:20px;overflow:hidden;
+  opacity:0;transform:scale(.97) translateY(8px);
+  transition:opacity .36s ease,transform .36s ease;
+  pointer-events:none;
+  box-shadow:0 32px 96px rgba(0,0,0,.2),0 2px 8px rgba(0,0,0,.1);
+  color:var(--text);
+}
+.slide.active{opacity:1;transform:scale(1) translateY(0);pointer-events:auto;}
+.slide::after{
+  content:'IMOB IN DIGITAL';
+  position:absolute;bottom:20px;right:26px;
+  font-size:.58rem;font-weight:700;letter-spacing:.2em;
+  color:rgba(17,17,17,.18);pointer-events:none;
+}
 
-.s-key .pad{justify-content:center}
-.s-key .key-eye{font-size:.6rem;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:16px}
-.s-key .key-text{font-size:3rem;font-weight:800;line-height:1.1;color:var(--text);margin-bottom:20px;max-width:88%}
-.s-key .key-sub{font-size:.9rem;color:var(--muted);max-width:68%;line-height:1.55}
+.pad{position:absolute;inset:0;padding:6.5% 7.5%;display:flex;flex-direction:column;}
 
-.s-list .pad{justify-content:center}
-.s-list h2{font-size:1.55rem;font-weight:800;color:var(--text);margin-bottom:5px}
-.s-list .ls-sub{font-size:.8rem;color:var(--muted);margin-bottom:20px;line-height:1.4}
-.s-list .ls-items{display:flex;flex-direction:column;gap:9px}
-.s-list .ls-row{display:flex;align-items:flex-start;gap:10px}
-.s-list .ls-n{font-size:.7rem;font-weight:800;letter-spacing:.04em;color:var(--orange);padding-top:2px;min-width:18px;flex-shrink:0}
-.s-list .ls-text{font-size:.92rem;font-weight:600;color:var(--text);line-height:1.4}
-.s-list .ls-dtl{font-size:.77rem;color:var(--muted);line-height:1.35;margin-top:2px}
+.gradtext{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.rule{width:44px;height:3px;background:var(--grad);border-radius:2px;}
 
-.s-statement .pad{justify-content:center}
-.s-statement .st-eye{font-size:.6rem;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
-.s-statement h2{font-size:2rem;font-weight:800;color:var(--text);line-height:1.18;margin-bottom:18px;max-width:88%}
-.s-statement .st-body{font-size:.95rem;color:var(--muted);line-height:1.6;max-width:72%;margin-bottom:20px}
-.s-statement .st-items{display:flex;flex-direction:column;gap:8px}
-.s-statement .st-item{display:flex;align-items:flex-start;gap:9px;font-size:.88rem;color:var(--text);font-weight:500;line-height:1.4}
-.s-statement .st-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);margin-top:5px;flex-shrink:0}
+/* COVER */
+.s-cover{background:radial-gradient(ellipse at 96% 96%,rgba(124,58,237,.055) 0%,transparent 45%),radial-gradient(ellipse at 4% 4%,rgba(249,115,22,.04) 0%,transparent 38%),var(--bg);}
+.s-cover .pad{justify-content:flex-end;}
+.s-cover .eyebrow{margin-bottom:auto;}
+.s-cover .rule{margin-bottom:20px;}
+.s-cover h1{font-size:4.8rem;font-weight:800;letter-spacing:-.045em;line-height:1.02;}
 
-.s-compare .pad{justify-content:flex-start;padding-top:5%}
-.s-compare .cmp-hd{font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:18px}
-.s-compare .cmp-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1}
-.s-compare .cmp-col{background:var(--surface);border-radius:10px;padding:18px 20px;border:1px solid var(--border);display:flex;flex-direction:column}
-.s-compare .cmp-lbl{font-size:.58rem;font-weight:800;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.s-compare .cmp-ttl{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:10px;line-height:1.15}
-.s-compare .cmp-items{display:flex;flex-direction:column;gap:5px}
-.s-compare .cmp-it{font-size:.78rem;color:var(--muted);padding-left:11px;position:relative;line-height:1.35}
-.s-compare .cmp-it::before{content:'';width:4px;height:4px;border-radius:50%;background:rgba(17,17,17,.15);position:absolute;left:0;top:6px}
-.s-compare .cmp-note{font-size:.76rem;color:var(--muted);margin-top:14px;font-style:italic}
+/* KEY */
+.s-key .pad{justify-content:center;}
+.s-key .key-eye{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
+.s-key .key-q{font-size:3.2rem;font-weight:800;letter-spacing:-.04em;line-height:1.1;max-width:88%;}
+.s-key .key-sub{margin-top:28px;font-size:1.05rem;color:var(--muted);max-width:68%;line-height:1.6;font-weight:400;}
 
-.s-phases .pad{justify-content:flex-start;padding-top:5%}
-.s-phases .ph-ttl{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:18px;max-width:82%;line-height:1.25}
-.s-phases .ph-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex:1}
-.s-phases .ph-col{background:var(--surface);border-radius:10px;padding:16px 14px;border:1px solid var(--border)}
-.s-phases .ph-n{font-size:.58rem;font-weight:800;letter-spacing:.12em;color:var(--orange);text-transform:uppercase;margin-bottom:7px}
-.s-phases .ph-nm{font-size:.95rem;font-weight:800;color:var(--text);margin-bottom:8px}
-.s-phases .ph-items{display:flex;flex-direction:column;gap:4px}
-.s-phases .ph-it{font-size:.7rem;color:var(--muted);line-height:1.35}
+/* STATEMENT */
+.s-statement .pad{justify-content:center;}
+.s-statement .slabel{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.s-statement .stmt{font-size:3rem;font-weight:800;letter-spacing:-.04em;line-height:1.1;max-width:88%;}
+.s-statement .items{margin-top:32px;display:flex;flex-direction:column;gap:0;}
+.s-statement .sitem{display:flex;align-items:baseline;gap:8px;padding:14px 0;border-top:1px solid var(--border);font-size:1.1rem;font-weight:500;color:var(--text);line-height:1.4;}
+.s-statement .sitem:last-child{border-bottom:1px solid var(--border);}
+.s-statement .sitem .sn{font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0;}
+.s-statement .snote{margin-top:20px;font-size:.88rem;color:var(--muted);font-style:italic;}
 
-.s-formula .pad{justify-content:center}
-.s-formula .frm-lbl{font-size:.6rem;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:20px}
-.s-formula .frm-txt{font-size:2.8rem;font-weight:800;line-height:1.3;color:var(--text)}
-.s-formula .frm-br{color:var(--orange)}
+/* LIST */
+.s-list .pad{justify-content:center;}
+.s-list .listttl{font-size:1.9rem;font-weight:800;letter-spacing:-.035em;margin-bottom:10px;}
+.s-list .ls-sub{font-size:.84rem;color:var(--muted);font-weight:400;margin-bottom:20px;line-height:1.5;}
+.s-list ol.clean{list-style:none;display:flex;flex-direction:column;}
+.s-list ol.clean li{display:flex;align-items:flex-start;gap:18px;padding:13px 0;border-top:1px solid var(--border);font-size:1.02rem;font-weight:500;color:var(--text);line-height:1.4;}
+.s-list ol.clean li:last-child{border-bottom:1px solid var(--border);}
+.s-list ol.clean .n{font-size:.72rem;font-weight:800;letter-spacing:.1em;flex-shrink:0;padding-top:3px;min-width:22px;}
+.s-list .li-main{line-height:1.3;}
+.s-list .dtl{display:block;font-size:.78rem;color:var(--muted);font-weight:400;line-height:1.4;margin-top:2px;}
 
-.s-examples .pad{justify-content:center}
-.s-examples h2{font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:18px}
-.s-examples .ex-list{display:flex;flex-direction:column;gap:12px}
-.s-examples .ex-item{background:var(--surface);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:12px 16px}
-.s-examples .ex-text{font-size:.82rem;font-weight:600;color:var(--text);line-height:1.55;font-style:italic}
+/* PHASES */
+.s-phases .pad{justify-content:center;}
+.s-phases h2{font-size:1.9rem;font-weight:800;letter-spacing:-.035em;margin-bottom:28px;}
+.phases-grid{display:grid;grid-template-columns:repeat(3,1fr);}
+.phase{padding:22px 26px;}
+.phase+.phase{border-left:1px solid var(--border);}
+.ph-label{font-size:.63rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:9px;}
+.ph-name{font-size:1.6rem;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:11px;}
+.ph-desc{font-size:.9rem;color:var(--muted);line-height:1.6;}
 
-.s-gpt .pad{justify-content:center;align-items:center;text-align:center}
-.s-gpt .gpt-lbl{font-size:.6rem;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
-.s-gpt .gpt-ttl{font-size:3.5rem;font-weight:800;line-height:1;margin-bottom:20px}
-.s-gpt .gpt-pills{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:18px}
-.s-gpt .gpt-pill{font-size:.68rem;font-weight:700;letter-spacing:.04em;border:1px solid var(--border);border-radius:20px;padding:5px 14px;color:var(--muted);background:var(--surface)}
-.s-gpt .gpt-note{font-size:.78rem;color:var(--subtle);max-width:60%;line-height:1.5}
+/* COMPARE */
+.s-compare .pad{justify-content:center;}
+.s-compare h2{font-size:1.85rem;font-weight:800;letter-spacing:-.035em;margin-bottom:22px;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ccol{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 26px;}
+.ccol .ctitle{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.ccol ul{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.ccol ul li{font-size:1.05rem;font-weight:500;display:flex;align-items:flex-start;gap:10px;line-height:1.3;}
+.ccol ul li::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0;background:rgba(0,0,0,.22);margin-top:6px;}
+.ccol.strong ul li::before{background:var(--orange);}
+.ccol ul li em{font-style:italic;color:var(--muted);}
+.cmp-note{margin-top:18px;font-size:.88rem;color:var(--muted);font-style:italic;text-align:center;}
 
-.s-insight .pad{justify-content:center}
-.s-insight h2{font-size:3rem;font-weight:800;line-height:1.1;margin-bottom:18px;max-width:85%}
-.s-insight .ins-note{font-size:.88rem;color:var(--muted);font-weight:500}
+/* FORMULA */
+.s-formula{background:radial-gradient(ellipse at 4% 96%,rgba(249,115,22,.05) 0%,transparent 42%),var(--bg);}
+.s-formula .pad{justify-content:center;}
+.s-formula .frm-eye{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:28px;}
+.s-formula .frm-txt{font-size:2.8rem;font-weight:800;letter-spacing:-.04em;line-height:1.45;}
+.s-formula .frm-blank{color:var(--orange);}
 
-#ui{display:flex;align-items:center;gap:6px;padding:8px 0 4px}
-#ui button{background:none;border:none;cursor:pointer;font-size:.85rem;color:#ccc;padding:4px 10px;border-radius:4px;transition:color .15s}
-#ui button:hover{color:#fff}
-#ui button:disabled{opacity:.28;cursor:default}
-#counter{font-size:.6rem;color:#888;letter-spacing:.06em;min-width:44px;text-align:center}
+/* EXAMPLES */
+.s-examples .pad{justify-content:center;}
+.s-examples h2{font-size:1.5rem;font-weight:800;letter-spacing:-.03em;margin-bottom:26px;}
+.s-examples .ex-list{display:flex;flex-direction:column;gap:18px;}
+.s-examples .ex-card{border-left:3px solid var(--orange);padding:10px 20px;}
+.s-examples .ex-text{font-size:.95rem;font-style:italic;color:var(--text);line-height:1.65;font-weight:500;}
+
+/* GPT */
+.s-gpt{background:radial-gradient(ellipse at 50% 70%,rgba(124,58,237,.05) 0%,transparent 55%),var(--bg);}
+.s-gpt .pad{justify-content:center;align-items:center;text-align:center;}
+.s-gpt .gpt-eye{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;}
+.s-gpt .gpt-ttl{font-size:4.5rem;font-weight:800;letter-spacing:-.05em;margin-bottom:26px;}
+.s-gpt .gpt-pills{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:22px;}
+.s-gpt .gpt-pill{font-size:.78rem;font-weight:600;padding:7px 16px;border-radius:100px;background:var(--surface);border:1px solid var(--border);color:var(--text);}
+.s-gpt .gpt-note{font-size:.95rem;color:var(--muted);max-width:62%;line-height:1.6;}
+
+/* INSIGHT */
+.s-insight{background:radial-gradient(ellipse at 100% 100%,rgba(124,58,237,.06) 0%,transparent 48%),var(--bg);}
+.s-insight .pad{justify-content:center;}
+.insight-text{font-size:3.75rem;font-weight:800;letter-spacing:-.045em;line-height:1.08;}
+.next-label{margin-top:40px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;}
+.next-label::before{content:'→';color:var(--orange);font-size:.85rem;letter-spacing:0;}
+
+/* NAV */
+#ui{
+  position:fixed;bottom:10px;left:50%;transform:translateX(-50%);z-index:50;
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.72);border:1px solid rgba(0,0,0,.1);
+  backdrop-filter:blur(16px);padding:4px 10px;border-radius:100px;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+#ui button{background:none;border:none;font-size:.85rem;cursor:pointer;opacity:.5;padding:2px 5px;border-radius:6px;color:#111;line-height:1;}
+#ui button:hover{opacity:1;background:rgba(0,0,0,.07);}
+#counter{font-size:.62rem;color:rgba(0,0,0,.45);font-variant-numeric:tabular-nums;min-width:32px;text-align:center;font-weight:600;}
+#hint{position:fixed;top:14px;right:16px;z-index:50;font-size:.68rem;color:rgba(0,0,0,.3);letter-spacing:.04em;}
 </style>
 </head>
 <body>
+<div id="hint">← → navegar · F tela cheia</div>
 <div id="stage"></div>
 <div id="ui">
-  <button id="prev">&#8592;</button>
-  <span id="counter"></span>
-  <button id="next">&#8594;</button>
-  <button id="fs" title="Tela cheia">⛶</button>
+  <button id="prev">‹</button>
+  <span id="counter">1 / 1</span>
+  <button id="next">›</button>
 </div>
 <script>
-const slides = [
-  /* 01 */
-  {type:'s-cover',module:'Módulo 1 · Aula 3',title:'Seu negócio',
-   sub:'Antes de definir para quem você vende, você precisa ter clareza sobre o que você vende.'},
-
-  /* 02 */
-  {type:'s-statement',
-   title:'O que não está articulado<br>não existe na comunicação.',
-   items:['Não aparece no conteúdo','Não aparece no criativo','Não aparece na conversa com o lead']},
-
-  /* 03 */
-  {type:'s-list',title:'4 dimensões que definem o seu negócio',
-   items:[{text:'Tipo de imóvel'},{text:'Faixa de valor'},{text:'Área de atuação'},{text:'Como você opera'}]},
-
-  /* 04 */
-  {type:'s-compare',title:'Dimensão 1 — Tipo de imóvel',
-   left:{label:'Lançamento',title:'Urgência e escassez',
-     items:['Urgência de janela — estoque limitado por fase','Preço sobe conforme a obra avança','Comprador decide com menos informação','Apelo à valorização futura']},
-   right:{label:'Imóvel usado',title:'Cautela e comparação',
-     items:['Quer inspecionar antes de qualquer coisa','Quer entender a história e condição do imóvel','Processo de comparação mais longo','Negociação de preço faz parte do processo']}},
-
-  /* 05 */
-  {type:'s-compare',title:'Dimensão 2 — Faixa de valor',
-   left:{label:'R$200 mil',title:'Primeiro imóvel',
-     items:['Financiamento Caixa — processo mais longo','Família ansiosa, estado emocional alto','Precisa de orientação em cada etapa','Decisão envolve toda a família']},
-   right:{label:'R$2 milhões',title:'Segunda compra ou investimento',
-     items:['Decisão analítica, processo mais rápido','Quer dados e análise real, não só emoção','Exigência técnica maior','Já conhece o processo de compra']}},
-
-  /* 06 */
-  {type:'s-key',eyebrow:'Dimensão 3 — Área de atuação',
-   text:'Especificidade não limita.<br>Ela diferencia.',
-   sub:'"Especialista em imóveis em São Paulo" compete com 50 mil pessoas. "Especialista no Brooklin e Campo Belo" tem um território mental que pode dominar.'},
-
-  /* 07 */
-  {type:'s-compare',title:'Dimensão 4 — Como você opera',
-   left:{label:'Corretor autônomo',title:'Vende a si mesmo',
-     items:['Confiança construída na marca pessoal','Ativo vinculado ao seu nome','Estratégia de conteúdo individual','Vai com você independente de onde trabalha']},
-   right:{label:'Imobiliária',title:'Vende estrutura',
-     items:['Equipe, portfólio e reputação institucional','Dois trabalhos: marca da empresa + corretores','Escala pela equipe, não só pelo indivíduo','Posicionamento institucional + marcas pessoais']}},
-
-  /* 08 */
-  {type:'s-statement',eyebrow:'Requisito de entrada — não é diferencial',
-   title:'"Atendimento diferenciado."<br>"Transparência."<br>"Estou sempre disponível."',
-   body:'O comprador já assume isso de qualquer corretor que está considerando contratar. Caso contrário, nem estaria na conversa.',
-   items:[]},
-
-  /* 09 */
-  {type:'s-phases',noPhaseLabel:true,
-   title:'Diferencial real é o que muda a decisão — quando ele está te comparando com outro corretor.',
-   phases:[
-     {name:'Específico',items:['Não é vago ou genérico','Descreve o que você faz de forma concreta']},
-     {name:'Verificável',items:['O comprador pode confirmar por si mesmo','Não é só promessa — é realidade comprovável']},
-     {name:'Difícil de copiar',items:['Construído em relacionamento ou acesso exclusivo','Leva tempo para desenvolver — não é só atitude']}]},
-
-  /* 10 */
-  {type:'s-list',title:'O que diferencial real parece:',
-   items:[
-     {text:'Relacionamento com construtoras',detail:'Condições de pagamento exclusivas, fora do mercado aberto'},
-     {text:'Análise real de valorização por bairro',detail:'Histórico de preço, obras planejadas, tendência em 3 anos'},
-     {text:'Carteira de proprietários exclusivos',detail:'Imóveis fora dos portais, acessíveis só pelo seu relacionamento'},
-     {text:'Acompanhamento do financiamento do início ao fim',detail:'Da simulação à assinatura no cartório — sem sumir no meio'},
-     {text:'Experiência com perfil específico de comprador',detail:'Investidor, estrangeiro comprando no Brasil, downsizing, primeiro imóvel'}]},
-
-  /* 11 */
-  {type:'s-key',eyebrow:'A pergunta que revela o diferencial real',
-   text:'"Se você não existisse,<br>o comprador usaria o quê?"',
-   sub:'A resposta está no gap entre o que as alternativas oferecem e o que só você entrega.'},
-
-  /* 12 */
-  {type:'s-statement',eyebrow:'Anti-cliente',
-   title:'Saber quem você <em>não</em> quer atender é tão estratégico quanto saber para quem vender.',
-   body:'Definir o anti-cliente não é arrogância. É precisão estratégica.',
-   items:['Sem clareza sobre quem não quer atrair, você traz leads que não convertem',
-          'Quando sabe quem não é seu público, a comunicação afina — e naturalmente repele quem não é']},
-
-  /* 13 */
-  {type:'s-list',title:'Cada etapa onde você está presente é um argumento.',
-   sub:'O que nenhum portal entrega e nenhuma comparação de taxa vai superar.',
-   items:[
-     {text:'Análise de financiamento antes da decisão'},
-     {text:'Acompanhamento de vistorias técnicas'},
-     {text:'Facilitação do processo cartorial'},
-     {text:'Indicação de profissionais de confiança (reforma, inspeção)'},
-     {text:'Contato ativo depois da entrega das chaves'}]},
-
-  /* 14 */
-  {type:'s-compare',
-   left:{label:'Corretor comum',title:'"Vende imóvel"',
-     items:['Mostra o produto e o imóvel','Acompanha até a proposta','Desaparece no processo cartorial','Sem contato depois da entrega']},
-   right:{label:'Seu diferencial',title:'"Cuida da compra do começo ao fim"',
-     items:['Orienta antes da decisão de compra','Acompanha vistorias e toda documentação','Facilita cartório e financiamento','Presente mesmo depois das chaves']},
-   note:'Essa distinção é percebida pelo comprador antes mesmo do primeiro contato.'},
-
-  /* 15 */
-  {type:'s-formula'},
-
-  /* 16 */
-  {type:'s-examples',title:'Exemplos de como fica:',
-   items:[
-     '"Eu ajudo famílias em Mogi das Cruzes a encontrar o apartamento certo sem perder meses com opções erradas — do primeiro contato até a entrega das chaves, sem deixar o processo sozinho."',
-     '"Eu ajudo investidores a identificar apartamentos compactos em São Paulo com potencial de valorização real — com análise de rentabilidade antes de qualquer visita, não depois."',
-     '"Eu ajudo compradores de primeiro imóvel a navegar o financiamento sem ansiedade — explicando cada etapa antes que ela aconteça."']},
-
-  /* 17 */
-  {type:'s-gpt',label:'Disponível ao final do Módulo 2',
-   pills:['Perfil de negócio','Diferenciais reais','Público ideal','Benchmark','Bio do Instagram'],
-   note:'Quem entendeu essa aula vai construir uma fundação estratégica. Quem não entendeu vai preencher um formulário.'},
-
-  /* 18 */
-  {type:'s-insight',grad:true,
-   text:'O que não está articulado<br>não existe na comunicação.',
-   note:'→ Próxima aula: quem é o comprador ideal para o negócio que você acabou de descrever.'}
+/* ── Dados ────────────────────────────────────────────────── */
+const criterios = [
+  {label:'Critério 1', name:'Específico',
+   desc:'Não serve pra qualquer corretor ou qualquer comprador. Tem um recorte claro de público, tipo de imóvel ou área.'},
+  {label:'Critério 2', name:'Verificável',
+   desc:'O comprador consegue confirmar antes de fechar. Não é só promessa — tem evidência concreta.'},
+  {label:'Critério 3', name:'Difícil de copiar',
+   desc:'Não é copiado no mês seguinte por qualquer concorrente. Vem de experiência, rede ou especialização real.'}
 ];
 
+const exemplos = [
+  {title:'Relacionamento com construtoras',
+   dtl:'Acesso a condições de pagamento que não estão disponíveis no mercado aberto.'},
+  {title:'Conhecimento profundo do bairro',
+   dtl:'Análise real de valorização — histórico, projetos na região, tendência para os próximos 3 anos.'},
+  {title:'Carteira de proprietários exclusivos',
+   dtl:'Imóveis que não estão em nenhum portal. Opções que o comprador não encontra em outro lugar.'},
+  {title:'Acompanha financiamento do início ao fim',
+   dtl:'Da simulação à assinatura no cartório — sem sumir quando o processo fica chato.'},
+  {title:'Experiência com perfil específico',
+   dtl:'Investidor de renda passiva, estrangeiro comprando no Brasil, família em processo de downsizing.'}
+];
+
+const touchpoints = [
+  'Análise de financiamento antes da decisão de visita',
+  'Acompanhamento de vistoria técnica com profissional de confiança',
+  'Orientação e facilitação do processo cartorial',
+  'Indicação de profissionais para reforma ou inspeção pós-compra',
+  'Contato ativo após entrega das chaves — não some quando o negócio fecha'
+];
+
+/* ── Helpers ─────────────────────────────────────────────── */
+function ph(title, data, vis) {
+  const shown = data.slice(0, vis);
+  return `<div class="pad">
+    <h2>${title}</h2>
+    <div class="phases-grid" style="grid-template-columns:repeat(${shown.length},1fr)">
+      ${shown.map(p => `<div class="phase">
+        <div class="ph-label gradtext">${p.label}</div>
+        <div class="ph-name">${p.name}</div>
+        <div class="ph-desc">${p.desc}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function lst(title, sub, items, vis) {
+  const shown = items.slice(0, vis);
+  return `<div class="pad">
+    <div class="listttl">${title}</div>
+    ${sub ? `<div class="ls-sub">${sub}</div>` : ''}
+    <ol class="clean">
+      ${shown.map((it, i) => {
+        const text = typeof it === 'string' ? it : it.title;
+        const dtl = typeof it === 'object' && it.dtl ? `<span class="dtl">${it.dtl}</span>` : '';
+        const n = String(i + 1).padStart(2, '0');
+        return `<li><span class="n gradtext">${n}</span><span class="li-main">${text}${dtl}</span></li>`;
+      }).join('')}
+    </ol>
+  </div>`;
+}
+
+/* ── Slides ───────────────────────────────────────────────── */
+const slides = [
+
+/* 01 — Capa */
+{cls:'s-cover', html:`<div class="pad">
+  <div class="eyebrow">Módulo 1 · Aula 3</div>
+  <div class="rule"></div>
+  <h1>Seu <span class="gradtext">negócio</span></h1>
+</div>`},
+
+/* 02 — O que não está articulado */
+{cls:'s-statement', html:`<div class="pad">
+  <div class="slabel">Por que essa aula existe</div>
+  <div class="stmt">O que não está articulado não existe na comunicação.</div>
+  <div class="snote">Não aparece no conteúdo. Não aparece no criativo. Não aparece na conversa com o lead.</div>
+</div>`},
+
+/* 03 — 4 coisas */
+{cls:'s-list', html: lst(
+  'Quatro coisas que você vai definir hoje',
+  'Com clareza suficiente para orientar tudo o que vem depois.',
+  [
+    {title:'O que define o seu negócio', dtl:'Tipo de imóvel, faixa de valor, área de atuação e como você opera.'},
+    {title:'O que é um diferencial real', dtl:'Não o que você diz — o que muda a decisão do comprador.'},
+    {title:'Quem você não quer atender', dtl:'E por que essa clareza protege sua operação.'},
+    {title:'Sua proposta em uma frase', dtl:'Uma declaração simples e verificável do que você faz.'}
+  ],
+  4
+)},
+
+/* 04 — Tipo de imóvel */
+{cls:'s-compare', html:`<div class="pad">
+  <h2>Tipo de imóvel — uma escolha que muda tudo</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Imóvel na planta / lançamento</div>
+      <ul>
+        <li>Urgência de janela — estoque limitado, preço sobe por fase</li>
+        <li>Comprador motivado pela condição e pelo momento</li>
+        <li>Decisão mais rápida quando a oportunidade é clara</li>
+        <li>Copy e conteúdo focados em oportunidade e prazo</li>
+      </ul>
+    </div>
+    <div class="ccol">
+      <div class="ctitle">Imóvel usado</div>
+      <ul>
+        <li>Cautela e comparação — quer inspecionar e negociar</li>
+        <li>Quer entender a história do imóvel antes de qualquer coisa</li>
+        <li>Processo mais longo, mais analítico</li>
+        <li>Copy e conteúdo focados em segurança e transparência</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmp-note">Quem tenta falar com os dois ao mesmo tempo acaba não falando com nenhum.</div>
+</div>`},
+
+/* 05 — Faixa de valor */
+{cls:'s-compare', html:`<div class="pad">
+  <h2>Faixa de valor — define mais do que parece</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">R$200 mil — primeiro imóvel</div>
+      <ul>
+        <li>Financiamento Caixa, família ansiosa</li>
+        <li>Prazo longo, documentação complexa</li>
+        <li>Decisão emocional, primeiro grande compromisso financeiro</li>
+        <li>Precisa de orientação em cada etapa do processo</li>
+      </ul>
+    </div>
+    <div class="ccol">
+      <div class="ctitle">R$2 milhões — segunda compra ou investimento</div>
+      <ul>
+        <li>Decisão analítica, processo mais rápido</li>
+        <li>Exigência maior, menos sensibilidade a prazo</li>
+        <li>Quer dados de mercado, não só fotos</li>
+        <li>Já passou por pelo menos uma compra — sabe o processo</li>
+      </ul>
+    </div>
+  </div>
+</div>`},
+
+/* 06 — Área de atuação */
+{cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Especificidade não limita — ela diferencia</div>
+  <div class="key-q">O corretor especialista em São Paulo compete com 50 mil pessoas.<br><br>O especialista no <span class="gradtext">Brooklin e Campo Belo</span> tem um território mental que pode dominar.</div>
+  <div class="key-sub">Quanto mais específico, mais reconhecível. O comprador que busca nessa região vai preferir quem conhece cada rua de verdade.</div>
+</div>`},
+
+/* 07 — Como você opera */
+{cls:'s-compare', html:`<div class="pad">
+  <h2>Como você opera — estratégias diferentes</h2>
+  <div class="compare-grid">
+    <div class="ccol strong">
+      <div class="ctitle">Corretor autônomo</div>
+      <ul>
+        <li>O ativo é você — marca pessoal, autoridade, especialização</li>
+        <li>O comprador que te segue te segue, não à empresa</li>
+        <li>Ativo que vai com você independente de onde trabalha</li>
+        <li>A relação é pessoal — confiança no indivíduo</li>
+      </ul>
+    </div>
+    <div class="ccol">
+      <div class="ctitle">Dono de imobiliária</div>
+      <ul>
+        <li>Dois trabalhos: posicionar a empresa + os corretores</li>
+        <li>Imobiliária atrai pela marca e portfólio</li>
+        <li>Corretor converte pela relação — precisa de presença própria</li>
+        <li>Quando só a empresa tem presença, a conversão fica fria</li>
+      </ul>
+    </div>
+  </div>
+</div>`},
+
+/* 08 — Não é diferencial */
+{cls:'s-compare', html:`<div class="pad">
+  <h2>O que a maioria responde — e por que não funciona</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">O que a maioria responde</div>
+      <ul>
+        <li><em>"Atendimento diferenciado"</em></li>
+        <li><em>"Transparência"</em></li>
+        <li><em>"Compromisso com o cliente"</em></li>
+        <li><em>"Estou sempre disponível"</em></li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Requisito de entrada</div>
+      <ul>
+        <li>O comprador já assume isso de qualquer profissional</li>
+        <li>Sem isso você sequer seria considerado</li>
+        <li>Não muda nenhuma decisão de compra</li>
+        <li>Copiável por qualquer concorrente em 5 segundos</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmp-note">Diferencial é o que muda a decisão — não o que descreve o mínimo profissional.</div>
+</div>`},
+
+/* 09 — Critérios (todos 3) */
+{cls:'s-phases', html: ph('Diferencial real tem três características', criterios, 3)},
+
+/* 10 — Exemplos: 1 */
+{cls:'s-list', html: lst('O que diferencial real parece na prática', null, exemplos, 1)},
+
+/* 11 — Exemplos: 2 */
+{cls:'s-list', html: lst('O que diferencial real parece na prática', null, exemplos, 2)},
+
+/* 12 — Exemplos: 3 */
+{cls:'s-list', html: lst('O que diferencial real parece na prática', null, exemplos, 3)},
+
+/* 13 — Exemplos: 4 */
+{cls:'s-list', html: lst('O que diferencial real parece na prática', null, exemplos, 4)},
+
+/* 14 — Exemplos: 5 (completo) */
+{cls:'s-list', html: lst('O que diferencial real parece na prática', null, exemplos, 5)},
+
+/* 15 — Pergunta-chave */
+{cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">A pergunta que revela o diferencial real</div>
+  <div class="key-q">"Se você não existisse,<br>o comprador usaria o quê?"</div>
+  <div class="key-sub">A resposta está no gap entre o que as alternativas oferecem e o que só você entrega.</div>
+</div>`},
+
+/* 16 — Anti-cliente */
+{cls:'s-statement', html:`<div class="pad">
+  <div class="slabel">Precisão estratégica — não arrogância</div>
+  <div class="stmt">Definir quem você não quer atender é tão importante quanto saber quem quer.</div>
+  <div class="items">
+    <div class="sitem"><span class="sn">—</span>Anti-cliente é o perfil que você atende mal e consome energia desproporcional</div>
+    <div class="sitem"><span class="sn">—</span>No digital: atrai leads que não convertem, desperdiça verba e tempo de qualificação</div>
+    <div class="sitem"><span class="sn">—</span>Saber quem não é seu público afina comunicação, segmentação e argumento</div>
+  </div>
+</div>`},
+
+/* 17 — Touchpoints */
+{cls:'s-list', html: lst(
+  'O que você entrega além do imóvel',
+  'Cada etapa onde você está presente é um argumento que nenhum portal entrega.',
+  touchpoints.map(t => ({title: t})),
+  touchpoints.length
+)},
+
+/* 18 — Vende vs. Cuida */
+{cls:'s-compare', html:`<div class="pad">
+  <h2>A distinção que o comprador percebe antes do primeiro contato</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Vende imóvel</div>
+      <ul>
+        <li>Entrega o produto — a chave no final</li>
+        <li>Orientação limitada ao processo de compra</li>
+        <li>Some quando o negócio fecha</li>
+        <li>Comparado por taxa e disponibilidade de portfólio</li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Cuida da compra do começo ao fim</div>
+      <ul>
+        <li>Entrega uma experiência — reduz ansiedade</li>
+        <li>Presente em cada etapa, antecipando problemas</li>
+        <li>Referência de confiança que permanece após o fechamento</li>
+        <li>Comparado por quem está presente na jornada toda</li>
+      </ul>
+    </div>
+  </div>
+</div>`},
+
+/* 19 — A fórmula */
+{cls:'s-formula', html:`<div class="pad">
+  <div class="frm-eye">Sua proposta em uma frase</div>
+  <div class="frm-txt">
+    Eu ajudo <span class="frm-blank gradtext">[quem]</span><br>
+    a <span class="frm-blank gradtext">[resultado concreto]</span><br>
+    através de <span class="frm-blank gradtext">[o que você faz de diferente]</span>.
+  </div>
+</div>`},
+
+/* 20 — 3 exemplos da fórmula */
+{cls:'s-examples', html:`<div class="pad">
+  <h2>Como fica quando bem escrito</h2>
+  <div class="ex-list">
+    <div class="ex-card">
+      <div class="ex-text">"Eu ajudo famílias em Mogi das Cruzes a encontrar o apartamento certo sem perder meses com opções erradas — do primeiro contato até a entrega das chaves, sem deixar o processo sozinho."</div>
+    </div>
+    <div class="ex-card">
+      <div class="ex-text">"Eu ajudo investidores a identificar apartamentos compactos em São Paulo com potencial de valorização real — com análise de rentabilidade antes de qualquer visita, não depois."</div>
+    </div>
+    <div class="ex-card">
+      <div class="ex-text">"Eu ajudo compradores de primeiro imóvel a navegar o financiamento sem ansiedade — explicando cada etapa antes que ela aconteça."</div>
+    </div>
+  </div>
+</div>`},
+
+/* 21 — Imob DNA */
+{cls:'s-gpt', html:`<div class="pad">
+  <div class="gpt-eye">Disponível ao final do Módulo 2</div>
+  <div class="gpt-ttl"><span class="gradtext">Imob DNA</span></div>
+  <div class="gpt-pills">
+    <span class="gpt-pill">Negócio</span>
+    <span class="gpt-pill">Diferencial</span>
+    <span class="gpt-pill">Público</span>
+    <span class="gpt-pill">Benchmark</span>
+    <span class="gpt-pill">Posicionamento</span>
+    <span class="gpt-pill">Bio do Instagram</span>
+  </div>
+  <div class="gpt-note">Quem entendeu o que é diferencial real vai construir uma fundação estratégica. Quem não entendeu vai preencher um formulário.</div>
+</div>`},
+
+/* 22 — Fechamento */
+{cls:'s-insight', html:`<div class="pad">
+  <div class="insight-text">O digital comunica bem<br>o que foi pensado<br>com <span class="gradtext">clareza</span>.<br>Não há atalho.</div>
+  <div class="next-label">Próxima aula — quem é o comprador ideal para o negócio que você acabou de descrever</div>
+</div>`},
+
+];
+
+/* ── Renderização ─────────────────────────────────────────── */
 const stage = document.getElementById('stage');
+slides.forEach(s => {
+  const el = document.createElement('div');
+  el.className = 'slide ' + s.cls;
+  el.innerHTML = s.html;
+  stage.appendChild(el);
+});
+
+const els = [...document.querySelectorAll('.slide')];
 let cur = 0;
 
-function render(s) {
-  switch(s.type) {
-    case 's-cover':
-      return `<div class="pad"><div class="cov-mod">${s.module}</div><div class="cov-rule"></div><h1>${s.title}</h1>${s.sub?`<div class="cov-sub">${s.sub}</div>`:''}</div>`;
-    case 's-data': {
-      const ns = s.num.length > 4 ? 'style="font-size:5rem;line-height:.9"' : '';
-      return `<div class="pad"><div class="dat-eye">${s.eyebrow||''}</div><div class="dat-num grad" ${ns}>${s.num}</div><div class="dat-lbl">${s.label}</div>${s.source?`<div class="dat-src">${s.source}</div>`:''} ${s.items&&s.items.length?`<ul class="dat-list">${s.items.map(i=>`<li>${i}</li>`).join('')}</ul>`:''}</div>`;
-    }
-    case 's-key':
-      return `<div class="pad">${s.eyebrow?`<div class="key-eye">${s.eyebrow}</div>`:''}<div class="key-text">${s.text}</div>${s.sub?`<div class="key-sub">${s.sub}</div>`:''}</div>`;
-    case 's-list':
-      return `<div class="pad"><h2>${s.title}</h2>${s.sub?`<div class="ls-sub">${s.sub}</div>`:''}<div class="ls-items">${s.items.map((it,i)=>`<div class="ls-row"><span class="ls-n">0${i+1}</span><div><div class="ls-text">${it.text}</div>${it.detail?`<div class="ls-dtl">${it.detail}</div>`:''}</div></div>`).join('')}</div></div>`;
-    case 's-statement':
-      return `<div class="pad">${s.eyebrow?`<div class="st-eye">${s.eyebrow}</div>`:''}<h2>${s.title}</h2>${s.body?`<div class="st-body">${s.body}</div>`:''} ${s.items&&s.items.length?`<div class="st-items">${s.items.map(i=>`<div class="st-item"><span class="st-dot"></span><span>${i}</span></div>`).join('')}</div>`:''}</div>`;
-    case 's-compare':
-      return `<div class="pad">${s.title?`<div class="cmp-hd">${s.title}</div>`:''}<div class="cmp-cols"><div class="cmp-col"><div class="cmp-lbl">${s.left.label}</div><div class="cmp-ttl">${s.left.title}</div><div class="cmp-items">${s.left.items.map(i=>`<div class="cmp-it">${i}</div>`).join('')}</div></div><div class="cmp-col"><div class="cmp-lbl">${s.right.label}</div><div class="cmp-ttl">${s.right.title}</div><div class="cmp-items">${s.right.items.map(i=>`<div class="cmp-it">${i}</div>`).join('')}</div></div></div>${s.note?`<div class="cmp-note">${s.note}</div>`:''}</div>`;
-    case 's-phases':
-      return `<div class="pad"><div class="ph-ttl">${s.title}</div><div class="ph-cols">${s.phases.map((p,i)=>`<div class="ph-col">${!s.noPhaseLabel?`<div class="ph-n">Fase ${i+1}</div>`:''}<div class="ph-nm">${p.name}</div><div class="ph-items">${p.items.map(it=>`<div class="ph-it">· ${it}</div>`).join('')}</div></div>`).join('')}</div></div>`;
-    case 's-formula':
-      return `<div class="pad"><div class="frm-lbl">A fórmula</div><div class="frm-txt">Eu ajudo <span class="frm-br">[quem]</span><br>a <span class="frm-br">[resultado]</span><br>através de <span class="frm-br">[o que você faz de diferente]</span>.</div></div>`;
-    case 's-examples':
-      return `<div class="pad"><h2>${s.title}</h2><div class="ex-list">${s.items.map(it=>`<div class="ex-item"><div class="ex-text">${it}</div></div>`).join('')}</div></div>`;
-    case 's-gpt':
-      return `<div class="pad"><div class="gpt-lbl">${s.label}</div><div class="gpt-ttl grad">Imob DNA</div><div class="gpt-pills">${(s.pills||[]).map(p=>`<span class="gpt-pill">${p}</span>`).join('')}</div>${s.note?`<div class="gpt-note">${s.note}</div>`:''}</div>`;
-    case 's-insight':
-      return `<div class="pad"><h2 ${s.grad?'class="grad"':''}>${s.text}</h2>${s.note?`<div class="ins-note">${s.note}</div>`:''}</div>`;
-    default:
-      return `<div class="pad"><p>${s.type}</p></div>`;
-  }
+function show(n) {
+  cur = Math.max(0, Math.min(slides.length - 1, n));
+  els.forEach((e, i) => e.classList.toggle('active', i === cur));
+  document.getElementById('counter').textContent = `${cur + 1} / ${slides.length}`;
 }
 
-slides.forEach(s => {
-  const div = document.createElement('div');
-  div.className = 'slide ' + s.type;
-  div.innerHTML = render(s);
-  stage.appendChild(div);
-});
-
-const all = stage.querySelectorAll('.slide');
-const prevBtn = document.getElementById('prev');
-const nextBtn = document.getElementById('next');
-const counter = document.getElementById('counter');
-
-function go(n) {
-  all[cur].classList.remove('active');
-  cur = Math.max(0, Math.min(n, all.length - 1));
-  all[cur].classList.add('active');
-  prevBtn.disabled = cur === 0;
-  nextBtn.disabled = cur === all.length - 1;
-  counter.textContent = `${cur + 1} / ${all.length}`;
-}
-
-prevBtn.addEventListener('click', () => go(cur - 1));
-nextBtn.addEventListener('click', () => go(cur + 1));
-document.getElementById('fs').addEventListener('click', () => document.documentElement.requestFullscreen?.());
+document.getElementById('next').onclick = () => show(cur + 1);
+document.getElementById('prev').onclick = () => show(cur - 1);
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur + 1);
-  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur - 1);
-  if (e.key === 'f' || e.key === 'F') document.documentElement.requestFullscreen?.();
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(cur + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); show(cur - 1); }
+  if (e.key.toLowerCase() === 'f') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
 });
-
-go(0);
+show(0);
 </script>
 </body>
 </html>
