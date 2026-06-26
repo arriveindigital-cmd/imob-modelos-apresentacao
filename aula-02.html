@@ -21,10 +21,8 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui, sans-serif; overflow: hidden; }
 
-/* ── STAGE ── */
 #stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
 
-/* ── SLIDE BASE ── */
 .slide {
   position: absolute;
   width: min(94vw, 1280px, calc((100vh - 64px) * 16 / 9));
@@ -40,8 +38,6 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
   color: var(--text);
 }
 .slide.active { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
-
-/* marca d'água */
 .slide::after {
   content: 'IMOB IN DIGITAL';
   position: absolute; bottom: 20px; right: 26px;
@@ -49,10 +45,8 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
   color: rgba(17,17,17,.18); pointer-events: none;
 }
 
-/* ── LAYOUT ── */
 .pad { position: absolute; inset: 0; padding: 6.5% 7.5%; display: flex; flex-direction: column; }
 
-/* ── UTILS ── */
 .gradtext {
   background: var(--grad);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
@@ -60,9 +54,7 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
 .eyebrow { font-size: .7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
 .rule { width: 44px; height: 3px; background: var(--grad); border-radius: 2px; }
 
-/* ══════════════════════════════════════════
-   1. COVER
-══════════════════════════════════════════ */
+/* ── COVER ── */
 .s-cover {
   background:
     radial-gradient(ellipse at 96% 96%, rgba(124,58,237,.055) 0%, transparent 45%),
@@ -74,9 +66,7 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
 .s-cover .rule { margin-bottom: 20px; }
 .s-cover h1 { font-size: 4.8rem; font-weight: 800; letter-spacing: -.045em; line-height: 1.02; }
 
-/* ══════════════════════════════════════════
-   2. DATA — número grande
-══════════════════════════════════════════ */
+/* ── DATA ── */
 .s-data .pad { justify-content: center; }
 .data-hero { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; line-height: .85; }
 .data-hero .num { font-size: 13rem; font-weight: 800; letter-spacing: -.05em; }
@@ -84,9 +74,7 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
 .datacap { font-size: 2rem; font-weight: 600; letter-spacing: -.025em; line-height: 1.25; max-width: 72%; }
 .src { margin-top: 14px; font-size: .73rem; font-weight: 500; letter-spacing: .04em; color: var(--subtle); }
 
-/* ══════════════════════════════════════════
-   3. PHASES — 3 colunas
-══════════════════════════════════════════ */
+/* ── PHASES ── */
 .s-phases .pad { justify-content: center; }
 .s-phases h2 { font-size: 1.9rem; font-weight: 800; letter-spacing: -.035em; margin-bottom: 28px; }
 .phases-grid { display: grid; grid-template-columns: repeat(3,1fr); }
@@ -96,30 +84,20 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
 .ph-name { font-size: 1.6rem; font-weight: 700; letter-spacing: -.03em; line-height: 1.1; margin-bottom: 11px; }
 .ph-desc { font-size: .9rem; color: var(--muted); line-height: 1.6; }
 
-/* ══════════════════════════════════════════
-   4. PLATFORM ROWS — 3 linhas por fase
-══════════════════════════════════════════ */
+/* ── PLATFORM ── */
 .s-platform .pad { justify-content: center; }
 .s-platform h2 { font-size: 1.9rem; font-weight: 800; letter-spacing: -.035em; margin-bottom: 22px; }
 .prows { display: flex; flex-direction: column; }
-.prow {
-  display: grid; grid-template-columns: 140px 1fr; gap: 20px;
-  align-items: start; padding: 16px 0; border-top: 1px solid var(--border);
-}
+.prow { display: grid; grid-template-columns: 140px 1fr; gap: 20px; align-items: start; padding: 16px 0; border-top: 1px solid var(--border); }
 .prow:last-child { border-bottom: 1px solid var(--border); }
 .ptag { font-size: .62rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--muted); line-height: 1.5; padding-top: 2px; }
 .pcontent { display: flex; flex-direction: column; gap: 3px; }
 .ptitle { font-size: 1.15rem; font-weight: 700; letter-spacing: -.02em; }
 .pdesc { font-size: .86rem; color: var(--muted); line-height: 1.55; }
 .ptags { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
-.ptags span {
-  font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  padding: 4px 10px; border-radius: 100px; background: var(--surface); border: 1px solid var(--border);
-}
+.ptags span { font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; background: var(--surface); border: 1px solid var(--border); }
 
-/* ══════════════════════════════════════════
-   5. COMPARE — dois lados
-══════════════════════════════════════════ */
+/* ── COMPARE ── */
 .s-compare .pad { justify-content: center; }
 .s-compare h2 { font-size: 1.85rem; font-weight: 800; letter-spacing: -.035em; margin-bottom: 22px; }
 .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -130,9 +108,17 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
 .ccol ul li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; background: rgba(0,0,0,.22); }
 .ccol.strong ul li::before { background: var(--orange); }
 
-/* ══════════════════════════════════════════
-   6. INSIGHT — fechamento
-══════════════════════════════════════════ */
+/* ── STATEMENT ── */
+.s-statement .pad { justify-content: center; }
+.s-statement .slabel { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+.s-statement .stmt { font-size: 3rem; font-weight: 800; letter-spacing: -.04em; line-height: 1.1; max-width: 88%; }
+.s-statement .items { margin-top: 32px; display: flex; flex-direction: column; gap: 0; }
+.s-statement .sitem { display: flex; align-items: baseline; gap: 8px; padding: 14px 0; border-top: 1px solid var(--border); font-size: 1.1rem; font-weight: 500; color: var(--text); line-height: 1.4; }
+.s-statement .sitem:last-child { border-bottom: 1px solid var(--border); }
+.s-statement .sitem .sn { font-size: .63rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; flex-shrink: 0; }
+.s-statement .snote { margin-top: 20px; font-size: .88rem; color: var(--muted); font-style: italic; }
+
+/* ── INSIGHT ── */
 .s-insight {
   background:
     radial-gradient(ellipse at 100% 100%, rgba(124,58,237,.06) 0%, transparent 48%),
@@ -155,10 +141,7 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
   backdrop-filter: blur(16px); padding: 4px 10px; border-radius: 100px;
   box-shadow: 0 2px 10px rgba(0,0,0,.1);
 }
-#ui button {
-  background: none; border: none; font-size: .85rem; cursor: pointer;
-  opacity: .5; padding: 2px 5px; border-radius: 6px; color: #111; line-height: 1;
-}
+#ui button { background: none; border: none; font-size: .85rem; cursor: pointer; opacity: .5; padding: 2px 5px; border-radius: 6px; color: #111; line-height: 1; }
 #ui button:hover { opacity: 1; background: rgba(0,0,0,.07); }
 #counter { font-size: .62rem; color: rgba(0,0,0,.45); font-variant-numeric: tabular-nums; min-width: 32px; text-align: center; font-weight: 600; }
 #hint { position: fixed; top: 14px; right: 16px; z-index: 50; font-size: .68rem; color: rgba(0,0,0,.3); letter-spacing: .04em; }
@@ -169,7 +152,7 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
 <div id="stage"></div>
 <div id="ui">
   <button id="prev">‹</button>
-  <span id="counter">1 / 8</span>
+  <span id="counter">1 / 9</span>
   <button id="next">›</button>
 </div>
 
@@ -253,7 +236,7 @@ const slides = [
       <div class="ptag">Fim<br>Pronto para comprar</div>
       <div class="pcontent">
         <div class="ptitle">Contato — a fase que todo corretor disputa</div>
-        <div class="pdesc">A fase que a maioria dos corretores tenta jogar. A fase anterior, onde a confiança é construída, fica sem ninguém presente.</div>
+        <div class="pdesc">A fase que a maioria dos corretores tenta jogar. As fases anteriores, onde a confiança é construída, ficam sem ninguém presente.</div>
         <div class="ptags"><span>WhatsApp</span><span>Formulário</span><span>DM</span></div>
       </div>
     </div>
@@ -286,7 +269,20 @@ const slides = [
   </div>
 </div>`},
 
-/* 7 ── 580 MIL ───────────────────────────── */
+/* 7 ── O PROBLEMA DA INDICAÇÃO ───────────── */
+{ cls:'s-statement', html:`
+<div class="pad">
+  <div class="slabel">O problema da indicação</div>
+  <div class="stmt">Para uma indicação acontecer, 3 variáveis precisam se alinhar ao mesmo tempo.</div>
+  <div class="items">
+    <div class="sitem"><span class="sn">01</span>Alguém precisa se lembrar de você</div>
+    <div class="sitem"><span class="sn">02</span>Esse alguém precisa conhecer alguém buscando imóvel agora</div>
+    <div class="sitem"><span class="sn">03</span>Esse comprador precisa estar numa fase em que aceita a indicação</div>
+  </div>
+  <div class="snote">Bom quando acontece. Mas você não controla o timing de nenhuma delas.</div>
+</div>`},
+
+/* 8 ── 580 MIL ───────────────────────────── */
 { cls:'s-data', html:`
 <div class="pad">
   <div class="data-hero">
@@ -297,7 +293,7 @@ const slides = [
   <div class="src">COFECI, 2024 · Em 2020 eram 413 mil</div>
 </div>`},
 
-/* 8 ── INSIGHT FINAL ─────────────────────── */
+/* 9 ── INSIGHT FINAL ─────────────────────── */
 { cls:'s-insight', html:`
 <div class="pad">
   <div class="insight-text">O trabalho digital<br>não começa quando<br>o lead está pronto.<br><span class="gradtext">Começa 4 meses antes.</span></div>
@@ -306,7 +302,6 @@ const slides = [
 
 ];
 
-/* RENDER */
 const stage = document.getElementById('stage');
 slides.forEach(s => {
   const el = document.createElement('div');
@@ -317,13 +312,11 @@ slides.forEach(s => {
 
 const els = [...document.querySelectorAll('.slide')];
 let cur = 0;
-
 function show(n) {
   cur = Math.max(0, Math.min(slides.length - 1, n));
   els.forEach((e, i) => e.classList.toggle('active', i === cur));
   document.getElementById('counter').textContent = `${cur + 1} / ${slides.length}`;
 }
-
 document.getElementById('next').onclick = () => show(cur + 1);
 document.getElementById('prev').onclick = () => show(cur - 1);
 document.addEventListener('keydown', e => {
@@ -334,7 +327,6 @@ document.addEventListener('keydown', e => {
     else document.exitFullscreen();
   }
 });
-
 show(0);
 </script>
 </body>

@@ -54,7 +54,7 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
 .eyebrow { font-size: .7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
 .rule { width: 44px; height: 3px; background: var(--grad); border-radius: 2px; }
 
-/* ══ COVER ══ */
+/* ── COVER ── */
 .s-cover {
   background:
     radial-gradient(ellipse at 96% 96%, rgba(124,58,237,.055) 0%, transparent 45%),
@@ -67,23 +67,16 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
 .s-cover h1 { font-size: 5.6rem; font-weight: 800; letter-spacing: -.048em; line-height: 1.0; }
 .s-cover .sub { margin-top: 18px; font-size: 1.1rem; color: var(--muted); line-height: 1.5; max-width: 58%; }
 
-/* ══ 4 DIMENSÕES — grid 2x2 ══ */
+/* ── GRID 2x2 ── */
 .s-grid .pad { justify-content: center; }
 .s-grid h2 { font-size: 1.9rem; font-weight: 800; letter-spacing: -.035em; margin-bottom: 22px; }
 .grid2x2 { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; flex: 1; }
-.gcard {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 14px; padding: 22px 24px;
-  display: flex; flex-direction: column; gap: 8px;
-}
-.gcard .gn {
-  font-size: .63rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-  background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-}
+.gcard { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px; display: flex; flex-direction: column; gap: 8px; }
+.gcard .gn { font-size: .63rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .gcard .gt { font-size: 1.3rem; font-weight: 700; letter-spacing: -.025em; }
 .gcard .gd { font-size: .88rem; color: var(--muted); line-height: 1.55; }
 
-/* ══ COMPARE — dois lados ══ */
+/* ── COMPARE ── */
 .s-compare .pad { justify-content: center; }
 .s-compare h2 { font-size: 1.85rem; font-weight: 800; letter-spacing: -.035em; margin-bottom: 22px; }
 .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -94,28 +87,39 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
 .ccol ul li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; background: rgba(0,0,0,.22); }
 .ccol.strong ul li::before { background: var(--orange); }
 
-/* ══ STATEMENT — slide de conceito curto ══ */
+/* ── STATEMENT ── */
 .s-statement .pad { justify-content: center; }
-.s-statement .label { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
-.s-statement .stmt { font-size: 3.4rem; font-weight: 800; letter-spacing: -.04em; line-height: 1.1; max-width: 86%; }
-.s-statement .detail { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; }
-.s-statement .detail-item { font-size: 1.05rem; font-weight: 500; color: var(--muted); display: flex; align-items: baseline; gap: 8px; line-height: 1.4; }
-.s-statement .detail-item .di { font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; flex-shrink: 0; }
+.s-statement .slabel { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+.s-statement .stmt { font-size: 3rem; font-weight: 800; letter-spacing: -.04em; line-height: 1.1; max-width: 88%; }
+.s-statement .items { margin-top: 28px; display: flex; flex-direction: column; gap: 0; }
+.s-statement .sitem { display: flex; align-items: baseline; gap: 8px; padding: 13px 0; border-top: 1px solid var(--border); font-size: 1.05rem; font-weight: 500; color: var(--text); line-height: 1.4; }
+.s-statement .sitem:last-child { border-bottom: 1px solid var(--border); }
+.s-statement .sitem .sn { font-size: .63rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; flex-shrink: 0; }
+.s-statement .snote { margin-top: 18px; font-size: .86rem; color: var(--muted); font-style: italic; }
 
-/* ══ FÓRMULA ══ */
+/* ── FORMULA ── */
 .s-formula .pad { justify-content: center; }
-.s-formula .label { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
-.formula-block { display: flex; flex-direction: column; gap: 4px; margin-bottom: 36px; }
+.s-formula .slabel { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
+.formula-block { display: flex; flex-direction: column; gap: 4px; margin-bottom: 32px; }
 .formula-block .fl { font-size: 3rem; font-weight: 800; letter-spacing: -.04em; line-height: 1.15; }
-.formula-block .fl .bracket { font-weight: 700; }
 .s-formula .examples { display: flex; flex-direction: column; gap: 8px; }
-.s-formula .ex {
-  font-size: .9rem; color: var(--muted); line-height: 1.5;
-  padding: 10px 16px; border-radius: 8px;
-  border-left: 2px solid rgba(0,0,0,.1);
-}
+.s-formula .ex { font-size: .9rem; color: var(--muted); line-height: 1.5; padding: 10px 16px; border-radius: 8px; border-left: 2px solid rgba(0,0,0,.1); }
 
-/* ══ INSIGHT / FECHAMENTO ══ */
+/* ── GPT ── */
+.s-gpt {
+  background:
+    radial-gradient(ellipse at 96% 4%, rgba(249,115,22,.05) 0%, transparent 40%),
+    radial-gradient(ellipse at 4% 96%, rgba(124,58,237,.06) 0%, transparent 45%),
+    var(--bg);
+}
+.s-gpt .pad { justify-content: center; }
+.s-gpt .slabel { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+.s-gpt .gpt-name { font-size: 5.5rem; font-weight: 800; letter-spacing: -.05em; line-height: .92; margin-bottom: 28px; }
+.s-gpt .gpt-desc { font-size: 1.15rem; color: var(--muted); max-width: 68%; line-height: 1.6; }
+.s-gpt .gpt-phases { margin-top: 24px; display: flex; gap: 8px; flex-wrap: wrap; }
+.s-gpt .gpt-phases span { font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 5px 12px; border-radius: 100px; background: var(--surface); border: 1px solid var(--border); }
+
+/* ── INSIGHT ── */
 .s-insight {
   background:
     radial-gradient(ellipse at 100% 100%, rgba(124,58,237,.06) 0%, transparent 48%),
@@ -130,7 +134,7 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
 }
 .next-label::before { content: '→'; color: var(--orange); font-size: .85rem; letter-spacing: 0; }
 
-/* ══ NAV ══ */
+/* ── NAV ── */
 #ui {
   position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 50;
   display: flex; align-items: center; gap: 6px;
@@ -149,7 +153,7 @@ html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui,
 <div id="stage"></div>
 <div id="ui">
   <button id="prev">‹</button>
-  <span id="counter">1 / 6</span>
+  <span id="counter">1 / 8</span>
   <button id="next">›</button>
 </div>
 
@@ -223,22 +227,37 @@ const slides = [
 /* 4 ── ANTI-CLIENTE ─────────────────────── */
 { cls:'s-statement', html:`
 <div class="pad">
-  <div class="label">Anti-cliente</div>
-  <div class="stmt">Saber quem você <em style="-webkit-text-fill-color:initial;font-style:normal;">não</em> quer atender é tão importante quanto saber para quem vender.</div>
-  <div class="detail">
-    <div class="detail-item"><span class="di">No digital</span>Sem clareza sobre quem não é seu público, você atrai leads que não convertem — e paga por isso em tempo, energia e dinheiro.</div>
-    <div class="detail-item"><span class="di">Estratégia</span>Quando você sabe quem não quer, a comunicação afina naturalmente: atrai quem certo e repele quem não é.</div>
+  <div class="slabel">Anti-cliente</div>
+  <div class="stmt">Saber quem você não quer atender é tão importante quanto saber para quem vender.</div>
+  <div class="items">
+    <div class="sitem"><span class="sn">No digital</span>Sem clareza sobre quem não é seu público, você atrai leads que não convertem — e paga por isso em tempo, energia e dinheiro.</div>
+    <div class="sitem"><span class="sn">Na prática</span>Quando você sabe quem não quer, a comunicação afina: atrai quem é certo e naturalmente repele quem não é.</div>
+  </div>
+  <div class="snote">Definir o anti-cliente não é arrogância. É precisão estratégica.</div>
+</div>`},
+
+/* 5 ── O QUE VOCÊ ENTREGA ALÉM ───────────── */
+{ cls:'s-statement', html:`
+<div class="pad">
+  <div class="slabel">O que você entrega além do imóvel</div>
+  <div class="stmt">Cada etapa onde você está presente é um argumento que nenhum portal entrega.</div>
+  <div class="items">
+    <div class="sitem"><span class="sn">01</span>Análise de financiamento antes da decisão de compra</div>
+    <div class="sitem"><span class="sn">02</span>Acompanhamento de vistorias técnicas</div>
+    <div class="sitem"><span class="sn">03</span>Facilitação do processo cartorial</div>
+    <div class="sitem"><span class="sn">04</span>Indicação de profissionais de confiança</div>
+    <div class="sitem"><span class="sn">05</span>Contato ativo depois da entrega das chaves</div>
   </div>
 </div>`},
 
-/* 5 ── A FÓRMULA ────────────────────────── */
+/* 6 ── A FÓRMULA ────────────────────────── */
 { cls:'s-formula', html:`
 <div class="pad">
-  <div class="label">Sua proposta em uma frase</div>
+  <div class="slabel">Sua proposta em uma frase</div>
   <div class="formula-block">
-    <div class="fl">Eu ajudo <span class="gradtext bracket">[quem]</span></div>
-    <div class="fl">a <span class="gradtext bracket">[resultado]</span></div>
-    <div class="fl">através de <span class="gradtext bracket">[diferencial]</span>.</div>
+    <div class="fl">Eu ajudo <span class="gradtext">[quem]</span></div>
+    <div class="fl">a <span class="gradtext">[resultado]</span></div>
+    <div class="fl">através de <span class="gradtext">[diferencial]</span>.</div>
   </div>
   <div class="examples">
     <div class="ex">"Eu ajudo famílias em Mogi das Cruzes a encontrar o apartamento certo sem perder meses com opções erradas — do primeiro contato até a entrega das chaves."</div>
@@ -246,7 +265,22 @@ const slides = [
   </div>
 </div>`},
 
-/* 6 ── FECHAMENTO ───────────────────────── */
+/* 7 ── GPT IMOB DNA ─────────────────────── */
+{ cls:'s-gpt', html:`
+<div class="pad">
+  <div class="slabel">Disponível ao final do Módulo 2</div>
+  <div class="gpt-name"><span class="gradtext">Imob DNA</span></div>
+  <div class="gpt-desc">Uma ferramenta que vai te guiar pela construção de tudo isso — de forma aprofundada, com dados de mercado reais da sua região.</div>
+  <div class="gpt-phases">
+    <span>Ficha do negócio</span>
+    <span>ICP e avatares</span>
+    <span>Benchmark</span>
+    <span>Posicionamento completo</span>
+    <span>Bio do Instagram</span>
+  </div>
+</div>`},
+
+/* 8 ── FECHAMENTO ───────────────────────── */
 { cls:'s-insight', html:`
 <div class="pad">
   <div class="insight-text">O que não está<br>articulado não existe<br>na <span class="gradtext">comunicação</span>.</div>
