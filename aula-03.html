@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula 3 · Seu negócio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf8;
+  --text: #111111;
+  --muted: rgba(17,17,17,.46);
+  --subtle: rgba(17,17,17,.28);
+  --border: rgba(0,0,0,.08);
+  --surface: rgba(0,0,0,.035);
+  --grad: linear-gradient(120deg, #f97316, #e11d48 45%, #7c3aed);
+  --orange: #f97316;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; background: #e6e5e2; font-family: 'Inter', system-ui, sans-serif; overflow: hidden; }
+
+#stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+
+.slide {
+  position: absolute;
+  width: min(94vw, 1280px);
+  aspect-ratio: 16 / 9;
+  background: var(--bg);
+  border-radius: 20px;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(.97) translateY(8px);
+  transition: opacity .36s ease, transform .36s ease;
+  pointer-events: none;
+  box-shadow: 0 32px 96px rgba(0,0,0,.2), 0 2px 8px rgba(0,0,0,.1);
+  color: var(--text);
+}
+.slide.active { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
+.slide::after {
+  content: 'IMOB IN DIGITAL';
+  position: absolute; bottom: 20px; right: 26px;
+  font-size: .58rem; font-weight: 700; letter-spacing: .2em;
+  color: rgba(17,17,17,.18); pointer-events: none;
+}
+
+.pad { position: absolute; inset: 0; padding: 6.5% 7.5%; display: flex; flex-direction: column; }
+
+.gradtext {
+  background: var(--grad);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.eyebrow { font-size: .7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.rule { width: 44px; height: 3px; background: var(--grad); border-radius: 2px; }
+
+/* ══ COVER ══ */
+.s-cover {
+  background:
+    radial-gradient(ellipse at 96% 96%, rgba(124,58,237,.055) 0%, transparent 45%),
+    radial-gradient(ellipse at 4% 4%, rgba(249,115,22,.04) 0%, transparent 38%),
+    var(--bg);
+}
+.s-cover .pad { justify-content: flex-end; }
+.s-cover .eyebrow { margin-bottom: auto; }
+.s-cover .rule { margin-bottom: 20px; }
+.s-cover h1 { font-size: 5.6rem; font-weight: 800; letter-spacing: -.048em; line-height: 1.0; }
+.s-cover .sub { margin-top: 18px; font-size: 1.1rem; color: var(--muted); line-height: 1.5; max-width: 58%; }
+
+/* ══ 4 DIMENSÕES — grid 2x2 ══ */
+.s-grid .pad { justify-content: center; }
+.s-grid h2 { font-size: 1.9rem; font-weight: 800; letter-spacing: -.035em; margin-bottom: 22px; }
+.grid2x2 { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; flex: 1; }
+.gcard {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 22px 24px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.gcard .gn {
+  font-size: .63rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.gcard .gt { font-size: 1.3rem; font-weight: 700; letter-spacing: -.025em; }
+.gcard .gd { font-size: .88rem; color: var(--muted); line-height: 1.55; }
+
+/* ══ COMPARE — dois lados ══ */
+.s-compare .pad { justify-content: center; }
+.s-compare h2 { font-size: 1.85rem; font-weight: 800; letter-spacing: -.035em; margin-bottom: 22px; }
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ccol { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px 28px; }
+.ccol .ctitle { font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.ccol ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.ccol ul li { font-size: 1.05rem; font-weight: 500; display: flex; align-items: center; gap: 10px; line-height: 1.3; }
+.ccol ul li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; background: rgba(0,0,0,.22); }
+.ccol.strong ul li::before { background: var(--orange); }
+
+/* ══ STATEMENT — slide de conceito curto ══ */
+.s-statement .pad { justify-content: center; }
+.s-statement .label { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+.s-statement .stmt { font-size: 3.4rem; font-weight: 800; letter-spacing: -.04em; line-height: 1.1; max-width: 86%; }
+.s-statement .detail { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; }
+.s-statement .detail-item { font-size: 1.05rem; font-weight: 500; color: var(--muted); display: flex; align-items: baseline; gap: 8px; line-height: 1.4; }
+.s-statement .detail-item .di { font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; flex-shrink: 0; }
+
+/* ══ FÓRMULA ══ */
+.s-formula .pad { justify-content: center; }
+.s-formula .label { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
+.formula-block { display: flex; flex-direction: column; gap: 4px; margin-bottom: 36px; }
+.formula-block .fl { font-size: 3rem; font-weight: 800; letter-spacing: -.04em; line-height: 1.15; }
+.formula-block .fl .bracket { font-weight: 700; }
+.s-formula .examples { display: flex; flex-direction: column; gap: 8px; }
+.s-formula .ex {
+  font-size: .9rem; color: var(--muted); line-height: 1.5;
+  padding: 10px 16px; border-radius: 8px;
+  border-left: 2px solid rgba(0,0,0,.1);
+}
+
+/* ══ INSIGHT / FECHAMENTO ══ */
+.s-insight {
+  background:
+    radial-gradient(ellipse at 100% 100%, rgba(124,58,237,.06) 0%, transparent 48%),
+    var(--bg);
+}
+.s-insight .pad { justify-content: center; }
+.insight-text { font-size: 3.75rem; font-weight: 800; letter-spacing: -.045em; line-height: 1.08; }
+.next-label {
+  margin-top: 40px; font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 10px;
+}
+.next-label::before { content: '→'; color: var(--orange); font-size: .85rem; letter-spacing: 0; }
+
+/* ══ NAV ══ */
+#ui {
+  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 50;
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(255,255,255,.72); border: 1px solid rgba(0,0,0,.1);
+  backdrop-filter: blur(16px); padding: 8px 16px; border-radius: 100px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.12);
+}
+#ui button { background: none; border: none; font-size: 1.15rem; cursor: pointer; opacity: .55; padding: 4px 8px; border-radius: 8px; color: #111; line-height: 1; }
+#ui button:hover { opacity: 1; background: rgba(0,0,0,.07); }
+#counter { font-size: .78rem; color: rgba(0,0,0,.5); font-variant-numeric: tabular-nums; min-width: 44px; text-align: center; font-weight: 600; }
+#hint { position: fixed; top: 14px; right: 16px; z-index: 50; font-size: .68rem; color: rgba(0,0,0,.3); letter-spacing: .04em; }
+</style>
+</head>
+<body>
+<div id="hint">← → navegar · F tela cheia</div>
+<div id="stage"></div>
+<div id="ui">
+  <button id="prev">‹</button>
+  <span id="counter">1 / 6</span>
+  <button id="next">›</button>
+</div>
+
+<script>
+const slides = [
+
+/* 1 ── COVER ─────────────────────────────── */
+{ cls:'s-cover', html:`
+<div class="pad">
+  <div class="eyebrow">Módulo 1 · Aula 3</div>
+  <div class="rule"></div>
+  <h1>Seu <span class="gradtext">negócio</span></h1>
+  <div class="sub">Antes de definir para quem você vende, você precisa ter clareza sobre o que você vende.</div>
+</div>`},
+
+/* 2 ── AS 4 DIMENSÕES ────────────────────── */
+{ cls:'s-grid', html:`
+<div class="pad">
+  <h2>As 4 dimensões do seu negócio</h2>
+  <div class="grid2x2">
+    <div class="gcard">
+      <div class="gn">01</div>
+      <div class="gt">Tipo de imóvel</div>
+      <div class="gd">Apartamento, casa, terreno, comercial, lançamento, usado. Cada tipo tem um comprador com jornada e estado emocional completamente diferentes.</div>
+    </div>
+    <div class="gcard">
+      <div class="gn">02</div>
+      <div class="gt">Faixa de valor</div>
+      <div class="gd">Define o perfil financeiro, o nível de complexidade da negociação, o canal onde o comprador está e o tom da comunicação.</div>
+    </div>
+    <div class="gcard">
+      <div class="gn">03</div>
+      <div class="gt">Área de atuação</div>
+      <div class="gd">Quanto mais específico, mais poder de posicionamento. Especificidade não limita — diferencia.</div>
+    </div>
+    <div class="gcard">
+      <div class="gn">04</div>
+      <div class="gt">Como você opera</div>
+      <div class="gd">Corretor autônomo, imobiliária, construtora. Cada modelo comunica diferente e se posiciona diferente.</div>
+    </div>
+  </div>
+</div>`},
+
+/* 3 ── DIFERENCIAL REAL VS REQUISITO ─────── */
+{ cls:'s-compare', html:`
+<div class="pad">
+  <h2>Diferencial real vs. requisito de entrada</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Requisito de entrada</div>
+      <ul>
+        <li>Atendimento diferenciado</li>
+        <li>Transparência</li>
+        <li>Compromisso com o cliente</li>
+        <li>Sempre disponível</li>
+      </ul>
+      <p style="margin-top:18px;font-size:.84rem;color:var(--muted);line-height:1.5;">O comprador já assume isso de qualquer corretor que considera contratar. Não muda decisão.</p>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Diferencial real</div>
+      <ul>
+        <li>Específico e verificável</li>
+        <li>Difícil de copiar</li>
+        <li>Muda a decisão quando ele está comparando</li>
+        <li>Existe na realidade antes de aparecer na comunicação</li>
+      </ul>
+    </div>
+  </div>
+</div>`},
+
+/* 4 ── ANTI-CLIENTE ─────────────────────── */
+{ cls:'s-statement', html:`
+<div class="pad">
+  <div class="label">Anti-cliente</div>
+  <div class="stmt">Saber quem você <em style="-webkit-text-fill-color:initial;font-style:normal;">não</em> quer atender é tão importante quanto saber para quem vender.</div>
+  <div class="detail">
+    <div class="detail-item"><span class="di">No digital</span>Sem clareza sobre quem não é seu público, você atrai leads que não convertem — e paga por isso em tempo, energia e dinheiro.</div>
+    <div class="detail-item"><span class="di">Estratégia</span>Quando você sabe quem não quer, a comunicação afina naturalmente: atrai quem certo e repele quem não é.</div>
+  </div>
+</div>`},
+
+/* 5 ── A FÓRMULA ────────────────────────── */
+{ cls:'s-formula', html:`
+<div class="pad">
+  <div class="label">Sua proposta em uma frase</div>
+  <div class="formula-block">
+    <div class="fl">Eu ajudo <span class="gradtext bracket">[quem]</span></div>
+    <div class="fl">a <span class="gradtext bracket">[resultado]</span></div>
+    <div class="fl">através de <span class="gradtext bracket">[diferencial]</span>.</div>
+  </div>
+  <div class="examples">
+    <div class="ex">"Eu ajudo famílias em Mogi das Cruzes a encontrar o apartamento certo sem perder meses com opções erradas — do primeiro contato até a entrega das chaves."</div>
+    <div class="ex">"Eu ajudo investidores a identificar apartamentos compactos em SP com potencial de valorização real — com análise de rentabilidade antes de qualquer visita."</div>
+  </div>
+</div>`},
+
+/* 6 ── FECHAMENTO ───────────────────────── */
+{ cls:'s-insight', html:`
+<div class="pad">
+  <div class="insight-text">O que não está<br>articulado não existe<br>na <span class="gradtext">comunicação</span>.</div>
+  <div class="next-label">Próxima aula — quem é o comprador ideal para o negócio que você acabou de descrever</div>
+</div>`},
+
+];
+
+const stage = document.getElementById('stage');
+slides.forEach(s => {
+  const el = document.createElement('div');
+  el.className = 'slide ' + s.cls;
+  el.innerHTML = s.html;
+  stage.appendChild(el);
+});
+
+const els = [...document.querySelectorAll('.slide')];
+let cur = 0;
+function show(n) {
+  cur = Math.max(0, Math.min(slides.length - 1, n));
+  els.forEach((e, i) => e.classList.toggle('active', i === cur));
+  document.getElementById('counter').textContent = `${cur + 1} / ${slides.length}`;
+}
+document.getElementById('next').onclick = () => show(cur + 1);
+document.getElementById('prev').onclick = () => show(cur - 1);
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(cur + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); show(cur - 1); }
+  if (e.key.toLowerCase() === 'f') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+show(0);
+</script>
+</body>
+</html>
