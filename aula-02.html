@@ -3,269 +3,438 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Aula 2 — Como o mercado funciona no digital | Imob In Digital</title>
+<title>Aula 2 · Como o mercado imobiliário funciona no digital</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fafaf8;--text:#111;--muted:rgba(17,17,17,.44);--subtle:rgba(17,17,17,.26);--border:rgba(0,0,0,.08);--surface:rgba(0,0,0,.04);--grad:linear-gradient(120deg,#f97316,#e11d48 45%,#7c3aed);--orange:#f97316}
-*,::before,::after{box-sizing:border-box;margin:0;padding:0}
-body{background:#1a1a1a;display:flex;flex-direction:column;min-height:100vh;align-items:center;justify-content:center;font-family:'Inter',system-ui,sans-serif;overflow:hidden}
-#stage{width:min(94vw,1280px,calc((100vh - 64px)*16/9));aspect-ratio:16/9;background:var(--bg);position:relative;overflow:hidden;border-radius:4px;box-shadow:0 24px 64px rgba(0,0,0,.5)}
-#stage::after{content:'IMOB IN DIGITAL';position:absolute;bottom:18px;right:22px;font-size:.52rem;font-weight:700;letter-spacing:.14em;color:var(--subtle);pointer-events:none;z-index:10}
-.slide{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg);opacity:0;transition:opacity .22s;pointer-events:none}
-.slide.active{opacity:1;pointer-events:auto}
-.pad{flex:1;display:flex;flex-direction:column;padding:5% 6%}
-.grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+:root{
+  --bg:#fafaf8; --text:#111111;
+  --muted:rgba(17,17,17,.46); --subtle:rgba(17,17,17,.28);
+  --border:rgba(0,0,0,.08); --surface:rgba(0,0,0,.035);
+  --grad:linear-gradient(120deg,#f97316,#e11d48 45%,#7c3aed);
+  --orange:#f97316;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;background:#e6e5e2;font-family:'Inter',system-ui,sans-serif;overflow:hidden;}
 
-.s-cover .pad{justify-content:center}
-.s-cover .cov-mod{font-size:.6rem;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:12px}
-.s-cover .cov-rule{width:36px;height:2px;background:var(--grad);border-radius:2px;margin-bottom:20px}
-.s-cover h1{font-size:3.4rem;font-weight:800;line-height:1.05;color:var(--text);margin-bottom:14px}
-.s-cover .cov-sub{font-size:.95rem;color:var(--muted);max-width:60%;line-height:1.5}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
 
-.s-data .pad{justify-content:center}
-.s-data .dat-eye{font-size:.6rem;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
-.s-data .dat-num{font-size:9rem;font-weight:800;line-height:.88;margin-bottom:10px}
-.s-data .dat-lbl{font-size:1.4rem;font-weight:700;color:var(--text);line-height:1.25;margin-bottom:6px;max-width:72%}
-.s-data .dat-src{font-size:.62rem;color:var(--subtle);font-weight:500;letter-spacing:.04em;margin-top:14px}
-.s-data .dat-list{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:5px}
-.s-data .dat-list li{font-size:.82rem;color:var(--muted);padding-left:12px;position:relative;line-height:1.35}
-.s-data .dat-list li::before{content:'—';position:absolute;left:0;color:var(--subtle)}
+.slide{
+  position:absolute;
+  width:min(94vw,1280px,calc((100vh - 64px)*16/9));
+  aspect-ratio:16/9;
+  background:var(--bg);
+  border-radius:20px;overflow:hidden;
+  opacity:0;transform:scale(.97) translateY(8px);
+  transition:opacity .36s ease,transform .36s ease;
+  pointer-events:none;
+  box-shadow:0 32px 96px rgba(0,0,0,.2),0 2px 8px rgba(0,0,0,.1);
+  color:var(--text);
+}
+.slide.active{opacity:1;transform:scale(1) translateY(0);pointer-events:auto;}
+.slide::after{
+  content:'IMOB IN DIGITAL';
+  position:absolute;bottom:20px;right:26px;
+  font-size:.58rem;font-weight:700;letter-spacing:.2em;
+  color:rgba(17,17,17,.18);pointer-events:none;
+}
 
-.s-key .pad{justify-content:center}
-.s-key .key-eye{font-size:.6rem;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:16px}
-.s-key .key-text{font-size:3rem;font-weight:800;line-height:1.1;color:var(--text);margin-bottom:20px;max-width:88%}
-.s-key .key-sub{font-size:.9rem;color:var(--muted);max-width:68%;line-height:1.55}
+.pad{position:absolute;inset:0;padding:6.5% 7.5%;display:flex;flex-direction:column;}
 
-.s-statement .pad{justify-content:center}
-.s-statement .st-eye{font-size:.6rem;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
-.s-statement h2{font-size:2rem;font-weight:800;color:var(--text);line-height:1.18;margin-bottom:18px;max-width:88%}
-.s-statement .st-body{font-size:.95rem;color:var(--muted);line-height:1.6;max-width:72%;margin-bottom:20px}
-.s-statement .st-items{display:flex;flex-direction:column;gap:8px}
-.s-statement .st-item{display:flex;align-items:flex-start;gap:9px;font-size:.88rem;color:var(--text);font-weight:500;line-height:1.4}
-.s-statement .st-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);margin-top:5px;flex-shrink:0}
+.gradtext{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.rule{width:44px;height:3px;background:var(--grad);border-radius:2px;}
 
-.s-compare .pad{justify-content:flex-start;padding-top:5%}
-.s-compare .cmp-hd{font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:18px}
-.s-compare .cmp-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1}
-.s-compare .cmp-col{background:var(--surface);border-radius:10px;padding:18px 20px;border:1px solid var(--border);display:flex;flex-direction:column}
-.s-compare .cmp-lbl{font-size:.58rem;font-weight:800;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.s-compare .cmp-ttl{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:10px;line-height:1.15}
-.s-compare .cmp-items{display:flex;flex-direction:column;gap:5px}
-.s-compare .cmp-it{font-size:.78rem;color:var(--muted);padding-left:11px;position:relative;line-height:1.35}
-.s-compare .cmp-it::before{content:'';width:4px;height:4px;border-radius:50%;background:rgba(17,17,17,.15);position:absolute;left:0;top:6px}
-.s-compare .cmp-note{font-size:.76rem;color:var(--muted);margin-top:14px;font-style:italic}
+/* COVER */
+.s-cover{background:radial-gradient(ellipse at 96% 96%,rgba(124,58,237,.055) 0%,transparent 45%),radial-gradient(ellipse at 4% 4%,rgba(249,115,22,.04) 0%,transparent 38%),var(--bg);}
+.s-cover .pad{justify-content:flex-end;}
+.s-cover .eyebrow{margin-bottom:auto;}
+.s-cover .rule{margin-bottom:20px;}
+.s-cover h1{font-size:4.2rem;font-weight:800;letter-spacing:-.045em;line-height:1.02;}
 
-.s-phases .pad{justify-content:flex-start;padding-top:5%}
-.s-phases .ph-ttl{font-size:1.3rem;font-weight:800;color:var(--text);margin-bottom:18px;max-width:82%;line-height:1.2}
-.s-phases .ph-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex:1}
-.s-phases .ph-col{background:var(--surface);border-radius:10px;padding:16px 14px;border:1px solid var(--border)}
-.s-phases .ph-n{font-size:.58rem;font-weight:800;letter-spacing:.12em;color:var(--orange);text-transform:uppercase;margin-bottom:7px}
-.s-phases .ph-nm{font-size:.95rem;font-weight:800;color:var(--text);margin-bottom:8px}
-.s-phases .ph-items{display:flex;flex-direction:column;gap:4px}
-.s-phases .ph-it{font-size:.7rem;color:var(--muted);line-height:1.35}
+/* DATA */
+.s-data .pad{justify-content:center;}
+.data-hero{display:flex;align-items:baseline;gap:16px;margin-bottom:22px;line-height:.85;}
+.data-hero .num{font-size:13rem;font-weight:800;letter-spacing:-.05em;}
+.data-hero .unit{font-size:3.6rem;font-weight:700;letter-spacing:-.03em;color:var(--muted);}
+.datacap{font-size:1.9rem;font-weight:600;letter-spacing:-.025em;line-height:1.25;max-width:74%;}
+.src{margin-top:14px;font-size:.73rem;font-weight:500;letter-spacing:.04em;color:var(--subtle);}
+.data-items{margin-top:20px;display:flex;flex-direction:column;gap:0;}
+.data-items .di{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-top:1px solid var(--border);font-size:.95rem;font-weight:500;color:var(--text);line-height:1.4;}
+.data-items .di:last-child{border-bottom:1px solid var(--border);}
+.data-items .di .dn{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0;}
 
-.s-platform .pad{justify-content:flex-start}
-.s-platform .plt-ttl{font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:18px}
-.s-platform .plt-rows{display:flex;flex-direction:column;gap:10px}
-.s-platform .plt-row{display:flex;align-items:center;gap:12px;background:var(--surface);border-radius:8px;padding:11px 14px;border:1px solid var(--border)}
-.s-platform .plt-ph{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);min-width:52px}
-.s-platform .plt-sep{width:1px;height:22px;background:var(--border)}
-.s-platform .plt-cnt{flex:1}
-.s-platform .plt-chs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:3px}
-.s-platform .plt-tag{font-size:.6rem;font-weight:700;background:rgba(249,115,22,.08);color:var(--orange);border:1px solid rgba(249,115,22,.18);border-radius:4px;padding:2px 7px}
-.s-platform .plt-dsc{font-size:.7rem;color:var(--muted);line-height:1.3}
+/* KEY */
+.s-key .pad{justify-content:center;}
+.s-key .key-eye{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
+.s-key .key-q{font-size:3.2rem;font-weight:800;letter-spacing:-.04em;line-height:1.1;max-width:88%;}
+.s-key .key-sub{margin-top:28px;font-size:1.05rem;color:var(--muted);max-width:68%;line-height:1.6;font-weight:400;}
 
-.s-insight .pad{justify-content:center}
-.s-insight h2{font-size:3rem;font-weight:800;line-height:1.1;margin-bottom:18px;max-width:85%}
-.s-insight .ins-note{font-size:.88rem;color:var(--muted);font-weight:500}
+/* PHASES */
+.s-phases .pad{justify-content:center;}
+.s-phases h2{font-size:1.9rem;font-weight:800;letter-spacing:-.035em;margin-bottom:28px;}
+.phases-grid{display:grid;grid-template-columns:repeat(3,1fr);}
+.phase{padding:22px 26px;}
+.phase+.phase{border-left:1px solid var(--border);}
+.ph-label{font-size:.63rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:9px;}
+.ph-name{font-size:1.6rem;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:11px;}
+.ph-desc{font-size:.9rem;color:var(--muted);line-height:1.6;}
 
-#ui{display:flex;align-items:center;gap:6px;padding:8px 0 4px}
-#ui button{background:none;border:none;cursor:pointer;font-size:.85rem;color:#ccc;padding:4px 10px;border-radius:4px;transition:color .15s}
-#ui button:hover{color:#fff}
-#ui button:disabled{opacity:.28;cursor:default}
-#counter{font-size:.6rem;color:#888;letter-spacing:.06em;min-width:44px;text-align:center}
+/* PLATFORM */
+.s-platform .pad{justify-content:center;}
+.s-platform h2{font-size:1.9rem;font-weight:800;letter-spacing:-.035em;margin-bottom:22px;}
+.prows{display:flex;flex-direction:column;}
+.prow{display:grid;grid-template-columns:140px 1fr;gap:20px;align-items:start;padding:16px 0;border-top:1px solid var(--border);}
+.prow:last-child{border-bottom:1px solid var(--border);}
+.ptag{font-size:.62rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);line-height:1.5;padding-top:2px;}
+.pcontent{display:flex;flex-direction:column;gap:3px;}
+.ptitle{font-size:1.15rem;font-weight:700;letter-spacing:-.02em;}
+.pdesc{font-size:.86rem;color:var(--muted);line-height:1.55;}
+.ptags{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;}
+.ptags span{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:var(--surface);border:1px solid var(--border);}
+
+/* COMPARE */
+.s-compare .pad{justify-content:center;}
+.s-compare h2{font-size:1.85rem;font-weight:800;letter-spacing:-.035em;margin-bottom:22px;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ccol{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 26px;}
+.ccol .ctitle{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.ccol ul{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.ccol ul li{font-size:1.05rem;font-weight:500;display:flex;align-items:flex-start;gap:10px;line-height:1.3;}
+.ccol ul li::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0;background:rgba(0,0,0,.22);margin-top:6px;}
+.ccol.strong ul li::before{background:var(--orange);}
+.cmp-note{margin-top:18px;font-size:.88rem;color:var(--muted);font-style:italic;text-align:center;}
+
+/* STATEMENT */
+.s-statement .pad{justify-content:center;}
+.s-statement .slabel{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.s-statement .stmt{font-size:3rem;font-weight:800;letter-spacing:-.04em;line-height:1.1;max-width:88%;}
+.s-statement .items{margin-top:32px;display:flex;flex-direction:column;gap:0;}
+.s-statement .sitem{display:flex;align-items:baseline;gap:8px;padding:14px 0;border-top:1px solid var(--border);font-size:1.1rem;font-weight:500;color:var(--text);line-height:1.4;}
+.s-statement .sitem:last-child{border-bottom:1px solid var(--border);}
+.s-statement .sitem .sn{font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0;}
+.s-statement .snote{margin-top:20px;font-size:.88rem;color:var(--muted);font-style:italic;}
+
+/* INSIGHT */
+.s-insight{background:radial-gradient(ellipse at 100% 100%,rgba(124,58,237,.06) 0%,transparent 48%),var(--bg);}
+.s-insight .pad{justify-content:center;}
+.insight-text{font-size:3.75rem;font-weight:800;letter-spacing:-.045em;line-height:1.08;}
+.next-label{margin-top:40px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;}
+.next-label::before{content:'→';color:var(--orange);font-size:.85rem;letter-spacing:0;}
+
+/* NAV */
+#ui{
+  position:fixed;bottom:10px;left:50%;transform:translateX(-50%);z-index:50;
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.72);border:1px solid rgba(0,0,0,.1);
+  backdrop-filter:blur(16px);padding:4px 10px;border-radius:100px;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+#ui button{background:none;border:none;font-size:.85rem;cursor:pointer;opacity:.5;padding:2px 5px;border-radius:6px;color:#111;line-height:1;}
+#ui button:hover{opacity:1;background:rgba(0,0,0,.07);}
+#counter{font-size:.62rem;color:rgba(0,0,0,.45);font-variant-numeric:tabular-nums;min-width:32px;text-align:center;font-weight:600;}
+#hint{position:fixed;top:14px;right:16px;z-index:50;font-size:.68rem;color:rgba(0,0,0,.3);letter-spacing:.04em;}
 </style>
 </head>
 <body>
+<div id="hint">← → navegar · F tela cheia</div>
 <div id="stage"></div>
 <div id="ui">
-  <button id="prev">&#8592;</button>
-  <span id="counter"></span>
-  <button id="next">&#8594;</button>
-  <button id="fs" title="Tela cheia">⛶</button>
+  <button id="prev">‹</button>
+  <span id="counter">1 / 1</span>
+  <button id="next">›</button>
 </div>
 <script>
+/* ── Helpers para progressive build ──────────────────────── */
+function ph(title, phases, vis) {
+  const shown = phases.slice(0, vis);
+  return `<div class="pad">
+    <h2>${title}</h2>
+    <div class="phases-grid" style="grid-template-columns:repeat(${shown.length},1fr)">
+      ${shown.map(p => `<div class="phase">
+        <div class="ph-label gradtext">${p.label}</div>
+        <div class="ph-name">${p.name}</div>
+        <div class="ph-desc">${p.desc}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function plat(title, rows, vis) {
+  const shown = rows.slice(0, vis);
+  return `<div class="pad">
+    <h2>${title}</h2>
+    <div class="prows">
+      ${shown.map(r => `<div class="prow">
+        <div class="ptag">${r.tag}</div>
+        <div class="pcontent">
+          <div class="ptitle">${r.title}</div>
+          <div class="pdesc">${r.desc}</div>
+          <div class="ptags">${r.channels.map(c=>`<span>${c}</span>`).join('')}</div>
+        </div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function stmt(label, big, items, vis, note) {
+  const shown = items.slice(0, vis);
+  const isLast = vis === items.length;
+  return `<div class="pad">
+    ${label ? `<div class="slabel">${label}</div>` : ''}
+    <div class="stmt">${big}</div>
+    ${shown.length ? `<div class="items">
+      ${shown.map((it,i) => `<div class="sitem"><span class="sn">0${i+1}</span>${it}</div>`).join('')}
+    </div>` : ''}
+    ${isLast && note ? `<div class="snote">${note}</div>` : ''}
+  </div>`;
+}
+
+/* ── Dados dos build slides ───────────────────────────────── */
+const jornada = {
+  title: 'A jornada que ninguém vê',
+  phases: [
+    {label:'Início', name:'Gatilho',
+     desc:'Uma mudança de vida coloca a decisão em movimento — filho, separação, saída do aluguel. O comprador começa a pesquisar sem saber ainda o que quer.'},
+    {label:'Meio', name:'Pesquisa',
+     desc:'Meses de busca ativa: bairros, financiamentos, portais, perfis. Ele forma opinião sobre quem sabe do que fala. A fase invisível onde a confiança é construída.'},
+    {label:'Fim', name:'Decisão',
+     desc:'Pronto para contato. Escolhe 2 a 5 corretores por confiança acumulada — ou por quem responder primeiro quando a mensagem sair.'}
+  ]
+};
+
+const plataformas = {
+  title: 'Onde o comprador está em cada fase',
+  rows: [
+    {tag:'Começo\n4 meses antes',
+     title:'Google — quer aprender, não comprar',
+     desc:'11 buscas em média antes de acessar qualquer site imobiliário. Pesquisa financiamento, bairros e o que precisa entender — ainda não procura corretor.',
+     channels:['Google','YouTube','Conteúdo']},
+    {tag:'Meio\nAfunilando',
+     title:'Instagram e portais — construindo referência',
+     desc:'64% dos compradores assistem pelo menos um vídeo durante a jornada. Segue quem aparece com consistência e começa a construir preferência.',
+     channels:['Instagram','ZAP','Viva Real']},
+    {tag:'Fim\nPronto para comprar',
+     title:'Contato — a fase que todo corretor disputa',
+     desc:'A fase que a maioria dos corretores tenta jogar. As fases anteriores, onde a confiança é construída, ficam sem ninguém presente.',
+     channels:['WhatsApp','Formulário','DM']}
+  ]
+};
+
+const indicacao = {
+  label: 'O problema da indicação',
+  stmt: 'Para uma indicação acontecer, 3 variáveis precisam se alinhar ao mesmo tempo.',
+  items: [
+    'Alguém precisa se lembrar de você',
+    'Esse alguém precisa conhecer alguém buscando imóvel agora',
+    'Esse comprador precisa estar numa fase em que aceita a indicação'
+  ],
+  note: 'Bom quando acontece. Mas você não controla o timing de nenhuma delas.'
+};
+
+/* ── Slides ───────────────────────────────────────────────── */
 const slides = [
-  /* 01 */
-  {type:'s-cover',module:'Módulo 1 · Aula 2',
-   title:'Como o mercado imobiliário funciona no digital',
-   sub:'O comprador decide em quatro meses. Você precisa estar presente desde o primeiro dia.'},
 
-  /* 02 */
-  {type:'s-data',eyebrow:'DataZAP 2024',num:'4 meses',
-   label:'É o tempo médio que um comprador leva pesquisando antes de entrar em contato com um corretor.',
-   source:'Maior base de dados do mercado imobiliário brasileiro',
-   items:['Não é 4 meses olhando vitrine','É pesquisa ativa: Google, portais, vídeos, perfis','Formando opinião sobre quem sabe o que fala']},
+/* 01 — Capa */
+{cls:'s-cover', html:`<div class="pad">
+  <div class="eyebrow">Módulo 1 · Aula 2</div>
+  <div class="rule"></div>
+  <h1>Como o mercado<br>imobiliário funciona<br>no <span class="gradtext">digital</span></h1>
+</div>`},
 
-  /* 03 */
-  {type:'s-key',eyebrow:'A pergunta que esse módulo existe para responder',
-   text:'Durante esses 4 meses, o que esse comprador encontrou quando pesquisou imóvel na sua região?<br><br>Você estava lá?'},
+/* 02 — 4 meses */
+{cls:'s-data', html:`<div class="pad">
+  <div class="data-hero">
+    <span class="num gradtext">4</span>
+    <span class="unit">meses</span>
+  </div>
+  <div class="datacap">A jornada do comprador antes do primeiro contato com qualquer corretor.</div>
+  <div class="src">DataZAP · Pesquisa com compradores reais, 2024</div>
+</div>`},
 
-  /* 04 */
-  {type:'s-phases',title:'A jornada que ninguém vê',
-   phases:[
-     {name:'Gatilho',items:['Mudança de vida — filho, separação, crescimento de família','Consciência nova: "preciso mudar minha situação de moradia"','Ainda não pesquisa corretor']},
-     {name:'Pesquisa',items:['Pesquisa bairro, financiamento, tipo de imóvel','Forma opinião sobre quem entende do mercado','Conteúdo de qualidade constrói autoridade antes do contato']},
-     {name:'Decisão',items:['Afunila: tipo, bairro e faixa de valor definidos','Contata 2 a 5 corretores que pareceram confiáveis','Fecha com quem construiu mais confiança — ou responder primeiro']}]},
+/* 03 — Você estava lá? */
+{cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">A pergunta que esse módulo inteiro existe para responder</div>
+  <div class="key-q">Durante esses 4 meses, o que esse comprador encontrou quando pesquisou imóvel na sua região?<br><br>Você estava lá?</div>
+</div>`},
 
-  /* 05 */
-  {type:'s-statement',
-   title:'15% levam mais de 1 ano.',
-   body:'A mediana é de 4 meses, mas a jornada pode ser muito mais longa. Ao longo dela, o comprador vai contatar entre 2 e 5 corretores diferentes antes de fechar com alguém.',
-   items:['Não fecha com o melhor corretor necessariamente',
-          'Fecha com quem construiu mais confiança — ou com quem responder primeiro quando estiver pronto']},
+/* 04 — Jornada: Gatilho */
+{cls:'s-phases', html: ph(jornada.title, jornada.phases, 1)},
 
-  /* 06 */
-  {type:'s-data',eyebrow:'MIT + InsideSales — 100k tentativas de contato, 3 anos',num:'78%',
-   label:'dos compradores fecham com quem responde primeiro.',
-   source:'Estudo com mais de 100.000 tentativas de contato ao longo de 3 anos'},
+/* 05 — Jornada: + Pesquisa */
+{cls:'s-phases', html: ph(jornada.title, jornada.phases, 2)},
 
-  /* 07 */
-  {type:'s-data',eyebrow:'Tempo de resposta',num:'21x',
-   label:'mais chance de qualificar um lead respondido em menos de 5 minutos.',
-   source:'vs. leads respondidos após 30 minutos',
-   items:['69% dos leads de portais não recebem resposta em menos de 5 minutos',
-          'Quem responde rápido já vence a maioria por default']},
+/* 06 — Jornada: completa */
+{cls:'s-phases', html: ph(jornada.title, jornada.phases, 3)},
 
-  /* 08 */
-  {type:'s-compare',
-   left:{label:'Fase 1 — Os 4 meses',title:'Construção de confiança',
-     items:['Comprador ainda está pesquisando','Forma opinião sobre quem sabe do mercado','Você precisa aparecer com conteúdo relevante','A maioria dos corretores não joga essa fase']},
-   right:{label:'Fase 2 — O momento',title:'Resposta rápida',
-     items:['Comprador está pronto para contato','Já escolheu 2 a 3 corretores confiáveis','Fecha com quem responde primeiro','Todos os corretores tentam jogar essa fase']},
-   note:'O jogo tem duas fases. A maioria só joga uma.'},
+/* 07 — 78% */
+{cls:'s-data', html:`<div class="pad">
+  <div class="data-hero">
+    <span class="num gradtext">78%</span>
+  </div>
+  <div class="datacap">dos compradores fecham com quem responde primeiro.</div>
+  <div class="src">MIT / InsideSales · 100 mil+ tentativas de contato analisadas ao longo de 3 anos</div>
+</div>`},
 
-  /* 09 */
-  {type:'s-platform',title:'Onde o comprador está em cada fase',
-   rows:[
-     {phase:'Começo',channels:['Google','YouTube'],
-      desc:'Pesquisa bairro, financiamento, tipos de imóvel. Ainda não quer falar com corretor — quer aprender e entender.'},
-     {phase:'Meio',channels:['Instagram','ZAP Imóveis','Viva Real'],
-      desc:'Afunila: tipo, bairro e faixa definidos. Portais para comparar opções. Instagram para referências e autoridade.'},
-     {phase:'Final',channels:['WhatsApp','Formulários'],
-      desc:'Pronto para contato. Já escolheu 2 a 3 corretores que pareceram confiáveis — e vai iniciar a conversa.'}]},
+/* 08 — 21x */
+{cls:'s-data', html:`<div class="pad">
+  <div class="data-hero">
+    <span class="num gradtext">21x</span>
+  </div>
+  <div class="datacap">mais chance de qualificar um lead respondido em menos de 5 minutos.</div>
+  <div class="src">vs. leads respondidos após 30 minutos · 69% dos leads de portais não recebem resposta nesse prazo</div>
+</div>`},
 
-  /* 10 */
-  {type:'s-statement',
-   title:'11 buscas no Google<br>antes de qualquer ação num site imobiliário.',
-   body:'E 64% dos compradores assistem pelo menos um vídeo durante a jornada de decisão.',
-   items:['Quem aparece com conteúdo que responde essas perguntas constrói autoridade antes do portal',
-          'Ele ainda não vai entrar em contato. Mas vai lembrar de quem apareceu e ajudou.',
-          '64% que assistem vídeo estão construindo confiança — antes de qualquer lead ser gerado']},
+/* 09 — O jogo tem 2 fases */
+{cls:'s-compare', html:`<div class="pad">
+  <h2>O jogo tem duas fases.<br>A maioria só joga uma.</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Fase 1 — Os 4 meses</div>
+      <ul>
+        <li>Comprador ainda está pesquisando</li>
+        <li>Forma opinião sobre quem sabe do mercado</li>
+        <li>Confiança construída por conteúdo consistente</li>
+        <li>Quase nenhum corretor está presente aqui</li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Fase 2 — O momento</div>
+      <ul>
+        <li>Comprador pronto para contato</li>
+        <li>Já escolheu 2 a 3 corretores de confiança</li>
+        <li>Fecha com quem responde primeiro</li>
+        <li>Todo corretor tenta disputar essa fase</li>
+      </ul>
+    </div>
+  </div>
+</div>`},
 
-  /* 11 */
-  {type:'s-statement',eyebrow:'O problema estrutural do portal',
-   title:'O lead do portal chegou até você.<br>Mas chegou até todos os outros também.',
-   body:'Você não tem preferência. Você não construiu nenhuma relação antes. A única forma de vencer é responder mais rápido que todos que pagaram o mesmo.',
-   items:['R$400 a R$1.000/mês por espaço onde você não tem vantagem de relacionamento',
-          '69% dos leads não recebem resposta em menos de 5 minutos',
-          'É canal alugado — você não controla nada do que acontece antes do lead chegar']},
+/* 10 — Plataformas: Começo */
+{cls:'s-platform', html: plat(plataformas.title, plataformas.rows, 1)},
 
-  /* 12 */
-  {type:'s-compare',
-   left:{label:'Portal imobiliário',title:'Canal alugado',
-     items:['Lead compartilhado com todos os anunciantes','Sem relação prévia com o comprador','Custo fixo mensal (R$400–R$1.000)','Você compete em igualdade de condições com todos']},
-   right:{label:'Presença digital própria',title:'Canal construído',
-     items:['Lead que chega já conhece e confia em você','Relação construída durante os 4 meses','Sem custo variável por lead','Você vence por confiança, não por velocidade']}},
+/* 11 — Plataformas: + Meio */
+{cls:'s-platform', html: plat(plataformas.title, plataformas.rows, 2)},
 
-  /* 13 */
-  {type:'s-statement',eyebrow:'O problema da indicação',
-   title:'Para uma indicação acontecer, três coisas precisam ser verdadeiras ao mesmo tempo.',
-   items:['Alguém precisa se lembrar de você',
-          'Esse alguém precisa conhecer alguém que está buscando imóvel',
-          'Esse comprador precisa estar na fase da jornada onde aceita a indicação']},
+/* 12 — Plataformas: completa */
+{cls:'s-platform', html: plat(plataformas.title, plataformas.rows, 3)},
 
-  /* 14 */
-  {type:'s-data',eyebrow:'Mercado imobiliário brasileiro',num:'580 mil',
-   label:'corretores registrados — 40% de crescimento em 5 anos.',
-   source:'2020: 413 mil · 2025: 580 mil · 2º maior do mundo (atrás dos EUA)',
-   items:['Todos disputando atenção do mesmo pool de compradores',
-          'Maioria usa os mesmos canais, da mesma forma',
-          'Vendas de imóveis novos cresceram 11,8% em 2024 — o problema não é falta de demanda']},
+/* 13 — Problema do portal */
+{cls:'s-statement', html:`<div class="pad">
+  <div class="slabel">O problema estrutural do portal</div>
+  <div class="stmt">O lead que chega até você chegou até todos os outros também.</div>
+  <div class="items">
+    <div class="sitem"><span class="sn">—</span>Sem relação prévia com o comprador — nenhuma vantagem antes do contato</div>
+    <div class="sitem"><span class="sn">—</span>69% dos leads não recebem resposta em menos de 5 minutos</div>
+    <div class="sitem"><span class="sn">—</span>R$400–1.000/mês em espaço alugado onde você compete em igualdade de condições</div>
+  </div>
+</div>`},
 
-  /* 15 */
-  {type:'s-compare',title:'Estratégia digital: corretor vs. imobiliária',
-   left:{label:'Corretor autônomo',title:'Construa sua marca pessoal',
-     items:['O ativo é você — presença, autoridade, especialização','O comprador que te segue te segue, não à empresa','Ativo que vai com você independente de onde trabalha']},
-   right:{label:'Dono de imobiliária',title:'Dois trabalhos simultâneos',
-     items:['Posicionar a empresa como marca institucional','Posicionar os corretores como marcas pessoais','Marca pessoal do corretor converte mais — tem calor humano']}},
+/* 14 — Portal vs. Presença */
+{cls:'s-compare', html:`<div class="pad">
+  <h2>Portal funciona.<br>Mas não como canal principal.</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Depender do portal</div>
+      <ul>
+        <li>Lead comprado e compartilhado com outros corretores</li>
+        <li>Sem relação construída antes do contato</li>
+        <li>Disputa de velocidade de resposta</li>
+        <li>R$4.800–12.000/ano em espaço alugado</li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Presença digital estratégica</div>
+      <ul>
+        <li>Lead conquistado ao longo da jornada</li>
+        <li>4 meses de confiança antes da primeira mensagem</li>
+        <li>Já ganhou antes da conversa começar</li>
+        <li>Ativo próprio — não depende de plataforma</li>
+      </ul>
+    </div>
+  </div>
+</div>`},
 
-  /* 16 */
-  {type:'s-insight',grad:true,
-   text:'O trabalho digital não começa quando o lead está pronto.<br>Começa 4 meses antes.',
-   note:'→ Próxima aula: quem é o comprador certo — presença genérica é tão ineficiente quanto nenhuma presença.'}
+/* 15 — Indicação: var 1 */
+{cls:'s-statement', html: stmt(indicacao.label, indicacao.stmt, indicacao.items, 1, indicacao.note)},
+
+/* 16 — Indicação: vars 1+2 */
+{cls:'s-statement', html: stmt(indicacao.label, indicacao.stmt, indicacao.items, 2, indicacao.note)},
+
+/* 17 — Indicação: todas 3 */
+{cls:'s-statement', html: stmt(indicacao.label, indicacao.stmt, indicacao.items, 3, indicacao.note)},
+
+/* 18 — 580 mil */
+{cls:'s-data', html:`<div class="pad">
+  <div class="data-hero">
+    <span class="num gradtext">580</span>
+    <span class="unit">mil</span>
+  </div>
+  <div class="datacap">corretores registrados no Brasil. +40% em 5 anos. 2º maior do mundo.</div>
+  <div class="src">COFECI 2024 · Em 2020 eram 413 mil · Vendas de imóveis novos +11,8% em 2024 (ABRAINC-FIPE)</div>
+</div>`},
+
+/* 19 — Corretor vs. Imobiliária */
+{cls:'s-compare', html:`<div class="pad">
+  <h2>Estratégia digital: corretor vs. imobiliária</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Corretor autônomo</div>
+      <ul>
+        <li>O ativo é você — marca pessoal, autoridade, especialização</li>
+        <li>O comprador que te segue te segue, não à empresa</li>
+        <li>Ativo que vai com você independente de onde trabalha</li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Dono de imobiliária</div>
+      <ul>
+        <li>Dois trabalhos: posicionar a empresa + os corretores</li>
+        <li>Marca pessoal do corretor converte mais — tem calor humano</li>
+        <li>Imobiliária atrai; corretor converte</li>
+      </ul>
+    </div>
+  </div>
+</div>`},
+
+/* 20 — Insight final */
+{cls:'s-insight', html:`<div class="pad">
+  <div class="insight-text">O trabalho digital<br>não começa quando<br>o lead está pronto.<br><span class="gradtext">Começa 4 meses antes.</span></div>
+  <div class="next-label">Próxima aula — quem é esse comprador com precisão</div>
+</div>`},
+
 ];
 
+/* ── Renderização ─────────────────────────────────────────── */
 const stage = document.getElementById('stage');
+slides.forEach(s => {
+  const el = document.createElement('div');
+  el.className = 'slide ' + s.cls;
+  el.innerHTML = s.html;
+  stage.appendChild(el);
+});
+
+const els = [...document.querySelectorAll('.slide')];
 let cur = 0;
 
-function render(s) {
-  switch(s.type) {
-    case 's-cover':
-      return `<div class="pad"><div class="cov-mod">${s.module}</div><div class="cov-rule"></div><h1>${s.title}</h1>${s.sub?`<div class="cov-sub">${s.sub}</div>`:''}</div>`;
-    case 's-data': {
-      const ns = s.num.length > 4 ? 'style="font-size:5rem;line-height:.9"' : '';
-      return `<div class="pad"><div class="dat-eye">${s.eyebrow||''}</div><div class="dat-num grad" ${ns}>${s.num}</div><div class="dat-lbl">${s.label}</div>${s.source?`<div class="dat-src">${s.source}</div>`:''} ${s.items&&s.items.length?`<ul class="dat-list">${s.items.map(i=>`<li>${i}</li>`).join('')}</ul>`:''}</div>`;
-    }
-    case 's-key':
-      return `<div class="pad">${s.eyebrow?`<div class="key-eye">${s.eyebrow}</div>`:''}<div class="key-text">${s.text}</div>${s.sub?`<div class="key-sub">${s.sub}</div>`:''}</div>`;
-    case 's-statement':
-      return `<div class="pad">${s.eyebrow?`<div class="st-eye">${s.eyebrow}</div>`:''}<h2>${s.title}</h2>${s.body?`<div class="st-body">${s.body}</div>`:''} ${s.items&&s.items.length?`<div class="st-items">${s.items.map(i=>`<div class="st-item"><span class="st-dot"></span><span>${i}</span></div>`).join('')}</div>`:''}</div>`;
-    case 's-compare':
-      return `<div class="pad">${s.title?`<div class="cmp-hd">${s.title}</div>`:''}<div class="cmp-cols"><div class="cmp-col"><div class="cmp-lbl">${s.left.label}</div><div class="cmp-ttl">${s.left.title}</div><div class="cmp-items">${s.left.items.map(i=>`<div class="cmp-it">${i}</div>`).join('')}</div></div><div class="cmp-col"><div class="cmp-lbl">${s.right.label}</div><div class="cmp-ttl">${s.right.title}</div><div class="cmp-items">${s.right.items.map(i=>`<div class="cmp-it">${i}</div>`).join('')}</div></div></div>${s.note?`<div class="cmp-note">${s.note}</div>`:''}</div>`;
-    case 's-phases':
-      return `<div class="pad"><div class="ph-ttl">${s.title}</div><div class="ph-cols">${s.phases.map((p,i)=>`<div class="ph-col"><div class="ph-n">Fase ${i+1}</div><div class="ph-nm">${p.name}</div><div class="ph-items">${p.items.map(it=>`<div class="ph-it">· ${it}</div>`).join('')}</div></div>`).join('')}</div></div>`;
-    case 's-platform':
-      return `<div class="pad">${s.title?`<div class="plt-ttl">${s.title}</div>`:''}<div class="plt-rows">${s.rows.map(r=>`<div class="plt-row"><span class="plt-ph">${r.phase}</span><div class="plt-sep"></div><div class="plt-cnt"><div class="plt-chs">${r.channels.map(c=>`<span class="plt-tag">${c}</span>`).join('')}</div><div class="plt-dsc">${r.desc}</div></div></div>`).join('')}</div></div>`;
-    case 's-insight':
-      return `<div class="pad"><h2 ${s.grad?'class="grad"':''}>${s.text}</h2>${s.note?`<div class="ins-note">${s.note}</div>`:''}</div>`;
-    default:
-      return `<div class="pad"><p>${s.type}</p></div>`;
-  }
+function show(n) {
+  cur = Math.max(0, Math.min(slides.length - 1, n));
+  els.forEach((e, i) => e.classList.toggle('active', i === cur));
+  document.getElementById('counter').textContent = `${cur + 1} / ${slides.length}`;
 }
 
-slides.forEach(s => {
-  const div = document.createElement('div');
-  div.className = 'slide ' + s.type;
-  div.innerHTML = render(s);
-  stage.appendChild(div);
-});
-
-const all = stage.querySelectorAll('.slide');
-const prevBtn = document.getElementById('prev');
-const nextBtn = document.getElementById('next');
-const counter = document.getElementById('counter');
-
-function go(n) {
-  all[cur].classList.remove('active');
-  cur = Math.max(0, Math.min(n, all.length - 1));
-  all[cur].classList.add('active');
-  prevBtn.disabled = cur === 0;
-  nextBtn.disabled = cur === all.length - 1;
-  counter.textContent = `${cur + 1} / ${all.length}`;
-}
-
-prevBtn.addEventListener('click', () => go(cur - 1));
-nextBtn.addEventListener('click', () => go(cur + 1));
-document.getElementById('fs').addEventListener('click', () => document.documentElement.requestFullscreen?.());
+document.getElementById('next').onclick = () => show(cur + 1);
+document.getElementById('prev').onclick = () => show(cur - 1);
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur + 1);
-  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur - 1);
-  if (e.key === 'f' || e.key === 'F') document.documentElement.requestFullscreen?.();
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(cur + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); show(cur - 1); }
+  if (e.key.toLowerCase() === 'f') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
 });
-
-go(0);
+show(0);
 </script>
 </body>
 </html>
