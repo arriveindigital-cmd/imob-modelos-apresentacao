@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aula 5 · Pesquisa de mercado e benchmarking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fafaf8; --text:#111111;
+  --muted:rgba(17,17,17,.46); --subtle:rgba(17,17,17,.28);
+  --border:rgba(0,0,0,.08); --surface:rgba(0,0,0,.035);
+  --grad:linear-gradient(120deg,#f97316,#e11d48 45%,#7c3aed);
+  --orange:#f97316;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;background:#e6e5e2;font-family:'Inter',system-ui,sans-serif;overflow:hidden;}
+
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+
+.slide{
+  position:absolute;
+  width:min(94vw,1280px,calc((100vh - 64px)*16/9));
+  aspect-ratio:16/9;
+  background:var(--bg);
+  border-radius:20px;overflow:hidden;
+  opacity:0;transform:scale(.97) translateY(8px);
+  transition:opacity .36s ease,transform .36s ease;
+  pointer-events:none;
+  box-shadow:0 32px 96px rgba(0,0,0,.2),0 2px 8px rgba(0,0,0,.1);
+  color:var(--text);
+}
+.slide.active{opacity:1;transform:scale(1) translateY(0);pointer-events:auto;}
+.slide::after{
+  content:'IMOB IN DIGITAL';
+  position:absolute;bottom:20px;right:26px;
+  font-size:.58rem;font-weight:700;letter-spacing:.2em;
+  color:rgba(17,17,17,.18);pointer-events:none;
+}
+
+.pad{position:absolute;inset:0;padding:6.5% 7.5%;display:flex;flex-direction:column;}
+
+.gradtext{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.rule{width:44px;height:3px;background:var(--grad);border-radius:2px;}
+
+/* ── COVER ─────────────────────────────────────── */
+.s-cover{background:radial-gradient(ellipse at 96% 96%,rgba(124,58,237,.055) 0%,transparent 45%),radial-gradient(ellipse at 4% 4%,rgba(249,115,22,.04) 0%,transparent 38%),var(--bg);}
+.s-cover .pad{justify-content:flex-end;}
+.s-cover .eyebrow{margin-bottom:auto;}
+.s-cover .rule{margin-bottom:20px;}
+.s-cover h1{font-size:4.2rem;font-weight:800;letter-spacing:-.045em;line-height:1.02;}
+
+/* ── SECTION ────────────────────────────────────── */
+.s-section{background:#111111;}
+.s-section .pad{justify-content:center;}
+.s-section .sec-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:18px;}
+.s-section .sec-rule{width:44px;height:3px;background:var(--grad);border-radius:2px;margin-bottom:24px;}
+.s-section .sec-title{font-size:3.8rem;font-weight:800;letter-spacing:-.045em;line-height:1.06;color:#fff;}
+.s-section .sec-sub{margin-top:22px;font-size:1rem;color:rgba(255,255,255,.48);max-width:68%;line-height:1.65;font-weight:400;}
+.slide.s-section::after{color:rgba(255,255,255,.12);}
+
+/* ── STATEMENT ──────────────────────────────────── */
+.s-statement .pad{justify-content:center;}
+.s-statement .slabel{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.s-statement .stmt{font-size:2.85rem;font-weight:800;letter-spacing:-.04em;line-height:1.1;max-width:90%;}
+.s-statement .items{margin-top:30px;display:flex;flex-direction:column;gap:0;}
+.s-statement .sitem{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-top:1px solid var(--border);font-size:1.05rem;font-weight:500;color:var(--text);line-height:1.45;}
+.s-statement .sitem:last-child{border-bottom:1px solid var(--border);}
+.s-statement .sitem .sn{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0;padding-top:3px;}
+.s-statement .snote{margin-top:18px;font-size:.88rem;color:var(--muted);font-style:italic;}
+
+/* ── KEY ────────────────────────────────────────── */
+.s-key .pad{justify-content:center;}
+.s-key .key-eye{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
+.s-key .key-q{font-size:3rem;font-weight:800;letter-spacing:-.04em;line-height:1.12;max-width:90%;}
+.s-key .key-sub{margin-top:26px;font-size:1rem;color:var(--muted);max-width:72%;line-height:1.65;font-weight:400;}
+
+/* ── PHASES ─────────────────────────────────────── */
+.s-phases .pad{justify-content:center;}
+.s-phases h2{font-size:1.9rem;font-weight:800;letter-spacing:-.035em;margin-bottom:28px;}
+.phases-grid{display:grid;grid-template-columns:repeat(3,1fr);}
+.phase{padding:22px 26px;}
+.phase+.phase{border-left:1px solid var(--border);}
+.ph-label{font-size:.63rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:9px;}
+.ph-name{font-size:1.6rem;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:11px;}
+.ph-desc{font-size:.9rem;color:var(--muted);line-height:1.6;}
+
+/* ── FONTES ─────────────────────────────────────── */
+.s-fontes .pad{justify-content:center;}
+.s-fontes h2{font-size:1.85rem;font-weight:800;letter-spacing:-.035em;margin-bottom:16px;}
+.fonte-list{display:flex;flex-direction:column;}
+.fonte-row{display:grid;grid-template-columns:178px 1fr;gap:0;padding:14px 0;border-top:1px solid var(--border);}
+.fonte-row:last-child{border-bottom:1px solid var(--border);}
+.fonte-tag{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding-top:2px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.fonte-foco{font-size:.86rem;font-weight:600;color:var(--text);margin-bottom:5px;line-height:1.35;}
+.fonte-insight{font-size:.78rem;color:var(--muted);font-weight:400;line-height:1.45;}
+
+/* ── LIST ───────────────────────────────────────── */
+.s-list .pad{justify-content:center;}
+.s-list .listttl{font-size:1.9rem;font-weight:800;letter-spacing:-.035em;margin-bottom:10px;}
+.s-list .ls-sub{font-size:.84rem;color:var(--muted);font-weight:400;margin-bottom:20px;line-height:1.5;}
+.s-list ol.clean{list-style:none;display:flex;flex-direction:column;}
+.s-list ol.clean li{display:flex;align-items:flex-start;gap:18px;padding:11px 0;border-top:1px solid var(--border);font-size:.96rem;font-weight:500;color:var(--text);line-height:1.4;}
+.s-list ol.clean li:last-child{border-bottom:1px solid var(--border);}
+.s-list ol.clean .n{font-size:.7rem;font-weight:800;letter-spacing:.1em;flex-shrink:0;padding-top:3px;min-width:22px;}
+.s-list .li-main{line-height:1.3;}
+.s-list .dtl{display:block;font-size:.76rem;color:var(--muted);font-weight:400;line-height:1.4;margin-top:2px;}
+
+/* ── INSIGHT ────────────────────────────────────── */
+.s-insight{background:radial-gradient(ellipse at 100% 100%,rgba(124,58,237,.06) 0%,transparent 48%),var(--bg);}
+.s-insight .pad{justify-content:center;}
+.insight-text{font-size:3.5rem;font-weight:800;letter-spacing:-.045em;line-height:1.08;}
+.next-label{margin-top:40px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;}
+.next-label::before{content:'→';color:var(--orange);font-size:.85rem;letter-spacing:0;}
+
+/* ── NAV ────────────────────────────────────────── */
+#ui{
+  position:fixed;bottom:10px;left:50%;transform:translateX(-50%);z-index:50;
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.72);border:1px solid rgba(0,0,0,.1);
+  backdrop-filter:blur(16px);padding:4px 10px;border-radius:100px;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+#ui button{background:none;border:none;font-size:.85rem;cursor:pointer;opacity:.5;padding:2px 5px;border-radius:6px;color:#111;line-height:1;}
+#ui button:hover{opacity:1;background:rgba(0,0,0,.07);}
+#counter{font-size:.62rem;color:rgba(0,0,0,.45);font-variant-numeric:tabular-nums;min-width:32px;text-align:center;font-weight:600;}
+#hint{position:fixed;top:14px;right:16px;z-index:50;font-size:.68rem;color:rgba(0,0,0,.3);letter-spacing:.04em;}
+</style>
+</head>
+<body>
+<div id="hint">← → navegar · F tela cheia</div>
+<div id="stage"></div>
+<div id="ui">
+  <button id="prev">‹</button>
+  <span id="counter">1 / 1</span>
+  <button id="next">›</button>
+</div>
+<script>
+/* ── Dados ─────────────────────────────────────── */
+const zonas = [
+  {label:'Zona 1', name:'Saturado',
+   desc:'O que todo mundo fala. "Realize o sonho da casa própria." "Atendimento personalizado." Mensagens em tal volume que deixaram de significar qualquer coisa — ruído de fundo. Competir aqui é disputar atenção já esgotada.'},
+  {label:'Zona 2', name:'Ausente',
+   desc:'O que ninguém fala. Temas, ângulos e dores do comprador completamente descobertos na comunicação do mercado. Às vezes porque exige conhecimento que os concorrentes não têm. Às vezes porque é desconfortável.'},
+  {label:'Zona 3', name:'Crescente',
+   desc:'O que aparece pouco mas gera engajamento desproporcional. Um tema emergindo, um formato diferente, uma abordagem que vai contra o padrão. Uma aposta informada — você vê o mercado se movendo antes de ser óbvio.'}
+];
+
+const fontes = [
+  {tag:'Instagram',
+   foco:'Bio · Destaques · Tipo de conteúdo · Engajamento vs. alcance',
+   insight:'O mais valioso são os comentários — dores do comprador em linguagem real, não filtradas por marketing'},
+  {tag:'Google',
+   foco:'"Corretor [bairro]" · "Comprar apartamento [cidade]" · primeiros resultados orgânicos',
+   insight:'Revela quem apostou em presença de longo prazo — e o que escolheram comunicar quando tinham a atenção de alguém que acabou de pesquisar'},
+  {tag:'Portais imobiliários',
+   foco:'ZAP · Viva Real · OLX — como estão anunciando, não o que estão anunciando',
+   insight:'Título e descrição revelam se existe copy de valor ou só lista de especificações técnicas'},
+  {tag:'Grupos e comunidades',
+   foco:'Facebook · WhatsApp · Fóruns de bairro — compradores sem intermediação de marketing',
+   insight:'O que as pessoas perguntam repetido que nenhum corretor responde no conteúdo'}
+];
+
+const dims = [
+  {title:'Posicionamento declarado — ou ausente',
+   dtl:'O que a bio diz? Especialidade clara ou genérico? A ausência de posicionamento é tão informativa quanto a presença.'},
+  {title:'Para quem ele parece estar falando',
+   dtl:'Observe o acumulado do conteúdo — não um post isolado. Primeiro imóvel, investidor, família, mudança de bairro?'},
+  {title:'O que ele repete muito',
+   dtl:'Portfólio, financiamento, experiência, estilo de vida do bairro — o que se repete é o argumento principal que ele apostou.'},
+  {title:'O que ele ignora completamente',
+   dtl:'Quais temas nunca aparecem? Quais perguntas do comprador nunca são respondidas? É onde os gaps ficam.'},
+  {title:'Tom de voz',
+   dtl:'Formal ou próximo? Técnico ou acessível? Aspiracional ou prático? Pode revelar conflito com o público que declara querer servir.'},
+  {title:'Volume versus consistência',
+   dtl:'Posta muito por 3 semanas e some por 2 meses — ou 3× por semana há 2 anos? Consistência é mais difícil e o comprador percebe a diferença.'}
+];
+
+const espacos = [
+  {title:'Espaço temático',
+   dtl:'Um tipo de conteúdo que o comprador quer e que nenhum corretor produz com consistência.'},
+  {title:'Espaço de nicho',
+   dtl:'Um perfil de comprador que existe em volume, tem dinheiro para comprar, e está sendo completamente ignorado.'},
+  {title:'Espaço de formato',
+   dtl:'Todo mundo faz conteúdo de produto e ninguém faz educativo — ou vice-versa, dependendo da praça.'}
+];
+
+/* ── Helpers ───────────────────────────────────── */
+function ph(title, data, vis) {
+  const shown = data.slice(0, vis);
+  return `<div class="pad">
+    <h2>${title}</h2>
+    <div class="phases-grid" style="grid-template-columns:repeat(${shown.length},1fr)">
+      ${shown.map(p => `<div class="phase">
+        <div class="ph-label gradtext">${p.label}</div>
+        <div class="ph-name">${p.name}</div>
+        <div class="ph-desc">${p.desc}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function fnt(title, rows, vis) {
+  const shown = rows.slice(0, vis);
+  return `<div class="pad">
+    <h2>${title}</h2>
+    <div class="fonte-list">
+      ${shown.map(r => `<div class="fonte-row">
+        <div class="fonte-tag">${r.tag}</div>
+        <div>
+          <div class="fonte-foco">${r.foco}</div>
+          <div class="fonte-insight">${r.insight}</div>
+        </div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function lst(title, sub, items, vis) {
+  const shown = items.slice(0, vis);
+  return `<div class="pad">
+    <div class="listttl">${title}</div>
+    ${sub ? `<div class="ls-sub">${sub}</div>` : ''}
+    <ol class="clean">
+      ${shown.map((it, i) => {
+        const text = typeof it === 'string' ? it : it.title;
+        const dtl = typeof it === 'object' && it.dtl ? `<span class="dtl">${it.dtl}</span>` : '';
+        const n = String(i + 1).padStart(2, '0');
+        return `<li><span class="n gradtext">${n}</span><span class="li-main">${text}${dtl}</span></li>`;
+      }).join('')}
+    </ol>
+  </div>`;
+}
+
+function sec(part, total, title, sub) {
+  return `<div class="pad">
+    <div class="sec-eye">Parte ${part} de ${total}</div>
+    <div class="sec-rule"></div>
+    <div class="sec-title">${title}</div>
+    ${sub ? `<div class="sec-sub">${sub}</div>` : ''}
+  </div>`;
+}
+
+/* ── Slides ────────────────────────────────────── */
+const slides = [
+
+/* 01 — Capa */
+{cls:'s-cover', html:`<div class="pad">
+  <div class="eyebrow">Módulo 1 · Aula 5</div>
+  <div class="rule"></div>
+  <h1>Pesquisa de<br><span class="gradtext">mercado</span> e<br>benchmarking</h1>
+</div>`},
+
+/* 02 — O jeito errado */
+{cls:'s-statement', html:`<div class="pad">
+  <div class="slabel">O jeito errado — e as duas reações erradas</div>
+  <div class="stmt">Você abre o perfil do concorrente.<br>Tem 10 mil seguidores. Viralizou.</div>
+  <div class="items">
+    <div class="sitem"><span class="sn">Reação A</span>"Isso funciona. Vou fazer igual." — você entra direto no saturado.</div>
+    <div class="sitem"><span class="sn">Reação B</span>"Ele já faz isso. Não adianta tentar." — você fica fora do jogo.</div>
+  </div>
+  <div class="snote">Benchmark mal feito não ajuda o posicionamento. Ele piora.</div>
+</div>`},
+
+/* 03 — O espaço vazio */
+{cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">O objetivo real do benchmark</div>
+  <div class="key-q">Você não está aqui para copiar o que funciona. Está aqui para encontrar o <span class="gradtext">espaço que está vazio.</span></div>
+</div>`},
+
+/* 04 — Seção 1: O mapa do mercado */
+{cls:'s-section', html: sec(1, 4, 'O mapa<br>do mercado', 'Quando você analisa os concorrentes com método, você constrói um mapa do que o mercado inteiro está comunicando.')},
+
+/* 05 — Zonas BUILD 1: saturado */
+{cls:'s-phases', html: ph('As três zonas do mercado', zonas, 1)},
+
+/* 06 — Zonas BUILD 2: + ausente */
+{cls:'s-phases', html: ph('As três zonas do mercado', zonas, 2)},
+
+/* 07 — Zonas BUILD 3: + crescente */
+{cls:'s-phases', html: ph('As três zonas do mercado', zonas, 3)},
+
+/* 08 — Insight: posicionamento no ausente/crescente */
+{cls:'s-insight', html:`<div class="pad">
+  <div class="insight-text">O posicionamento que dura é construído no <span class="gradtext">ausente</span> ou no crescente.<br>Nunca no saturado.</div>
+</div>`},
+
+/* 09 — Seção 2: Onde pesquisar */
+{cls:'s-section', html: sec(2, 4, 'Onde pesquisar<br>— com método', 'Benchmark não é uma tarde olhando o Instagram. É uma pesquisa estruturada em fontes diferentes, cada uma entregando um tipo de informação específica.')},
+
+/* 10 — Fontes BUILD 1: Instagram + Google */
+{cls:'s-fontes', html: fnt('Fontes de pesquisa', fontes, 2)},
+
+/* 11 — Key: os comentários */
+{cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">O dado mais valioso — e o mais ignorado</div>
+  <div class="key-q">Comentários são as dores do comprador em <span class="gradtext">linguagem real,</span> sem filtro de marketing.</div>
+  <div class="key-sub">Invisíveis para quem só olha para a produção dos concorrentes. Visíveis para quem está olhando para o público.</div>
+</div>`},
+
+/* 12 — Fontes BUILD 2: + Portais + Grupos */
+{cls:'s-fontes', html: fnt('Fontes de pesquisa', fontes, 4)},
+
+/* 13 — Seção 3: O que analisar */
+{cls:'s-section', html: sec(3, 4, 'O que analisar<br>em cada concorrente', 'Existem dimensões que revelam informação estratégica — e dimensões que não revelam nada além de vaidade de número.')},
+
+/* 14 — Dimensões BUILD 1: itens 1-2 */
+{cls:'s-list', html: lst('Dimensões que importam', null, dims, 2)},
+
+/* 15 — Dimensões BUILD 2: itens 1-4 */
+{cls:'s-list', html: lst('Dimensões que importam', null, dims, 4)},
+
+/* 16 — Dimensões BUILD 3: itens 1-6 */
+{cls:'s-list', html: lst('Dimensões que importam', null, dims, 6)},
+
+/* 17 — Key: o que NÃO analisar */
+{cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">O que não analisar</div>
+  <div class="key-q">Quantidade de seguidores. Likes em posts isolados. Frequência de Stories.</div>
+  <div class="key-sub">São dados de superfície. Não dizem nada sobre estratégia — só sobre vaidade de número.</div>
+</div>`},
+
+/* 18 — Seção 4: Como ler o mapa */
+{cls:'s-section', html: sec(4, 4, 'Como ler<br>o mapa', 'Depois de mapear três, quatro, cinco concorrentes — você tem material suficiente para uma análise de verdade.')},
+
+/* 19 — Key: a pergunta que organiza tudo */
+{cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">A pergunta que organiza tudo</div>
+  <div class="key-q"><span class="gradtext">Qual dor do meu comprador ideal não está sendo endereçada por ninguém?</span></div>
+  <div class="key-sub">Não é "o que meus concorrentes fazem mal." É o que está completamente ausente da conversa, que o comprador quer ouvir e que nenhuma voz está respondendo.</div>
+</div>`},
+
+/* 20 — Espaços BUILD 1: temático */
+{cls:'s-list', html: lst('Três tipos de espaço', 'Quando a resposta é "ninguém está falando sobre isso" — esse é o espaço.', espacos, 1)},
+
+/* 21 — Espaços BUILD 2: + nicho */
+{cls:'s-list', html: lst('Três tipos de espaço', 'Quando a resposta é "ninguém está falando sobre isso" — esse é o espaço.', espacos, 2)},
+
+/* 22 — Espaços BUILD 3: + formato */
+{cls:'s-list', html: lst('Três tipos de espaço', 'Quando a resposta é "ninguém está falando sobre isso" — esse é o espaço.', espacos, 3)},
+
+/* 23 — Statement: as três peças */
+{cls:'s-statement', html:`<div class="pad">
+  <div class="slabel">As três peças que constroem o posicionamento</div>
+  <div class="stmt">Com essas três peças, o posicionamento não é criatividade. É lógica.</div>
+  <div class="items">
+    <div class="sitem"><span class="sn">Peça 1</span>O que você vende — negócio, especialidade, diferenciais reais</div>
+    <div class="sitem"><span class="sn">Peça 2</span>Com quem está falando — ICP, gatilho, dores, nível de consciência</div>
+    <div class="sitem"><span class="sn">Peça 3</span>O que o mercado não está comunicando — a lacuna que existe</div>
+  </div>
+  <div class="snote">É uma resposta lógica a uma lacuna que o seu negócio tem condição real de preencher.</div>
+</div>`},
+
+/* 24 — Insight: fechamento */
+{cls:'s-insight', html:`<div class="pad">
+  <div class="insight-text">É isso que o próximo módulo<br>vai <span class="gradtext">construir.</span></div>
+  <div class="next-label">Módulo 2 — Posicionamento</div>
+</div>`},
+
+];
+
+/* ── Engine ────────────────────────────────────── */
+let cur = 0;
+const stage = document.getElementById('stage');
+const counter = document.getElementById('counter');
+
+slides.forEach((s, i) => {
+  const el = document.createElement('div');
+  el.className = 'slide ' + s.cls;
+  el.innerHTML = s.html;
+  el.dataset.i = i;
+  stage.appendChild(el);
+});
+
+function go(n) {
+  const els = stage.querySelectorAll('.slide');
+  if (n < 0 || n >= els.length) return;
+  els[cur].classList.remove('active');
+  cur = n;
+  els[cur].classList.add('active');
+  counter.textContent = (cur + 1) + ' / ' + els.length;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(cur + 1);
+  if (e.key === 'ArrowLeft') go(cur - 1);
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+document.getElementById('next').onclick = () => go(cur + 1);
+document.getElementById('prev').onclick = () => go(cur - 1);
+
+go(0);
+</script>
+</body>
+</html>
