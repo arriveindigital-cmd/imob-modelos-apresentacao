@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aula 6 · Construindo seu posicionamento digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fafaf8; --text:#111111;
+  --muted:rgba(17,17,17,.46); --subtle:rgba(17,17,17,.28);
+  --border:rgba(0,0,0,.08); --surface:rgba(0,0,0,.035);
+  --grad:linear-gradient(120deg,#f97316,#e11d48 45%,#7c3aed);
+  --orange:#f97316;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;background:#e6e5e2;font-family:'Inter',system-ui,sans-serif;overflow:hidden;}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+.slide{
+  position:absolute;
+  width:min(94vw,1280px,calc((100vh - 64px)*16/9));
+  aspect-ratio:16/9;background:var(--bg);border-radius:20px;overflow:hidden;
+  opacity:0;transform:scale(.97) translateY(8px);
+  transition:opacity .36s ease,transform .36s ease;
+  pointer-events:none;box-shadow:0 32px 96px rgba(0,0,0,.2),0 2px 8px rgba(0,0,0,.1);color:var(--text);
+}
+.slide.active{opacity:1;transform:scale(1) translateY(0);pointer-events:auto;}
+.slide::after{content:'IMOB IN DIGITAL';position:absolute;bottom:20px;right:26px;font-size:.58rem;font-weight:700;letter-spacing:.2em;color:rgba(17,17,17,.18);pointer-events:none;}
+.pad{position:absolute;inset:0;padding:6.5% 7.5%;display:flex;flex-direction:column;}
+.gradtext{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.rule{width:44px;height:3px;background:var(--grad);border-radius:2px;}
+
+/* ── COVER */
+.s-cover{background:radial-gradient(ellipse at 96% 96%,rgba(124,58,237,.055) 0%,transparent 45%),radial-gradient(ellipse at 4% 4%,rgba(249,115,22,.04) 0%,transparent 38%),var(--bg);}
+.s-cover .pad{justify-content:flex-end;}
+.s-cover .eyebrow{margin-bottom:auto;}
+.s-cover .rule{margin-bottom:20px;}
+.s-cover h1{font-size:4.2rem;font-weight:800;letter-spacing:-.045em;line-height:1.02;}
+
+/* ── SECTION */
+.s-section{background:#111111;}
+.s-section .pad{justify-content:center;}
+.s-section .sec-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:18px;}
+.s-section .sec-rule{width:44px;height:3px;background:var(--grad);border-radius:2px;margin-bottom:24px;}
+.s-section .sec-title{font-size:3.6rem;font-weight:800;letter-spacing:-.045em;line-height:1.06;color:#fff;}
+.s-section .sec-sub{margin-top:22px;font-size:1rem;color:rgba(255,255,255,.48);max-width:68%;line-height:1.65;font-weight:400;}
+.slide.s-section::after{color:rgba(255,255,255,.12);}
+
+/* ── STATEMENT */
+.s-statement .pad{justify-content:center;}
+.s-statement .slabel{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.s-statement .stmt{font-size:2.7rem;font-weight:800;letter-spacing:-.04em;line-height:1.1;max-width:90%;}
+.s-statement .items{margin-top:26px;display:flex;flex-direction:column;}
+.s-statement .sitem{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid var(--border);font-size:1rem;font-weight:500;color:var(--text);line-height:1.45;}
+.s-statement .sitem:last-child{border-bottom:1px solid var(--border);}
+.s-statement .sitem .sn{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0;padding-top:3px;min-width:40px;}
+.s-statement .snote{margin-top:16px;font-size:.88rem;color:var(--muted);line-height:1.65;}
+
+/* ── KEY */
+.s-key .pad{justify-content:center;}
+.s-key .key-eye{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
+.s-key .key-q{font-size:3rem;font-weight:800;letter-spacing:-.04em;line-height:1.12;max-width:90%;}
+.s-key .key-sub{margin-top:26px;font-size:1rem;color:var(--muted);max-width:74%;line-height:1.65;font-weight:400;}
+
+/* ── COMPARE */
+.s-compare .pad{justify-content:center;}
+.s-compare h2{font-size:1.8rem;font-weight:800;letter-spacing:-.035em;margin-bottom:20px;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.compare-grid.three{grid-template-columns:1fr 1fr 1fr;}
+.ccol{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 24px;}
+.ccol .ctitle{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.ccol ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.ccol ul li{font-size:.96rem;font-weight:500;display:flex;align-items:flex-start;gap:10px;line-height:1.38;}
+.ccol ul li::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0;background:rgba(0,0,0,.2);margin-top:6px;}
+.ccol.strong{border-color:rgba(249,115,22,.25);}
+.ccol.strong ul li::before{background:var(--orange);}
+.ccol ul li em{font-style:italic;color:var(--muted);font-size:.88rem;}
+.cmp-note{margin-top:14px;font-size:.86rem;color:var(--muted);font-style:italic;text-align:center;}
+
+/* ── PHASES */
+.s-phases .pad{justify-content:center;}
+.s-phases h2{font-size:1.8rem;font-weight:800;letter-spacing:-.035em;margin-bottom:26px;}
+.phases-grid{display:grid;grid-template-columns:repeat(3,1fr);}
+.phase{padding:20px 24px;}
+.phase+.phase{border-left:1px solid var(--border);}
+.ph-label{font-size:.63rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:9px;}
+.ph-name{font-size:1.5rem;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:10px;}
+.ph-desc{font-size:.87rem;color:var(--muted);line-height:1.6;}
+
+/* ── LIST */
+.s-list .pad{justify-content:center;}
+.s-list .listttl{font-size:1.8rem;font-weight:800;letter-spacing:-.035em;margin-bottom:8px;}
+.s-list .ls-sub{font-size:.82rem;color:var(--muted);font-weight:400;margin-bottom:18px;line-height:1.5;}
+.s-list ol.clean{list-style:none;display:flex;flex-direction:column;}
+.s-list ol.clean li{display:flex;align-items:flex-start;gap:16px;padding:10px 0;border-top:1px solid var(--border);font-size:.92rem;font-weight:500;color:var(--text);line-height:1.4;}
+.s-list ol.clean li:last-child{border-bottom:1px solid var(--border);}
+.s-list ol.clean .n{font-size:.68rem;font-weight:800;letter-spacing:.1em;flex-shrink:0;padding-top:3px;min-width:22px;}
+.s-list .li-main{line-height:1.3;}
+.s-list .dtl{display:block;font-size:.74rem;color:var(--muted);font-weight:400;line-height:1.4;margin-top:2px;}
+
+/* ── INSIGHT */
+.s-insight{background:radial-gradient(ellipse at 100% 100%,rgba(124,58,237,.06) 0%,transparent 48%),var(--bg);}
+.s-insight .pad{justify-content:center;}
+.insight-text{font-size:3.4rem;font-weight:800;letter-spacing:-.045em;line-height:1.08;max-width:88%;}
+.next-label{margin-top:40px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;}
+.next-label::before{content:'→';color:var(--orange);font-size:.85rem;letter-spacing:0;}
+
+/* ── CASA DE MENSAGENS */
+.s-casa .pad{justify-content:center;}
+.s-casa h2{font-size:1.7rem;font-weight:800;letter-spacing:-.035em;margin-bottom:14px;}
+.casa-central{background:linear-gradient(135deg,rgba(249,115,22,.07),rgba(225,29,72,.05),rgba(124,58,237,.07));border:1.5px solid rgba(124,58,237,.18);border-radius:14px;padding:14px 22px;margin-bottom:10px;}
+.casa-central-lbl{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.casa-central-msg{font-size:1.3rem;font-weight:700;color:var(--text);}
+.casa-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.casa-pillar{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 18px;}
+.casa-pillar-n{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:5px;}
+.casa-pillar-name{font-size:.92rem;font-weight:700;margin-bottom:8px;color:var(--text);}
+.casa-proof{font-size:.71rem;color:var(--muted);line-height:1.45;display:flex;gap:6px;margin-top:4px;}
+.casa-proof::before{content:'›';color:var(--orange);font-weight:800;flex-shrink:0;}
+
+/* ── NAV */
+#ui{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.72);border:1px solid rgba(0,0,0,.1);backdrop-filter:blur(16px);padding:4px 10px;border-radius:100px;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+#ui button{background:none;border:none;font-size:.85rem;cursor:pointer;opacity:.5;padding:2px 5px;border-radius:6px;color:#111;line-height:1;}
+#ui button:hover{opacity:1;background:rgba(0,0,0,.07);}
+#counter{font-size:.62rem;color:rgba(0,0,0,.45);font-variant-numeric:tabular-nums;min-width:32px;text-align:center;font-weight:600;}
+#hint{position:fixed;top:14px;right:16px;z-index:50;font-size:.68rem;color:rgba(0,0,0,.3);letter-spacing:.04em;}
+</style>
+</head>
+<body>
+<div id="hint">← → navegar · F tela cheia</div>
+<div id="stage"></div>
+<div id="ui">
+  <button id="prev">‹</button>
+  <span id="counter">1 / 1</span>
+  <button id="next">›</button>
+</div>
+<script>
+/* ── Dados ──────────────────────────────────────── */
+const confusoes = [
+  {title:'Posicionamento não é nicho',
+   dtl:'Nicho é o território — o segmento que você escolheu. Posicionamento é o que você planta nesse território: por que você é a escolha certa dentro desse nicho.'},
+  {title:'Posicionamento não é tagline',
+   dtl:'"Seu imóvel, minha missão." A tagline é o envelope. O posicionamento é o conteúdo — você pode ter tagline linda sem nenhuma decisão estratégica real por trás.'},
+  {title:'Posicionamento não é a bio do Instagram',
+   dtl:'A bio é o posicionamento comprimido em 150 caracteres. Não é o posicionamento em si. A próxima aula cuida da bio. Essa cuida do que faz ela ter substância.'},
+  {title:'Posicionamento não é uma declaração estática',
+   dtl:'Você não cria posicionamento. Você o constrói por acumulação de sinais ao longo do tempo. A declaração orienta a direção — a consistência constrói o destino.'}
+];
+
+const elementos = [
+  {title:'Para quem, especificamente',
+   dtl:'O ICP com situação de vida, gatilho e nível de consciência. Especificidade não é limitação — é alavancagem.'},
+  {title:'Em que categoria você compete',
+   dtl:'O frame que define contra quem você é comparado — e onde você consegue ser relevante e diferente ao mesmo tempo.'},
+  {title:'Qual é o atributo único',
+   dtl:'O que só você faz nessa categoria para esse público — o mais difícil de copiar, mais valioso para o ICP, mais ausente na comunicação dos concorrentes.'},
+  {title:'Em relação a quais alternativas',
+   dtl:'O que o comprador usaria se você não existisse. A concorrência real muitas vezes não é outro corretor.'},
+  {title:'Qual é a prova',
+   dtl:'Posicionamento sem prova é promessa. Resultado concreto, processo transparente ou depoimento específico — não vago.'}
+];
+
+const criteriosAtrib = [
+  {label:'Critério 1', name:'Difícil de copiar',
+   desc:'Não é "atendimento diferenciado" — qualquer um pode declarar isso. É algo que exige acesso, processo ou conhecimento construído que o concorrente não consegue replicar do dia para a noite.'},
+  {label:'Critério 2', name:'Valioso para o ICP',
+   desc:'Precisa resolver uma dor real do comprador ideal — não uma dor que você acha que ele tem, mas a dor que o move, que o trava, que determina se ele avança ou para.'},
+  {label:'Critério 3', name:'Ausente na comunicação',
+   desc:'Mesmo que o concorrente faça algo similar, se ele não comunica — para você, é como se não existisse. O que não é comunicado com consistência não ocupa espaço na cabeça do comprador.'}
+];
+
+const pilares = [
+  {label:'Pilar 1', name:'Análise antes da decisão',
+   desc:'Histórico de valorização do bairro, estimativa de renda e custo de oportunidade antes de qualquer visita. O comprador decide com dados, não com foto.'},
+  {label:'Pilar 2', name:'Acesso antecipado',
+   desc:'Relacionamento direto com incorporadoras — unidades antes da abertura pública de tabela, às vezes com condições que desaparecem no lançamento.'},
+  {label:'Pilar 3', name:'Processo sem lacuna',
+   desc:'Do financiamento ao registro, e gestora de aluguel parceira para renda imediata. O comprador não precisa resolver nada sozinho depois que fecha.'}
+];
+
+const posturas = [
+  {label:'Postura A', name:'Especialista que educa',
+   desc:'Produz conteúdo com profundidade real — não superficial. Ensina o que o comprador precisa saber antes de decidir. Exige domínio acima da média.'},
+  {label:'Postura B', name:'Parceiro que acompanha',
+   desc:'Bastidores, processo, presença ao longo de toda a jornada. Mostra que está do lado do comprador antes, durante e depois — não só na hora da venda.'},
+  {label:'Postura C', name:'Analista que entrega dados',
+   desc:'Aparece com números, comparações, rentabilidade, histórico. Lógica antes de emoção. O comprador confia porque você pensa como ele pensa.'},
+  {label:'Postura D', name:'Guia que simplifica',
+   desc:'Transforma o complexo em acessível. O processo assustador vira algo gerenciável. Ideal para público de primeira compra ou qualquer um que sente que não sabe o suficiente.'}
+];
+
+const tomDims = [
+  {title:'Como você fala',
+   dtl:'Formal ou próximo? Técnico ou acessível? Direto ou narrativo? Depende do ICP — não do que você acha mais profissional.'},
+  {title:'O que você nunca diz',
+   dtl:'O vocabulário proibido é tão importante quanto o padrão. Inconsistência no vocabulário faz o comprador não saber quem você é.'},
+  {title:'Que referências você usa',
+   dtl:'Analogias e comparações do universo do comprador. Referência errada sinaliza que você não o conhece de verdade.'},
+  {title:'Qual é a sua postura',
+   dtl:'Especialista? Parceiro? Analista? Guia? Precisa estar alinhada com o que você realmente entrega — não com o que soa mais impressionante.'}
+];
+
+const mudancas = [
+  'O que você posta — conteúdo orientado pelos pilares, não por intuição ou imitação',
+  'O que você não posta — posicionamento como filtro de rejeição, não só como guia de criação',
+  'Como você abre conversa — WhatsApp e visita como extensão natural do posicionamento que trouxe o lead',
+  'O que o mercado pensa sobre você — associação construída post a post até existir sem você estar presente'
+];
+
+/* ── Helpers ────────────────────────────────────── */
+function lst(title, sub, items, vis) {
+  const shown = items.slice(0, vis);
+  return `<div class="pad">
+    <div class="listttl">${title}</div>
+    ${sub ? `<div class="ls-sub">${sub}</div>` : ''}
+    <ol class="clean">
+      ${shown.map((it, i) => {
+        const text = typeof it === 'string' ? it : it.title;
+        const dtl = typeof it === 'object' && it.dtl ? `<span class="dtl">${it.dtl}</span>` : '';
+        const n = String(i + 1).padStart(2, '0');
+        return `<li><span class="n gradtext">${n}</span><span class="li-main">${text}${dtl}</span></li>`;
+      }).join('')}
+    </ol>
+  </div>`;
+}
+
+function ph(title, data, vis) {
+  const shown = data.slice(0, vis);
+  return `<div class="pad">
+    <h2>${title}</h2>
+    <div class="phases-grid" style="grid-template-columns:repeat(${shown.length},1fr)">
+      ${shown.map(p => `<div class="phase">
+        <div class="ph-label gradtext">${p.label}</div>
+        <div class="ph-name">${p.name}</div>
+        <div class="ph-desc">${p.desc}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function sec(part, total, title, sub) {
+  return `<div class="pad">
+    <div class="sec-eye">Parte ${part} de ${total}</div>
+    <div class="sec-rule"></div>
+    <div class="sec-title">${title}</div>
+    ${sub ? `<div class="sec-sub">${sub}</div>` : ''}
+  </div>`;
+}
+
+/* ── Slides ─────────────────────────────────────── */
+const slides = [
+
+/* ── INTRO ── */
+
+/* 01 */ {cls:'s-cover', html:`<div class="pad">
+  <div class="eyebrow">Módulo 2 · Aula 6</div>
+  <div class="rule"></div>
+  <h1>Construindo<br>seu <span class="gradtext">posicionamento</span><br>digital</h1>
+</div>`},
+
+/* 02 */ {cls:'s-statement', html:`<div class="pad">
+  <div class="slabel">O que o Módulo 1 construiu — o que isso tudo existe para fazer</div>
+  <div class="stmt">Esse trabalho todo existe<br>para chegar aqui.</div>
+  <div class="items">
+    <div class="sitem"><span class="sn">Peça 1</span>Clareza sobre o que você vende — negócio, especialidade, diferenciais reais</div>
+    <div class="sitem"><span class="sn">Peça 2</span>Clareza sobre quem é o seu comprador — ICP, gatilho, dores, nível de consciência</div>
+    <div class="sitem"><span class="sn">Peça 3</span>Clareza sobre o que o mercado não está comunicando — o espaço vazio</div>
+  </div>
+</div>`},
+
+/* 03 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Posicionamento</div>
+  <div class="key-q">A decisão estratégica de <span class="gradtext">onde você vai ocupar espaço</span> na cabeça do comprador.</div>
+  <div class="key-sub">Tudo que vem depois — conteúdo, anúncio, bio, conversa no WhatsApp — é execução dessa decisão. Quando a decisão é clara, a execução fica fácil. Quando é vaga, você refaz a mesma escolha toda vez que abre o celular para criar alguma coisa.</div>
+</div>`},
+
+/* ── PARTE 1: O QUE NÃO É ── */
+
+/* 04 */ {cls:'s-section', html: sec(1, 5, 'O que posicionamento<br>não é', 'Antes de construir, precisamos desfazer as confusões que aparecem quase sempre — e que, se não forem desfeitas, sabotam o trabalho antes de ele começar.')},
+
+/* 05 */ {cls:'s-compare', html:`<div class="pad">
+  <h2>Confusão 1 — Posicionamento não é nicho</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Nicho — o território</div>
+      <ul>
+        <li>"Apartamentos compactos para investimento na Zona Sul de SP"</li>
+        <li>Define o que você vende e para onde</li>
+        <li>Dois corretores podem ter exatamente o mesmo nicho</li>
+        <li>Não diz por que você é a escolha certa dentro desse nicho</li>
+        <li>Não ajuda em nenhuma decisão de comunicação</li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Posicionamento — o que você planta</div>
+      <ul>
+        <li>"O corretor que entrega análise de rentabilidade antes de qualquer visita"</li>
+        <li>Define por que você, não só onde você atua</li>
+        <li>Impossível de ter dois iguais — depende do que você realmente entrega</li>
+        <li>Torna você a resposta lógica — não mais uma opção</li>
+        <li>Orienta cada decisão de comunicação: o que criar, o que dizer, como dizer</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmp-note">Nicho é o território. Posicionamento é o que você planta nesse território.</div>
+</div>`},
+
+/* 06 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Confusão 2 — A tagline</div>
+  <div class="key-q">"Seu imóvel, minha missão." — A tagline é o <span class="gradtext">envelope.</span> O posicionamento é o conteúdo.</div>
+  <div class="key-sub">Você pode ter uma tagline linda que não comunica nenhuma decisão estratégica real. É exatamente isso que a maioria das taglines de corretor faz. A tagline é uma expressão do posicionamento — não é o posicionamento.</div>
+</div>`},
+
+/* 07 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Confusão 3 — A bio do Instagram</div>
+  <div class="key-q">A bio é o posicionamento em <span class="gradtext">150 caracteres</span> — não é o posicionamento em si.</div>
+  <div class="key-sub">A bio é um dos lugares onde o posicionamento aparece. Mas o posicionamento existe antes dela, orienta o que vai ser escrito nela, e determina se o que vai ser escrito nela vai funcionar ou não. A próxima aula vai cuidar da bio. Essa aula cuida do que faz a bio ter substância.</div>
+</div>`},
+
+/* 08 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Confusão 4 — A declaração que se declara e pronto</div>
+  <div class="key-q">Você não <span class="gradtext">cria</span> posicionamento. Você o <span class="gradtext">constrói.</span></div>
+  <div class="key-sub">A declaração que você vai sair dessa aula com é o ponto de partida — a decisão sobre onde você quer chegar. O posicionamento real, o que existe na mente do comprador, é construído post a post, conversa a conversa, resultado a resultado. A declaração orienta a direção. A consistência constrói o destino.</div>
+</div>`},
+
+/* 09 */ {cls:'s-list', html: lst('As quatro confusões — resumo', null, confusoes, 4)},
+
+/* ── PARTE 2: OS 5 ELEMENTOS ── */
+
+/* 10 */ {cls:'s-section', html: sec(2, 5, 'Os cinco elementos<br>do posicionamento', 'Cinco perguntas que, respondidas em sequência, produzem uma decisão estratégica real — não uma teoria de marketing, mas uma arquitetura construível.')},
+
+/* 11 */ {cls:'s-list', html: lst('Os cinco elementos', null, elementos, 1)},
+
+/* 12 */ {cls:'s-compare', html:`<div class="pad">
+  <h2>Elemento 1 — Para quem: o mesmo perfil não é o mesmo comprador</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">38 anos · R$15 mil · São Paulo · Casado — Momento A</div>
+      <ul>
+        <li>Passou 3 meses pesquisando portais</li>
+        <li>Já sabe o bairro, já fez a simulação de financiamento</li>
+        <li>Pronto para visitar — precisa de um argumento final</li>
+        <li><em>Estado: decisão tomada, faltando execução</em></li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">38 anos · R$15 mil · São Paulo · Casado — Momento B</div>
+      <ul>
+        <li>Acabou de ter filho há 2 semanas</li>
+        <li>Percebeu que o apartamento de dois quartos não vai funcionar</li>
+        <li>Ainda não abriu o ZAP — está em choque emocional</li>
+        <li><em>Estado: urgência alta, clareza zero</em></li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmp-note">O mesmo perfil demográfico. A mesma renda. Argumentos, urgências, medos e necessidades completamente diferentes.</div>
+</div>`},
+
+/* 13 */ {cls:'s-list', html: lst('Os cinco elementos', null, elementos, 2)},
+
+/* 14 */ {cls:'s-compare', html:`<div class="pad">
+  <h2>Elemento 2 — Categoria: o que você escolhe define contra quem você compete</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Categoria ampla — "Corretor de imóveis"</div>
+      <ul>
+        <li>Compete com todos os corretores da cidade</li>
+        <li>Para o comprador, é mais um entre centenas</li>
+        <li>Diferenciação depende de volume — quem aparece mais</li>
+        <li>Preço e conveniência viram critérios de escolha</li>
+        <li>Difícil construir argumento diferenciado</li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Categoria específica — "Especialista em primeiro imóvel"</div>
+      <ul>
+        <li>Compete com um grupo muito menor de corretores</li>
+        <li>Para o comprador certo, é a resposta óbvia</li>
+        <li>Diferenciação vem do posicionamento — não do volume</li>
+        <li>Atrai o público certo e filtra o errado naturalmente</li>
+        <li>Clareza de argumento em todo canal de comunicação</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmp-note">Escolher a categoria certa não é decisão de marketing. É decisão estratégica sobre onde você consegue ser relevante e diferente ao mesmo tempo.</div>
+</div>`},
+
+/* 15 */ {cls:'s-list', html: lst('Os cinco elementos', null, elementos, 3)},
+
+/* 16 */ {cls:'s-phases', html: ph('Elemento 3 — Os três critérios do atributo único', criteriosAtrib, 3)},
+
+/* 17 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Elemento 3 — O coração do posicionamento</div>
+  <div class="key-q">Quando você encontra o diferencial que satisfaz <span class="gradtext">as três condições simultaneamente,</span> você encontrou o coração do posicionamento.</div>
+  <div class="key-sub">Difícil de copiar + valioso para o ICP + ausente na comunicação dos concorrentes.<br>Qualquer diferencial que não satisfaça as três perde força em pelo menos uma dimensão crítica.</div>
+</div>`},
+
+/* 18 */ {cls:'s-list', html: lst('Os cinco elementos', null, elementos, 4)},
+
+/* 19 */ {cls:'s-compare', html:`<div class="pad">
+  <h2>Elemento 4 — A concorrência real raramente é quem você pensa</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Corretor de imóvel para investimento</div>
+      <ul>
+        <li><em>Concorrência percebida:</em> outros corretores da Zona Sul</li>
+        <li><em>Concorrência real:</em> FII, Renda Fixa, COE, LCI/LCA</li>
+        <li>O comprador está escolhendo entre <strong>formas de alocar capital</strong></li>
+        <li>Argumento muda completamente: não é "me escolha em vez do outro corretor" — é "imóvel vs. renda fixa: os números"</li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Corretor de primeiro imóvel</div>
+      <ul>
+        <li><em>Concorrência percebida:</em> outras imobiliárias da cidade</li>
+        <li><em>Concorrência real:</em> a inércia — continuar pagando aluguel, adiar a decisão</li>
+        <li>O comprador está escolhendo entre <strong>mudar ou não mudar</strong></li>
+        <li>Argumento muda: não é "me escolha em vez de outro corretor" — é "saia do aluguel com segurança, sem precisar entender tudo sozinho"</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmp-note">Definir contra o quê você se posiciona é tão importante quanto definir o que você oferece.</div>
+</div>`},
+
+/* 20 */ {cls:'s-list', html: lst('Os cinco elementos', null, elementos, 5)},
+
+/* 21 */ {cls:'s-compare', html:`<div class="pad">
+  <h2>Elemento 5 — Promessa vs. Prova: a diferença que convence</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Promessa — o que todo mundo diz</div>
+      <ul>
+        <li>"Atendimento diferenciado e personalizado"</li>
+        <li>"Anos de experiência no mercado imobiliário"</li>
+        <li>"Meu foco total é no sucesso do meu cliente"</li>
+        <li>"Aqui você encontra as melhores opções"</li>
+        <li><em>O comprador já ouviu todas essas frases — e não acredita em nenhuma delas</em></li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Prova — o que convence de verdade</div>
+      <ul>
+        <li>"7 de cada 10 clientes que receberam a análise de rentabilidade fecharam nos 60 dias seguintes"</li>
+        <li>"Nos últimos 12 meses, 100% dos meus clientes encontraram inquilino em menos de 45 dias"</li>
+        <li>"João me mostrou os números antes de visitar qualquer imóvel. Quando fui à primeira visita, já sabia exatamente o que estava comprando." — Marco A.</li>
+        <li><em>Prova pode ser verificada, compartilhada e lembrada</em></li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmp-note">No mercado imobiliário, onde a desconfiança do comprador é estrutural, promessa não convence. Prova convence.</div>
+</div>`},
+
+/* ── PARTE 3: DECLARAÇÃO + CASA ── */
+
+/* 22 */ {cls:'s-section', html: sec(3, 5, 'A declaração e<br>a casa de mensagens', 'Com os cinco elementos respondidos, você tem matéria-prima para construir a bússola que vai orientar cada decisão de comunicação — e a arquitetura que a torna executável.')},
+
+/* 23 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">A estrutura da declaração de posicionamento</div>
+  <div class="key-q" style="font-size:2.2rem;line-height:1.22">Para <span class="gradtext">[público específico]</span>, [sua marca] é o [categoria] que <span class="gradtext">[atributo único].</span> Diferente de [alternativa], [razão para acreditar].</div>
+  <div class="key-sub">Cinco elementos em uma frase. Não é tagline — nunca vai aparecer assim para o público. É a âncora interna que você consulta antes de qualquer decisão de comunicação.</div>
+</div>`},
+
+/* 24 */ {cls:'s-statement', html:`<div class="pad">
+  <div class="slabel">A declaração preenchida — exemplo real</div>
+  <div class="stmt">"Para investidores da Zona Sul de SP<br>que querem renda passiva."</div>
+  <div class="snote" style="font-style:normal;color:var(--text);font-size:.98rem;line-height:1.75;margin-top:20px">João Ferreira é o corretor que entrega análise de rentabilidade antes de qualquer visita. Diferente de corretores que mostram foto e metro quadrado, João mostra os números primeiro — porque comprador que entende os dados toma decisão mais rápida e fica mais satisfeito depois.</div>
+</div>`},
+
+/* 25 */ {cls:'s-compare', html:`<div class="pad">
+  <h2>Declaração fraca vs. Declaração com os cinco elementos</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Declaração fraca — o que a maioria teria</div>
+      <ul>
+        <li>"Corretor comprometido com o sonho do cliente"</li>
+        <li>Não diz para quem</li>
+        <li>Categoria genérica: "corretor"</li>
+        <li>Nenhum atributo único verificável</li>
+        <li>Nenhuma alternativa nomeada</li>
+        <li>Nenhuma prova — só promessa vaga</li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Declaração com os cinco elementos</div>
+      <ul>
+        <li>Para: investidores da Zona Sul que querem renda passiva</li>
+        <li>Categoria: o corretor de investimento compacto</li>
+        <li>Atributo: entrega análise de rentabilidade antes de qualquer visita</li>
+        <li>Alternativa: corretores que mostram foto e metro quadrado</li>
+        <li>Prova: comprador que entende os dados decide mais rápido e fica mais satisfeito</li>
+      </ul>
+    </div>
+  </div>
+</div>`},
+
+/* 26 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Como usar a declaração</div>
+  <div class="key-q">Se a decisão de comunicação <span class="gradtext">reforça</span> essa frase — está alinhada. Se contradiz — está desviando do posicionamento.</div>
+  <div class="key-sub">Não é o que você publica. É o que você consulta antes de publicar. O teste de alinhamento: esse post reforça o meu atributo único para o meu ICP? Esse anúncio fala com o público que eu defini? Essa resposta de WhatsApp é extensão do posicionamento que trouxe esse lead?</div>
+</div>`},
+
+/* 27 */ {cls:'s-casa', html:`<div class="pad">
+  <h2>A casa de mensagens — a arquitetura que torna o posicionamento executável</h2>
+  <div class="casa-central">
+    <div class="casa-central-lbl">Nível 1 — Mensagem central</div>
+    <div class="casa-central-msg">"Você entende o investimento antes de visitar qualquer imóvel."</div>
+  </div>
+  <div class="casa-pillars">
+    <div class="casa-pillar">
+      <div class="casa-pillar-n gradtext">Pilar 1 — Nível 2</div>
+      <div class="casa-pillar-name">Análise antes da decisão</div>
+      <div class="casa-proof">Histórico de valorização + estimativa de renda antes de qualquer visita</div>
+      <div class="casa-proof">Em 6 meses: 7 de cada 10 que receberam a análise fecharam</div>
+    </div>
+    <div class="casa-pillar">
+      <div class="casa-pillar-n gradtext">Pilar 2 — Nível 2</div>
+      <div class="casa-pillar-name">Acesso antecipado</div>
+      <div class="casa-proof">Unidades antes da abertura pública de tabela</div>
+      <div class="casa-proof">Condições que desaparecem quando o lançamento abre para o mercado geral</div>
+    </div>
+    <div class="casa-pillar">
+      <div class="casa-pillar-n gradtext">Pilar 3 — Nível 2</div>
+      <div class="casa-pillar-name">Processo sem lacuna</div>
+      <div class="casa-proof">Do financiamento ao registro — sem o cliente precisar resolver nada</div>
+      <div class="casa-proof">Gestora de aluguel parceira para renda imediata após a entrega</div>
+    </div>
+  </div>
+</div>`},
+
+/* 28 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Nível 1 — Mensagem central</div>
+  <div class="key-q">A promessa mais importante em <span class="gradtext">uma frase.</span></div>
+  <div class="key-sub">Não a declaração completa — a síntese dela. O que precisa se repetir em formatos diferentes, ângulos diferentes, contextos diferentes — até que vire a primeira coisa que vem à mente quando seu nome aparece.<br><br><em style="color:var(--text);font-size:1.05rem;font-weight:600">"Você entende o investimento antes de visitar qualquer imóvel."</em></div>
+</div>`},
+
+/* 29 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Nível 2 — Por que três pilares</div>
+  <div class="key-q">Três porque esse número <span class="gradtext">não é arbitrário.</span></div>
+  <div class="key-sub">Com um pilar, o conteúdo esgota rápido e fica monótono. Com cinco ou seis, a mensagem dilui — você perde foco e o comprador não sabe o que você quer que ele associe ao seu nome. Três permite variedade sem dispersão — você consegue alternar entre eles sem sair do posicionamento.</div>
+</div>`},
+
+/* 30 */ {cls:'s-phases', html: ph('Nível 2 — Os três pilares do João', pilares, 3)},
+
+/* 31 */ {cls:'s-compare', html:`<div class="pad">
+  <h2>O que cada pilar gera — território de conteúdo e prova</h2>
+  <div class="compare-grid three">
+    <div class="ccol">
+      <div class="ctitle">Pilar 1 — Análise antes da decisão</div>
+      <ul>
+        <li>Reel: "como eu analiso um bairro antes de recomendar"</li>
+        <li>Carrossel: histórico de valorização do bairro X nos últimos 5 anos</li>
+        <li>Post: comparação entre rendimento do imóvel e renda fixa no mesmo período</li>
+        <li><em>Prova: "7 de cada 10 que receberam a análise fecharam"</em></li>
+      </ul>
+    </div>
+    <div class="ccol">
+      <div class="ctitle">Pilar 2 — Acesso antecipado</div>
+      <ul>
+        <li>Stories: bastidores de visita exclusiva antes do lançamento</li>
+        <li>Reel: "o que acontece quando o lançamento abre para o público geral"</li>
+        <li>Post: caso real de cliente que entrou antes da tabela pública</li>
+        <li><em>Prova: condições que mudaram entre o pré-lançamento e o dia do lançamento</em></li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Pilar 3 — Processo sem lacuna</div>
+      <ul>
+        <li>Carrossel: "o que acontece entre o contrato e o registro"</li>
+        <li>Reel: "como funciona a gestora de aluguel parceira"</li>
+        <li>Post: cliente que colocou o imóvel para renda em menos de 30 dias</li>
+        <li><em>Prova: "100% dos clientes encontraram inquilino em menos de 45 dias"</em></li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmp-note">Cada pilar é um território de conteúdo — um conjunto de posts, reels, carrosséis e conversas que podem ser criados com coerência durante meses.</div>
+</div>`},
+
+/* 32 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Nível 3 — Provas por pilar</div>
+  <div class="key-q">Cada pilar precisa de pelo menos <span class="gradtext">duas provas concretas.</span></div>
+  <div class="key-sub">Números, casos reais, processos visíveis, depoimentos específicos — não vagos. Quando a casa de mensagens está completa — mensagem central, três pilares, duas provas por pilar — a pergunta deixa de ser "o que eu posto hoje" e passa a ser "qual pilar quero reforçar essa semana, e qual prova vou usar para sustentar."</div>
+</div>`},
+
+/* ── PARTE 4: TOM DE VOZ ── */
+
+/* 33 */ {cls:'s-section', html: sec(4, 5, 'Tom de voz', 'Posicionamento sem voz consistente é como estratégia sem execução — existe no papel mas não chega ao comprador da mesma forma toda vez. Tom de voz não é personalidade. É uma decisão estratégica.')},
+
+/* 34 */ {cls:'s-compare', html:`<div class="pad">
+  <h2>Dimensão 1 — Como você fala: a resposta depende do ICP, não da sua preferência</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Corretor de executivos e investidores</div>
+      <ul>
+        <li>Linguagem analítica — dado como primeiro argumento</li>
+        <li>Referências de mercado financeiro, rentabilidade, alocação</li>
+        <li>Tom direto, sem rodeios, sem tutoriais básicos</li>
+        <li>Aproximação excessiva ou emoji reduz credibilidade</li>
+        <li><em>Esse público espera falar com alguém que pensa como ele</em></li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Corretor de primeiro imóvel — jovens casais</div>
+      <ul>
+        <li>Linguagem próxima, que reduz distância e ansiedade</li>
+        <li>Processo explicado em linguagem acessível, sem jargão</li>
+        <li>Termos técnicos (alienação fiduciária, ITBI) sempre com contexto</li>
+        <li>Tom parceiro — você está do lado deles no processo</li>
+        <li><em>Esse público precisa sentir que pode perguntar sem parecer ignorante</em></li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmp-note">O erro mais comum: usar o tom que você acha mais profissional, em vez do tom que o seu comprador acha mais confiável. São coisas diferentes.</div>
+</div>`},
+
+/* 35 */ {cls:'s-compare', html:`<div class="pad">
+  <h2>Dimensão 2 — O vocabulário proibido por tipo de corretor</h2>
+  <div class="compare-grid three">
+    <div class="ccol">
+      <div class="ctitle">Corretor de investimento</div>
+      <ul>
+        <li>"Realize o sonho da casa própria" — <em>comprador não está comprando sonho, está fazendo alocação de capital</em></li>
+        <li>"Imóvel dos sonhos" — <em>sinaliza que você não entende quem está na sua frente</em></li>
+        <li>"Aproveite a oportunidade" sem dados — <em>promessa vaga destrói credibilidade analítica</em></li>
+      </ul>
+    </div>
+    <div class="ccol">
+      <div class="ctitle">Corretor de alto padrão</div>
+      <ul>
+        <li>"Promoção", "oferta imperdível", "corra que acaba" — <em>urgência fabricada destrói credibilidade com quem tem dinheiro e tempo</em></li>
+        <li>"Preço abaixo do mercado" — <em>esse comprador suspeita de barganha, não celebra</em></li>
+        <li>Pressão ou escassez artificial — <em>associada a despreparo ou desespero</em></li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Corretor de transparência</div>
+      <ul>
+        <li>Promessa sem prova — <em>contradiz o pilar central do posicionamento</em></li>
+        <li>Depoimento vago ("ótimo atendimento") — <em>sem nome, sem situação, sem resultado</em></li>
+        <li>"Garantia" que você não pode dar — <em>uma garantia falsa custa mais caro que nenhuma</em></li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmp-note">Definir o que não faz parte do seu vocabulário é uma proteção contra inconsistência. Inconsistência é o que faz o comprador sentir que não sabe quem você é.</div>
+</div>`},
+
+/* 36 */ {cls:'s-compare', html:`<div class="pad">
+  <h2>Dimensão 3 — Referências: do universo do seu comprador</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Para o público investidor</div>
+      <ul>
+        <li>Comparar retorno do imóvel com renda fixa ressoa imediatamente — eles já fazem essa comparação na cabeça</li>
+        <li>Quando você faz por eles, demonstra que pensa como eles pensam</li>
+        <li>Histórico de valorização do bairro em percentual anual</li>
+        <li>Cap rate, yield bruto, custo de oportunidade — com explicação se necessário</li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Para o público de primeira compra</div>
+      <ul>
+        <li>Calcular o aluguel acumulado em 10 anos vs. o imóvel que poderia ter financiado no mesmo período</li>
+        <li>Torna concreto um custo que a maioria sente vagamente mas não calculou</li>
+        <li>Analogias do cotidiano — não do mercado financeiro</li>
+        <li>Referência errada sinaliza que você não conhece o comprador de verdade — e comprador que não se sente conhecido não avança</li>
+      </ul>
+    </div>
+  </div>
+</div>`},
+
+/* 37 */ {cls:'s-phases', html: ph('Dimensão 4 — Qual é a sua postura', posturas, 4)},
+
+/* 38 */ {cls:'s-list', html: lst('As quatro dimensões do tom de voz', 'Quando as quatro dimensões estão definidas, você tem um guia que serve para qualquer formato de conteúdo — Reel de 30 segundos, legenda longa, anúncio de dez palavras ou resposta no WhatsApp.', tomDims, 4)},
+
+/* ── PARTE 5: O QUE MUDA ── */
+
+/* 39 */ {cls:'s-section', html: sec(5, 5, 'O que muda quando o<br>posicionamento está claro', 'Posicionamento claro não é um ativo intangível que fica guardado numa pasta. Ele muda decisões concretas, diariamente.')},
+
+/* 40 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Muda o que você posta</div>
+  <div class="key-q">Você para de criar conteúdo por <span class="gradtext">intuição</span> ou por ver o que os outros estão fazendo.</div>
+  <div class="key-sub">Você tem três pilares, cada um com provas, e você escolhe qual quer aprofundar nessa semana. O calendário de conteúdo deixa de ser uma lista de ideias desconexas e passa a ser uma estratégia de reforço progressivo do posicionamento. A pergunta muda: de "o que eu posto hoje" para "qual pilar eu quero que o comprador associe ao meu nome essa semana."</div>
+</div>`},
+
+/* 41 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Muda o que você não posta</div>
+  <div class="key-q">Posicionamento é também um <span class="gradtext">filtro de rejeição.</span></div>
+  <div class="key-sub">Tem conteúdo que não combina com o seu posicionamento — mesmo que pareça interessante, mesmo que esteja funcionando para outro corretor. Quando você tem clareza sobre onde quer ocupar espaço, fica fácil identificar o que desvia e descartar sem culpa. Não é limitação — é proteção da coerência que está sendo construída.</div>
+</div>`},
+
+/* 42 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Muda como você abre conversa e apresenta</div>
+  <div class="key-q">Quando o lead chega, você não começa do <span class="gradtext">zero improvisando.</span></div>
+  <div class="key-sub">Você sabe qual é a mensagem central, sabe os pilares, sabe o que provavelmente motivou o contato. A primeira resposta no WhatsApp não é genérica — é extensão natural do posicionamento que trouxe esse lead até você. Na visita, você sabe o que é o seu atributo único, sabe as provas que o sustentam, sabe o que nunca vai dizer. Deixa de ser improvisação e vira expressão consistente.</div>
+</div>`},
+
+/* 43 */ {cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Muda o que o mercado pensa sobre você — o jogo longo</div>
+  <div class="key-q">Posicionamento se constrói por <span class="gradtext">acumulação de sinais</span> ao longo do tempo.</div>
+  <div class="key-sub">Quem trabalha com consistência de posicionamento por seis meses, doze meses, começa a ser o nome que aparece quando alguém no bairro faz a pergunta certa. Não porque fez tudo perfeito — porque fez a mesma coisa certa repetida vezes suficientes para criar uma associação que não depende de você estar presente para existir.</div>
+</div>`},
+
+/* 44 */ {cls:'s-list', html: lst('O que muda — resumo', null, mudancas, 4)},
+
+/* 45 */ {cls:'s-insight', html:`<div class="pad">
+  <div class="insight-text">Posicionamento não é o que você diz de si mesmo. É o que os outros <span class="gradtext">dizem quando você não está na sala.</span></div>
+  <div class="next-label">Aula 7 — Perfil e bio: sua presença no Instagram</div>
+</div>`},
+
+];
+
+/* ── Engine ─────────────────────────────────────── */
+let cur = 0;
+const stage = document.getElementById('stage');
+const counter = document.getElementById('counter');
+
+slides.forEach((s, i) => {
+  const el = document.createElement('div');
+  el.className = 'slide ' + s.cls;
+  el.innerHTML = s.html;
+  el.dataset.i = i;
+  stage.appendChild(el);
+});
+
+function go(n) {
+  const els = stage.querySelectorAll('.slide');
+  if (n < 0 || n >= els.length) return;
+  els[cur].classList.remove('active');
+  cur = n;
+  els[cur].classList.add('active');
+  counter.textContent = (cur + 1) + ' / ' + els.length;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(cur + 1);
+  if (e.key === 'ArrowLeft') go(cur - 1);
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+document.getElementById('next').onclick = () => go(cur + 1);
+document.getElementById('prev').onclick = () => go(cur - 1);
+
+go(0);
+</script>
+</body>
+</html>
