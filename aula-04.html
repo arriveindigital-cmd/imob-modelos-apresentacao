@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aula 4 · Seu público: ICP e avatares</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fafaf8; --text:#111111;
+  --muted:rgba(17,17,17,.46); --subtle:rgba(17,17,17,.28);
+  --border:rgba(0,0,0,.08); --surface:rgba(0,0,0,.035);
+  --grad:linear-gradient(120deg,#f97316,#e11d48 45%,#7c3aed);
+  --orange:#f97316;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;background:#e6e5e2;font-family:'Inter',system-ui,sans-serif;overflow:hidden;}
+
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+
+.slide{
+  position:absolute;
+  width:min(94vw,1280px,calc((100vh - 64px)*16/9));
+  aspect-ratio:16/9;
+  background:var(--bg);
+  border-radius:20px;overflow:hidden;
+  opacity:0;transform:scale(.97) translateY(8px);
+  transition:opacity .36s ease,transform .36s ease;
+  pointer-events:none;
+  box-shadow:0 32px 96px rgba(0,0,0,.2),0 2px 8px rgba(0,0,0,.1);
+  color:var(--text);
+}
+.slide.active{opacity:1;transform:scale(1) translateY(0);pointer-events:auto;}
+.slide::after{
+  content:'IMOB IN DIGITAL';
+  position:absolute;bottom:20px;right:26px;
+  font-size:.58rem;font-weight:700;letter-spacing:.2em;
+  color:rgba(17,17,17,.18);pointer-events:none;
+}
+
+.pad{position:absolute;inset:0;padding:6.5% 7.5%;display:flex;flex-direction:column;}
+
+.gradtext{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.rule{width:44px;height:3px;background:var(--grad);border-radius:2px;}
+
+/* ── COVER ──────────────────────────────────────────────── */
+.s-cover{background:radial-gradient(ellipse at 96% 96%,rgba(124,58,237,.055) 0%,transparent 45%),radial-gradient(ellipse at 4% 4%,rgba(249,115,22,.04) 0%,transparent 38%),var(--bg);}
+.s-cover .pad{justify-content:flex-end;}
+.s-cover .eyebrow{margin-bottom:auto;}
+.s-cover .rule{margin-bottom:20px;}
+.s-cover h1{font-size:4.2rem;font-weight:800;letter-spacing:-.045em;line-height:1.02;}
+
+/* ── SECTION (capa de seção — fundo escuro) ─────────────── */
+.s-section{background:#111111;}
+.s-section .pad{justify-content:center;}
+.s-section .sec-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:18px;}
+.s-section .sec-rule{width:44px;height:3px;background:var(--grad);border-radius:2px;margin-bottom:24px;}
+.s-section .sec-title{font-size:3.8rem;font-weight:800;letter-spacing:-.045em;line-height:1.06;color:#fff;}
+.s-section .sec-sub{margin-top:22px;font-size:1rem;color:rgba(255,255,255,.48);max-width:68%;line-height:1.65;font-weight:400;}
+.slide.s-section::after{color:rgba(255,255,255,.12);}
+
+/* ── KEY ────────────────────────────────────────────────── */
+.s-key .pad{justify-content:center;}
+.s-key .key-eye{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
+.s-key .key-q{font-size:3rem;font-weight:800;letter-spacing:-.04em;line-height:1.12;max-width:90%;}
+.s-key .key-sub{margin-top:26px;font-size:1rem;color:var(--muted);max-width:72%;line-height:1.65;font-weight:400;}
+
+/* ── STATEMENT ──────────────────────────────────────────── */
+.s-statement .pad{justify-content:center;}
+.s-statement .slabel{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.s-statement .stmt{font-size:2.85rem;font-weight:800;letter-spacing:-.04em;line-height:1.1;max-width:90%;}
+.s-statement .items{margin-top:30px;display:flex;flex-direction:column;gap:0;}
+.s-statement .sitem{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-top:1px solid var(--border);font-size:1.05rem;font-weight:500;color:var(--text);line-height:1.45;}
+.s-statement .sitem:last-child{border-bottom:1px solid var(--border);}
+.s-statement .sitem .sn{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0;padding-top:3px;}
+.s-statement .snote{margin-top:18px;font-size:.88rem;color:var(--muted);font-style:italic;}
+
+/* ── LIST ───────────────────────────────────────────────── */
+.s-list .pad{justify-content:center;}
+.s-list .listttl{font-size:1.9rem;font-weight:800;letter-spacing:-.035em;margin-bottom:10px;}
+.s-list .ls-sub{font-size:.84rem;color:var(--muted);font-weight:400;margin-bottom:20px;line-height:1.5;}
+.s-list ol.clean{list-style:none;display:flex;flex-direction:column;}
+.s-list ol.clean li{display:flex;align-items:flex-start;gap:18px;padding:12px 0;border-top:1px solid var(--border);font-size:.98rem;font-weight:500;color:var(--text);line-height:1.4;}
+.s-list ol.clean li:last-child{border-bottom:1px solid var(--border);}
+.s-list ol.clean .n{font-size:.7rem;font-weight:800;letter-spacing:.1em;flex-shrink:0;padding-top:3px;min-width:22px;}
+.s-list .li-main{line-height:1.3;}
+.s-list .dtl{display:block;font-size:.76rem;color:var(--muted);font-weight:400;line-height:1.4;margin-top:2px;}
+
+/* ── PHASES ─────────────────────────────────────────────── */
+.s-phases .pad{justify-content:center;}
+.s-phases h2{font-size:1.9rem;font-weight:800;letter-spacing:-.035em;margin-bottom:28px;}
+.phases-grid{display:grid;grid-template-columns:repeat(3,1fr);}
+.phase{padding:22px 26px;}
+.phase+.phase{border-left:1px solid var(--border);}
+.ph-label{font-size:.63rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:9px;}
+.ph-name{font-size:1.6rem;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:11px;}
+.ph-desc{font-size:.9rem;color:var(--muted);line-height:1.6;}
+
+/* ── COMPARE ────────────────────────────────────────────── */
+.s-compare .pad{justify-content:center;}
+.s-compare h2{font-size:1.85rem;font-weight:800;letter-spacing:-.035em;margin-bottom:22px;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ccol{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 26px;}
+.ccol .ctitle{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.ccol ul{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.ccol ul li{font-size:1.02rem;font-weight:500;display:flex;align-items:flex-start;gap:10px;line-height:1.35;}
+.ccol ul li::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0;background:rgba(0,0,0,.22);margin-top:6px;}
+.ccol.strong ul li::before{background:var(--orange);}
+.ccol ul li em{font-style:italic;color:var(--muted);}
+.cmp-note{margin-top:18px;font-size:.88rem;color:var(--muted);font-style:italic;text-align:center;}
+
+/* ── INSIGHT ────────────────────────────────────────────── */
+.s-insight{background:radial-gradient(ellipse at 100% 100%,rgba(124,58,237,.06) 0%,transparent 48%),var(--bg);}
+.s-insight .pad{justify-content:center;}
+.insight-text{font-size:3.6rem;font-weight:800;letter-spacing:-.045em;line-height:1.08;}
+.next-label{margin-top:40px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;}
+.next-label::before{content:'→';color:var(--orange);font-size:.85rem;letter-spacing:0;}
+
+/* ── NAV ────────────────────────────────────────────────── */
+#ui{
+  position:fixed;bottom:10px;left:50%;transform:translateX(-50%);z-index:50;
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.72);border:1px solid rgba(0,0,0,.1);
+  backdrop-filter:blur(16px);padding:4px 10px;border-radius:100px;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+#ui button{background:none;border:none;font-size:.85rem;cursor:pointer;opacity:.5;padding:2px 5px;border-radius:6px;color:#111;line-height:1;}
+#ui button:hover{opacity:1;background:rgba(0,0,0,.07);}
+#counter{font-size:.62rem;color:rgba(0,0,0,.45);font-variant-numeric:tabular-nums;min-width:32px;text-align:center;font-weight:600;}
+#hint{position:fixed;top:14px;right:16px;z-index:50;font-size:.68rem;color:rgba(0,0,0,.3);letter-spacing:.04em;}
+</style>
+</head>
+<body>
+<div id="hint">← → navegar · F tela cheia</div>
+<div id="stage"></div>
+<div id="ui">
+  <button id="prev">‹</button>
+  <span id="counter">1 / 1</span>
+  <button id="next">›</button>
+</div>
+<script>
+/* ── Dados ────────────────────────────────────────────────── */
+const gatilhos = [
+  'Nascimento de filho ou família crescendo',
+  'Casamento ou início de união estável',
+  'Separação ou divórcio',
+  'Mudança de cidade por trabalho',
+  'Indignação com o aluguel após reajuste alto',
+  'Recebimento de herança ou outro evento de liquidez',
+  'Insatisfação com o rendimento de outras aplicações financeiras',
+  'Aposentadoria com desejo de reduzir custos e melhorar localização'
+];
+
+const niveis = [
+  {label:'Fase 1', name:'Descobrindo',
+   desc:'Quer comprar algum dia. Não abriu o ZAP ainda. Não fez simulação. Está nos 4 meses de pesquisa — antes de qualquer contato com corretor.'},
+  {label:'Fase 2', name:'Consideração',
+   desc:'Sabe o que quer: tipo de imóvel, região, faixa de valor. Está comparando opções, visitando imóveis, pesquisando corretores.'},
+  {label:'Fase 3', name:'Pronto',
+   desc:'Já visitou vários imóveis, conversou com corretores, fez simulação. Precisa de um argumento final para escolher — uma segurança.'}
+];
+
+const avatarComps = [
+  {title:'Quem é, com detalhes reais', dtl:'Idade, ocupação, situação familiar, onde mora — não um arquétipo genérico.'},
+  {title:'O que está vivendo agora', dtl:'O evento que desencadeou a busca, o estado emocional, a urgência ou o medo.'},
+  {title:'O que quer de forma racional', dtl:'Bairro específico, faixa de valor, tipo de imóvel, prazo para decidir.'},
+  {title:'O que quer de forma emocional', dtl:'Segurança, pertencimento, alívio da ansiedade, sensação de que fez a escolha certa.'},
+  {title:'O que teme', dtl:'Errar na maior decisão financeira da vida. Ser enganado. Perder o timing e o preço subir.'},
+  {title:'O que já tentou e não funcionou', dtl:'A pesquisa que confundiu. O corretor que sumiu. A proposta que não saiu.'},
+  {title:'Como fala sobre o problema', dtl:'As palavras dele — não o vocabulário do mercado. É o que você usa no conteúdo e no anúncio.'}
+];
+
+/* ── Helpers ─────────────────────────────────────────────── */
+function ph(title, data, vis) {
+  const shown = data.slice(0, vis);
+  return `<div class="pad">
+    <h2>${title}</h2>
+    <div class="phases-grid" style="grid-template-columns:repeat(${shown.length},1fr)">
+      ${shown.map(p => `<div class="phase">
+        <div class="ph-label gradtext">${p.label}</div>
+        <div class="ph-name">${p.name}</div>
+        <div class="ph-desc">${p.desc}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function lst(title, sub, items, vis) {
+  const shown = items.slice(0, vis);
+  return `<div class="pad">
+    <div class="listttl">${title}</div>
+    ${sub ? `<div class="ls-sub">${sub}</div>` : ''}
+    <ol class="clean">
+      ${shown.map((it, i) => {
+        const text = typeof it === 'string' ? it : it.title;
+        const dtl = typeof it === 'object' && it.dtl ? `<span class="dtl">${it.dtl}</span>` : '';
+        const n = String(i + 1).padStart(2, '0');
+        return `<li><span class="n gradtext">${n}</span><span class="li-main">${text}${dtl}</span></li>`;
+      }).join('')}
+    </ol>
+  </div>`;
+}
+
+function sec(part, total, title, sub) {
+  return `<div class="pad">
+    <div class="sec-eye">Parte ${part} de ${total}</div>
+    <div class="sec-rule"></div>
+    <div class="sec-title">${title}</div>
+    ${sub ? `<div class="sec-sub">${sub}</div>` : ''}
+  </div>`;
+}
+
+/* ── Slides ───────────────────────────────────────────────── */
+const slides = [
+
+/* 01 — Capa */
+{cls:'s-cover', html:`<div class="pad">
+  <div class="eyebrow">Módulo 1 · Aula 4</div>
+  <div class="rule"></div>
+  <h1>Seu <span class="gradtext">público</span>:<br>ICP e avatares</h1>
+</div>`},
+
+/* 02 — A resposta inútil */
+{cls:'s-statement', html:`<div class="pad">
+  <div class="slabel">A resposta mais comum — e mais inútil</div>
+  <div class="stmt">"Quem quer comprar imóvel."</div>
+  <div class="snote">Não te diz o que criar. Não te diz onde aparecer. Não te diz o que dizer, qual ângulo usar, que dor endereçar. É tecnicamente verdade e completamente inútil para qualquer decisão de comunicação.</div>
+</div>`},
+
+/* 03 — Compare: dois compradores, dois mundos */
+{cls:'s-compare', html:`<div class="pad">
+  <h2>Dois compradores que "querem comprar imóvel"</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Jovem casal — primeiro apartamento</div>
+      <ul>
+        <li>Saindo do aluguel, construindo vida juntos</li>
+        <li>Ansiedade de fazer a escolha certa</li>
+        <li>Financiamento Caixa, documentação complexa</li>
+        <li>Precisa de orientação em cada etapa</li>
+        <li>Decisão emocional — primeiro grande compromisso</li>
+      </ul>
+    </div>
+    <div class="ccol">
+      <div class="ctitle">Executivo 48 anos — diversificação de patrimônio</div>
+      <ul>
+        <li>Busca renda passiva com imóvel compacto</li>
+        <li>Decisão analítica, baseada em dados de retorno</li>
+        <li>Quer análise de rentabilidade antes de visitar</li>
+        <li>Processo mais rápido, exigência maior</li>
+        <li>Já comprou antes — conhece o processo</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmp-note">O que os move, o que os trava e o que os convence é completamente diferente.</div>
+</div>`},
+
+/* 04 — Seção: ICP */
+{cls:'s-section', html: sec(1, 6, 'ICP — Ideal<br>Customer Profile', 'Não é quem o comprador é. É a combinação de quem ele é, em que situação está e o que está motivando a busca agora.')},
+
+/* 05 — ICP não é só demografia */
+{cls:'s-statement', html:`<div class="pad">
+  <div class="slabel">O erro de definição mais comum</div>
+  <div class="stmt">ICP não é demografia.<br>É o começo, não o fim.</div>
+  <div class="items">
+    <div class="sitem"><span class="sn">—</span>Faixa etária, renda, gênero, escolaridade são pontos de partida</div>
+    <div class="sitem"><span class="sn">—</span>Dois compradores com exatamente o mesmo perfil demográfico podem estar em momentos opostos da jornada</div>
+    <div class="sitem"><span class="sn">—</span>E exigem conteúdos, argumentos e abordagens completamente diferentes</div>
+  </div>
+</div>`},
+
+/* 06 — Mesmo perfil, momentos diferentes */
+{cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">O mesmo perfil demográfico — dois momentos opostos</div>
+  <div class="key-q">38 anos. R$15 mil/mês. Casados. São Paulo.<br><br>Um passou 3 meses pesquisando, fez a simulação, está pronto para visitar.<br><br>O outro teve filho há duas semanas e ainda não abriu o ZAP.</div>
+  <div class="key-sub">Necessidades, urgências, estágios e argumentos completamente diferentes — mesmo perfil, mesmo número no CRM.</div>
+</div>`},
+
+/* 07 — ICP real */
+{cls:'s-statement', html:`<div class="pad">
+  <div class="slabel">A definição que funciona</div>
+  <div class="stmt">ICP real não é quem o comprador é.<br>É <span class="gradtext">quem + situação + motivação agora.</span></div>
+  <div class="items">
+    <div class="sitem"><span class="sn">—</span>Sabe que conteúdo produzir — porque sabe em que momento da jornada ele está</div>
+    <div class="sitem"><span class="sn">—</span>Sabe que argumento usar no anúncio — porque sabe o que está travando a decisão</div>
+    <div class="sitem"><span class="sn">—</span>Sabe como abrir a conversa no WhatsApp — porque sabe o que ele está sentindo antes do contato</div>
+  </div>
+</div>`},
+
+/* 08 — Seção: Gatilho de compra */
+{cls:'s-section', html: sec(2, 6, 'O gatilho<br>de compra', 'Ninguém decide comprar imóvel do nada. Existe sempre um evento — ou acúmulo de situações — que move alguém de "vou pensar algum dia" para "preciso resolver isso agora."')},
+
+/* 09 — Ninguém decide do nada */
+{cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">O gatilho como ponto de entrada na jornada</div>
+  <div class="key-q">O gatilho determina o estado emocional com que o comprador entra na busca.<br><br>Identificá-lo é uma das coisas mais valiosas que você pode fazer pela sua comunicação.</div>
+  <div class="key-sub">Porque o estado emocional determina que tipo de conteúdo ressoa, que argumento convence e que tom de voz gera confiança.</div>
+</div>`},
+
+/* 10 — Gatilhos: primeiros 4 (BUILD 1) */
+{cls:'s-list', html: lst('Os gatilhos mais comuns', 'Cada um cria um estado emocional diferente na entrada da busca.', gatilhos, 4)},
+
+/* 11 — Gatilhos: todos 8 (BUILD 2) */
+{cls:'s-list', html: lst('Os gatilhos mais comuns', 'Cada um cria um estado emocional diferente na entrada da busca.', gatilhos, 8)},
+
+/* 12 — Gatilho → estado emocional */
+{cls:'s-compare', html:`<div class="pad">
+  <h2>O gatilho determina o estado emocional na busca</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Nascimento de filho</div>
+      <ul>
+        <li>Ansiedade — o tempo está correndo</li>
+        <li>Urgência real, não artificial</li>
+        <li>Quer segurança, não negociação</li>
+        <li>Conteúdo certo: processo claro, prazo gerenciável</li>
+      </ul>
+    </div>
+    <div class="ccol">
+      <div class="ctitle">Recebimento de herança</div>
+      <ul>
+        <li>Cautela — não quer fazer mau negócio</li>
+        <li>Estado emocional complexo, decisão racional</li>
+        <li>Quer dados e segurança, não pressão</li>
+        <li>Conteúdo certo: análise, mercado, transparência</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmp-note">Conteúdo que ignora o estado emocional fala na superfície. Conteúdo que entende de onde ele vem fala de dentro.</div>
+</div>`},
+
+/* 13 — Seção: Dores */
+{cls:'s-section', html: sec(3, 6, 'Dores verbalizadas<br>e dores silenciosas', 'A distinção que muda completamente a qualidade da comunicação — e que a maioria dos corretores nunca explorou.')},
+
+/* 14 — Compare: verbalizadas vs. silenciosas */
+{cls:'s-compare', html:`<div class="pad">
+  <h2>Dois tipos de dor — impactos completamente diferentes</h2>
+  <div class="compare-grid">
+    <div class="ccol">
+      <div class="ctitle">Dores verbalizadas — o que ele admite</div>
+      <ul>
+        <li><em>"Não encontro imóvel no bairro dentro do meu orçamento"</em></li>
+        <li><em>"Corretores somem depois de mostrar o imóvel"</em></li>
+        <li><em>"O financiamento é confuso e ninguém explica direito"</em></li>
+        <li>Legítimas — e as que todos os concorrentes já tentam endereçar</li>
+      </ul>
+    </div>
+    <div class="ccol strong">
+      <div class="ctitle">Dores silenciosas — o que ele sente mas não diz</div>
+      <ul>
+        <li>Medo de errar numa decisão que vai pagar por décadas</li>
+        <li>Sensação de perder timing — preço sobe enquanto adia</li>
+        <li>Insegurança de depender de profissional em quem não sabe se pode confiar</li>
+        <li>Desconforto de não saber se está fazendo bom negócio ou sendo enganado</li>
+      </ul>
+    </div>
+  </div>
+</div>`},
+
+/* 15 — O poder das dores silenciosas */
+{cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">Por que as dores silenciosas são mais poderosas</div>
+  <div class="key-q">Quando aparece na comunicação, ele se reconhece de forma imediata e visceral.</div>
+  <div class="key-sub">Porque alguém finalmente nomeou o que ele estava sentindo sem saber como nomear. É aqui que a diferença entre conteúdo que gera engajamento e conteúdo que gera lead começa.</div>
+</div>`},
+
+/* 16 — Seção: Nível de consciência */
+{cls:'s-section', html: sec(4, 6, 'Nível de<br>consciência', 'Nem todos no seu ICP estão no mesmo lugar mentalmente em relação à compra — e isso muda tudo no que você cria.')},
+
+/* 17 — Fases: Descobrindo (BUILD 1) */
+{cls:'s-phases', html: ph('Os três momentos mentais do comprador', niveis, 1)},
+
+/* 18 — Fases: + Consideração (BUILD 2) */
+{cls:'s-phases', html: ph('Os três momentos mentais do comprador', niveis, 2)},
+
+/* 19 — Fases: completo (BUILD 3) */
+{cls:'s-phases', html: ph('Os três momentos mentais do comprador', niveis, 3)},
+
+/* 20 — O que criar por nível */
+{cls:'s-statement', html:`<div class="pad">
+  <div class="slabel">Nível de consciência muda o que você cria</div>
+  <div class="stmt">Conteúdo genérico não chega com força em nenhum momento da jornada.</div>
+  <div class="items">
+    <div class="sitem"><span class="sn">F1</span>Descobrindo → <strong>Educativo</strong> — financiamento, processo, mercado. Você chega meses antes de qualquer concorrente.</div>
+    <div class="sitem"><span class="sn">F2</span>Consideração → <strong>Diferenciador</strong> — imóveis, bairro, o que você sabe que outros não sabem.</div>
+    <div class="sitem"><span class="sn">F3</span>Pronto → <strong>Validador</strong> — depoimento, caso real, argumento de confiança, facilidade de contato.</div>
+  </div>
+</div>`},
+
+/* 21 — Seção: O avatar */
+{cls:'s-section', html: sec(5, 6, 'O avatar', 'Perfil é para estratégia. Avatar é para criação. Você não grava um vídeo para um perfil — você grava para uma pessoa.')},
+
+/* 22 — Perfil vs. avatar */
+{cls:'s-statement', html:`<div class="pad">
+  <div class="slabel">Por que o perfil não é suficiente na hora de criar</div>
+  <div class="stmt">Perfil é abstrato. Você não escreve uma legenda para um perfil.</div>
+  <div class="items">
+    <div class="sitem"><span class="sn">—</span>O ICP define situação, motivação, dores, nível de consciência — é fundamental para estratégia</div>
+    <div class="sitem"><span class="sn">—</span>Mas na hora de sentar na frente da câmera ou escrever uma legenda, perfil não convoca a emoção certa</div>
+    <div class="sitem"><span class="sn">—</span>O avatar é a pessoa concreta construída a partir do ICP — com nome, história e as palavras que ela usaria</div>
+  </div>
+</div>`},
+
+/* 23 — O Marcos */
+{cls:'s-key', html:`<div class="pad">
+  <div class="key-eye">O avatar em prática — não um perfil, uma pessoa</div>
+  <div class="key-q"><span class="gradtext">Marcos</span> — 37 anos, analista sênior, pai há 2 meses. 6 anos de aluguel. Tentou entender financiamento sozinho, desistiu depois de 2h no site da Caixa. Urgência real. Medo de errar.</div>
+  <div class="key-sub">É para o Marcos que você escreve a legenda. É com ele que você conversa no vídeo. Não com "compradores de imóvel de R$400 mil em São Paulo, 30–45 anos."</div>
+</div>`},
+
+/* 24 — Componentes do avatar */
+{cls:'s-list', html: lst(
+  'Um avatar bem construído tem',
+  null,
+  avatarComps,
+  avatarComps.length
+)},
+
+/* 25 — Seção: Conexão com o negócio */
+{cls:'s-section', html: sec(6, 6, 'A conexão<br>com o negócio', 'O ICP não existe no abstrato — existe em relação ao que você vende. A Aula 3 veio antes desta por uma razão.')},
+
+/* 26 — ICP como consequência */
+{cls:'s-statement', html:`<div class="pad">
+  <div class="slabel">O erro que invalida o exercício</div>
+  <div class="stmt">Definir público antes de ter clareza sobre o negócio.</div>
+  <div class="items">
+    <div class="sitem"><span class="sn">—</span>O comprador ideal para um corretor de compactos para investimento na Zona Sul de SP é completamente diferente do ideal para uma corretora de casas em Campinas</div>
+    <div class="sitem"><span class="sn">—</span>Quando você tem clareza sobre tipo de imóvel, faixa de valor, área e diferenciais reais, o ICP deixa de ser suposição</div>
+    <div class="sitem"><span class="sn">—</span>Você não escolhe quem quer atender do nada — você identifica quem mais se beneficia do que especificamente você oferece</div>
+  </div>
+</div>`},
+
+/* 27 — Fechamento */
+{cls:'s-insight', html:`<div class="pad">
+  <div class="insight-text">ICP certo transforma<br>comunicação genérica<br>em <span class="gradtext">conversa</span>.<br>A diferença não é<br>o canal — é com quem<br>você fala.</div>
+  <div class="next-label">Próxima aula — o mercado e o espaço que só você pode ocupar</div>
+</div>`},
+
+];
+
+/* ── Renderização ─────────────────────────────────────────── */
+const stage = document.getElementById('stage');
+slides.forEach(s => {
+  const el = document.createElement('div');
+  el.className = 'slide ' + s.cls;
+  el.innerHTML = s.html;
+  stage.appendChild(el);
+});
+
+const els = [...document.querySelectorAll('.slide')];
+let cur = 0;
+
+function show(n) {
+  cur = Math.max(0, Math.min(slides.length - 1, n));
+  els.forEach((e, i) => e.classList.toggle('active', i === cur));
+  document.getElementById('counter').textContent = `${cur + 1} / ${slides.length}`;
+}
+
+document.getElementById('next').onclick = () => show(cur + 1);
+document.getElementById('prev').onclick = () => show(cur - 1);
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(cur + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); show(cur - 1); }
+  if (e.key.toLowerCase() === 'f') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+show(0);
+</script>
+</body>
+</html>
