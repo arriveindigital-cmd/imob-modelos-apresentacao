@@ -116,7 +116,7 @@ html,body{height:100%;background:#e6e5e2;font-family:'Inter',system-ui,sans-seri
 
 /* IG PHOTO — screenshot real cropado */
 .ig-photo-wrap{overflow:hidden;position:relative;aspect-ratio:1286/797;border-radius:10px;box-shadow:0 2px 16px rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.06);background:#f0f0f0;}
-.ig-photo-wrap img{position:absolute;width:calc(100% * 3840/1286);height:auto;left:calc(-100% * 169/1286);top:calc(-100% * 145/797);pointer-events:none;display:block;}
+.ig-photo-wrap img{position:absolute;width:calc(100% * 3840/1286);height:auto;left:calc(-100% * 169/1286);top:calc(-100% * 165/797);pointer-events:none;display:block;}
 .ig-ann-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
 .ig-slide-grid2{display:grid;grid-template-columns:1.45fr 1fr;gap:22px;flex:1;align-items:start;min-height:0;}
 
@@ -820,73 +820,61 @@ D.cross(22,252,'#dc2626')+D.cross(70,252,'#dc2626')+D.cross(118,252,'#dc2626')+D
 <li><span class="n gradtext">07</span><span class="li-main">Todos os campos dizem a mesma coisa sobre quem você é?<span class="dtl">Foto, nome, bio, destaques e grid precisam ser coerentes — não contraditórios.</span></span></li>
 </ol></div>`},
 
-/* 50 */ {cls:'s-section',html:sec('Análise','Exemplos reais<br>comentados','Quatro perfis que funcionam. Três que não funcionam. Um borderline com ativos fortes usados na posição errada. Análise campo a campo, sem filtro.')},
+/* 50 */ {cls:'s-section',html:sec('Análise','Perfis reais<br>comentados','Oito perfis do mercado real. O que está certo, o que está errado e o que parece certo mas não está. Análise campo a campo, sem filtro.')},
 
 /* 51 */ {cls:'s-statement',html:`<div class="pad">
 <div class="slabel">O que você vai ver agora</div>
 <div class="stmt">Perfis reais.<br>Análise campo<br>a campo — sem filtro.</div>
 <div class="items">
-<div class="sitem"><span class="sn">Por que reais</span>Exemplos inventados são confortáveis. Exemplos reais mostram o que o mercado de fato está fazendo — e onde estão os espaços vazios que você pode ocupar.</div>
+<div class="sitem"><span class="sn">Por que reais</span>Exemplos inventados são confortáveis. Exemplos reais mostram o que o mercado de fato está fazendo — incluindo os erros que aparecem até em perfis de destaque.</div>
 <div class="sitem"><span class="sn">Como olhar</span>Observe o handle, o nome de exibição e a bio como campos indexáveis. Depois os destaques. Depois o grid. Cada campo comunica algo — ou desperdiça a oportunidade.</div>
-<div class="sitem"><span class="sn">O que levar</span>O padrão dos perfis que funcionam e o padrão dos que falham. Eles são consistentes — não aleatórios.</div>
+<div class="sitem"><span class="sn">O que levar</span>Nenhum perfil real é completo. O objetivo é identificar o que funciona em cada um — e construir o seu com todos os elementos alinhados ao mesmo tempo.</div>
 </div>
 </div>`},
 
 /* 52 */ {cls:'s-igprofile',html:igPhoto(
 'Análise — @maysa_marcari__mcmv',
-'2.999 seguidores · Ribeirão Preto · MCMV + Alto Padrão',
+'2.999 seguidores · Ribeirão Preto · Handle forte, bio fraca',
 'assets/bios-boas/maysa_marcari__mcmv.png',
-D.underline(675,52,975,'#16a34a',2.5)+
-D.underline(255,236,640,'#16a34a',2.5)+
-D.circle(450,277,290,15,'#16a34a')+
-D.badge(1240,52,1,'good')+D.badge(1240,236,2,'good')+D.badge(1240,277,3,'good'),
-[{type:'good',title:'MCMV indexado no handle',desc:'"maysa_marcari__mcmv" — qualquer busca por "MCMV" no Instagram encontra esse perfil. A palavra-chave está no campo mais indexado da plataforma.'},
-{type:'good',title:'Território explícito na bio',desc:'"Atendimento exclusivo em Ribeirão Preto" — não "toda a cidade". Quem é de RP sabe imediatamente que chegou no perfil certo.'},
-{type:'good',title:'Produto na bio com indexação dupla',desc:'"Lançamentos-MCMV-Alto padrão" — MCMV aparece no handle e na bio. Redundância de palavra-chave amplifica o alcance nas buscas.'}])},
+'',
+[{type:'good',title:'MCMV indexado no handle',desc:'"maysa_marcari__mcmv" — a palavra-chave está no campo mais indexado do Instagram. Qualquer busca por "MCMV" passa por esse perfil. Esse é o elemento mais forte do perfil.'},
+{type:'bad',title:'Sem prova real na bio',desc:'Não há número, premiação nem dado verificável. "Lançamentos•MCMV•Alto padrão" descreve portfólio — não prova resultado. O ICP que pesquisa antes de decidir não encontra razão para confiar.'},
+{type:'bad',title:'CRECI na bio e link para conta de imobiliária',desc:'"Creci 311347-F" ocupa uma linha estratégica com obrigação legal. "@arbiseimoveis" na bio divide a atenção — o cliente não sabe se está falando com a corretora ou com a empresa.'}])},
 
 /* 53 */ {cls:'s-igprofile',html:igPhoto(
 'Análise — @corretorwendell',
-'2.294 seguidores · Florianópolis/SC · Campeão de vendas',
+'2.294 seguidores · Florianópolis/SC · Prova forte, L1 fora de lugar',
 'assets/bios-boas/corretorwendell.png',
-D.underline(310,182,740,'#16a34a',2.5)+
-D.circle(490,231,375,15,'#16a34a')+
-D.underline(265,279,540,'#16a34a',2.5)+
-D.badge(1240,182,1,'good')+D.badge(1240,231,2,'good')+D.badge(1240,279,3,'good'),
-[{type:'good',title:'Território no nome de exibição',desc:'"Imóveis em Florianópolis-SC" no display name → indexado pelo buscador do Instagram. Qualquer busca "imóveis Florianópolis" encontra esse perfil.'},
-{type:'good',title:'Prova sequencial — 3 anos consecutivos',desc:'"Campeão de vendas 2022 · 2023 e 2025" não é pontual: é padrão. Três anos consecutivos provam consistência — não um bom mês.'},
-{type:'good',title:'+300 imóveis — prova de volume',desc:'Dado verificável de resultado. Volume concreto que responde à pergunta não dita do cliente: "esse corretor já fez isso antes?"'}])},
+'',
+[{type:'good',title:'Território no display name — indexação garantida',desc:'"Wendell Melo · Imóveis em Florianópolis-SC" coloca cidade e produto no campo mais indexado após o handle. Qualquer busca "imóveis Florianópolis" passa por esse perfil.'},
+{type:'good',title:'Prova sequencial sólida: 3 anos + volume',desc:'"Campeão de vendas 2022 · 2023 · 2025" não é pontual — é padrão. Combinado com "+300 imóveis": dois tipos de prova em linhas separadas que se reforçam.'},
+{type:'bad',title:'"A ELE toda honra" ocupa a L1 — posição mais lida da bio',desc:'A primeira linha é a mais lida. Uma declaração pessoal/religiosa não posiciona profissionalmente nem filtra o ICP. O telefone na bio é redundante com o link — desperdiça mais uma linha estratégica.'}])},
 
 /* 54 */ {cls:'s-igprofile',html:igPhoto(
 'Análise — @helenamello.imoveisluxosjc',
-'13.8k seguidores · São José dos Campos · Luxo · +R$1B vendidos',
+'13.8k seguidores · São José dos Campos · Handle perfeito, destaques pessoais',
 'assets/bios-boas/helenamello.imoveisluxosjc.png',
-D.underline(385,47,950,'#16a34a',2.5)+
-D.circle(480,254,375,14,'#16a34a')+
-D.underline(255,277,600,'#16a34a',2.5)+
-D.badge(1240,47,1,'good')+D.badge(1240,254,2,'good')+D.badge(1240,277,3,'good'),
-[{type:'good',title:'Handle com nicho + território: "imoveisluxosjc"',desc:'Handle funciona como SEO permanente. "Imóveis", "luxo" e "SJC" indexados em um único campo. Qualquer busca por luxo em São José dos Campos passa por esse perfil.'},
-{type:'good',title:'Prova monetária rara: "+de 1B em imóveis vendidos"',desc:'Volume em reais é o tipo de prova mais difícil de contestar. Não é número de imóveis — é o valor transacionado. Diferencia completamente de qualquer outro corretor.'},
-{type:'good',title:'Território repetido no handle e na bio',desc:'"São José dos Campos" aparece no handle (SJC) e explícito na bio. Dois pontos de indexação para o mesmo território.'}])},
+'',
+[{type:'good',title:'"imoveisluxosjc" — handle com três palavras-chave',desc:'Produto (imóveis) + nicho (luxo) + território (SJC) em um único campo. Qualquer busca por imóveis de luxo em São José dos Campos encontra esse perfil antes de qualquer ação paga.'},
+{type:'warn',title:'"+1B em vendas" — dado forte, atribuído à @Kóvale',desc:'O número existe e impressiona. Mas "@Kóvale" na mesma linha transfere o crédito para a empresa, não para a corretora. O ICP não sabe se o resultado é dela ou do time. Prova pessoal pesa diferente de prova institucional.'},
+{type:'bad',title:'5 dos 7 destaques são pessoais — Hipismo, França, NY, Maragogi',desc:'O handle promete especialista em luxo. Os destaques entregam lifestyle pessoal. O visitante que chega pelo handle encontra um perfil que contradiz o que o handle prometeu. Essa incoerência destrói o posicionamento que o handle constrói.'}])},
 
 /* 55 */ {cls:'s-igprofile',html:igPhoto(
 'Análise — @anacorretora.curitiba',
-'1.963 seguidores · Curitiba/PR · Corretora desde 2015',
+'1.963 seguidores · Curitiba/PR · Destaques certos, bio genérica',
 'assets/bios-boas/anacorretora.curitiba.png',
-D.underline(580,47,870,'#16a34a',2.5)+
-D.circle(290,208,200,14,'#d97706',2.5)+
-D.underline(305,234,510,'#16a34a',2.5)+
-D.badge(1240,47,1,'good')+D.badge(1240,208,2,'warn')+D.badge(1240,234,3,'good'),
-[{type:'good',title:'Curitiba indexado no handle',desc:'"anacorretora.curitiba" coloca a cidade no campo mais indexado do Instagram. Qualquer busca "corretora Curitiba" passa por esse perfil antes de qualquer outra ação dela.'},
-{type:'warn',title:'CRECI ocupa a linha 1 da bio',desc:'CRECI é obrigação legal — não diferencial. Colocá-lo como primeira linha da bio desperdiça o espaço mais lido. Uma prova ou o nicho deveriam vir primeiro.'},
-{type:'good',title:'"Desde 2015" — prova temporal simples e eficaz',desc:'10 anos no mesmo mercado, em texto direto. Não é afirmação de experiência — é dado verificável com data de referência.'}])},
+'',
+[{type:'good',title:'"Curitiba" no handle — território indexado',desc:'"anacorretora.curitiba" coloca cidade e profissão no campo mais indexado. Qualquer busca "corretora Curitiba" passa por esse perfil antes de qualquer ação de mídia paga.'},
+{type:'good',title:'Destaques 100% profissionais — o mais disciplinado dos quatro',desc:'Lançamentos, Vendido, Feedback, Atendimentos, WhatsApp — todos comunicam o que está dentro antes do clique. Sem lifestyle, sem viagem, sem entretenimento. Exatamente a estrutura que ensinamos.'},
+{type:'warn',title:'Bio genérica — tempo de mercado está lá, diferencial não',desc:'"Conectando pessoas aos melhores negócios imobiliários" é o tipo de frase que qualquer corretor pode escrever. "Desde 2015" tem potencial de prova — mas fica enterrado numa linha vaga sem nicho declarado.'}])},
 
 /* 56 */ {cls:'s-insight',html:`<div class="pad">
-<div class="insight-text">Quatro perfis diferentes.<br><span class="gradtext">Um padrão:</span></div>
+<div class="insight-text">Nenhum deles<br>está <span class="gradtext">completo.</span></div>
 <div style="margin-top:28px;display:flex;flex-direction:column;gap:9px">
-<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;min-width:88px;padding-top:2px">Nicho claro</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">Nenhum tenta falar com todo mundo. Cada um tem um ICP específico que se reconhece na primeira leitura.</span></div>
-<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;min-width:88px;padding-top:2px">Prova real</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">Todos têm pelo menos um dado verificável — número, ano, premiação — na bio ou no nome de exibição. Nenhum usa só adjetivos.</span></div>
-<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;min-width:88px;padding-top:2px">Redundância</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">A mesma palavra-chave em dois ou três campos: handle, nome e bio dizem a mesma coisa em formatos diferentes.</span></div>
-<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;min-width:88px;padding-top:2px">Coerência</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">Foto, nome, bio, destaques e grid contam a mesma história. Cada campo reforça o anterior — nenhum contradiz.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;min-width:88px;padding-top:2px">Handle</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">Os melhores têm nicho + território indexados. Mas handle forte não salva bio fraca — o visitante lê os dois.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;min-width:88px;padding-top:2px">Bio</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">CRECI na bio e bio sem prova são os erros mais comuns — inclusive entre perfis que acertam o handle. A L1 desperdiçada é o padrão, não a exceção.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;min-width:88px;padding-top:2px">Destaques</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">Um perfil pode ter handle perfeito e destaques completamente pessoais. O campo mais visto depois do handle — e o mais negligenciado.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;min-width:88px;padding-top:2px">O objetivo</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">Não é acertar um campo. É ter todos alinhados ao mesmo tempo. O mercado raramente faz isso — e é exatamente aí que está o espaço.</span></div>
 </div>
 </div>`},
 
@@ -896,9 +884,7 @@ D.badge(1240,47,1,'good')+D.badge(1240,208,2,'warn')+D.badge(1240,234,3,'good'),
 'Análise — @washingtonlordimoveis',
 '5.726 seguidores · Belo Horizonte/MG · Bio genérica em bullets',
 'assets/bios-ruins/washingtonlordimoveis.png',
-D.circle(490,185,490,15,'#dc2626')+
-D.circle(490,252,450,80,'#dc2626')+
-D.badge(1240,185,1,'bad')+D.badge(1240,252,2,'bad'),
+'',
 [{type:'bad',title:'Display name longo e sem filtro de nicho',desc:'"Washington Lordi Corretor de imóveis Belo Horizonte/MG." — excede 30 caracteres, mistura cargo genérico com cidade. Não filtra tipo de imóvel nem tipo de cliente.'},
 {type:'bad',title:'Bio em lista de bullets sem diferencial',desc:'• CONSULTOR IMOBILIÁRIO • VENDA | LOCAÇÃO | ADMINISTRAÇÃO • 6 ANOS • CRECI. Cada ponto é o que qualquer corretor pode escrever. Em caixa alta não cria urgência — cria panfleto. Sem nicho, sem prova real.'}])},
 
@@ -906,10 +892,7 @@ D.badge(1240,185,1,'bad')+D.badge(1240,252,2,'bad'),
 'Análise — @marcelocorretorflorianopolis',
 '1.126 seguidores · Florianópolis/SC · Bio clichê · destaques sem foco',
 'assets/bios-ruins/marcelocorretorflorianopolis.png',
-D.circle(490,262,445,16,'#dc2626')+
-D.circle(565,470,44,44,'#dc2626')+
-D.circle(670,470,44,44,'#dc2626')+
-D.badge(1240,262,1,'bad')+D.badge(1240,470,2,'bad'),
+'',
 [{type:'bad',title:'"Realizar seu sonho de viver bem" — o clichê mais comum',desc:'Qualquer corretor em qualquer cidade pode escrever exatamente isso. Não diz que tipo de imóvel, não identifica o cliente, não entrega diferencial. Ocupa os 150 caracteres com afirmação vazia.'},
 {type:'bad',title:'HUMOR e NEWS nos destaques destroem o posicionamento',desc:'O visitante não sabe se é perfil de corretor ou criador de entretenimento. Seis destaques sem fio condutor profissional comunicam que o perfil não tem linha editorial — e linha editorial é posicionamento.'}])},
 
@@ -917,11 +900,7 @@ D.badge(1240,262,1,'bad')+D.badge(1240,470,2,'bad'),
 'Análise — @rajramalho (borderline)',
 '4.061 seguidores · Alto Padrão · 20 anos de mercado — ativos fortes na posição errada',
 'assets/bios-ruins/rajramalho.png',
-D.underline(538,182,800,'#16a34a',2.5)+
-D.circle(480,254,365,15,'#d97706',2.5)+
-D.arrow(643,239,643,200,'#d97706',2.2)+
-D.circle(380,300,300,14,'#dc2626')+
-D.badge(1240,182,1,'good')+D.badge(1240,254,2,'warn')+D.badge(1240,300,3,'bad'),
+'',
 [{type:'good',title:'"Alto Padrão" no nome de exibição — acerto real',desc:'"Raj Ramalho | Imóveis de Alto Padrão" — nicho declarado no campo mais indexado após o handle. O ICP de alto padrão se identifica antes de ler a bio.'},
 {type:'warn',title:'"20 anos no mercado" está enterrado na linha 3',desc:'É o ativo mais forte do perfil — e está em terceiro lugar, depois de "Entrepreneur" e do nome da empresa. A regra é simples: o dado mais forte vai na posição mais lida (linha 1 ou 2).'},
 {type:'bad',title:'"Inteligência de mercado" como linha final — CTA vago',desc:'Não é instrução, não é convite, não tem consequência esperada. Um CTA precisa dizer o que o cliente faz agora — e o que acontece quando ele faz.'}])},
