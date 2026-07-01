@@ -116,7 +116,7 @@ html,body{height:100%;background:#e6e5e2;font-family:'Inter',system-ui,sans-seri
 
 /* IG PHOTO — screenshot real cropado */
 .ig-photo-wrap{overflow:hidden;position:relative;aspect-ratio:1286/797;border-radius:10px;box-shadow:0 2px 16px rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.06);background:#f0f0f0;}
-.ig-photo-wrap img{position:absolute;width:calc(100% * 3840/1286);height:auto;left:calc(-100% * 169/1286);top:calc(-100% * 125/797);pointer-events:none;display:block;}
+.ig-photo-wrap img{position:absolute;width:calc(100% * 3840/1286);height:auto;left:calc(-100% * 169/1286);top:calc(-100% * 145/797);pointer-events:none;display:block;}
 .ig-ann-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
 .ig-slide-grid2{display:grid;grid-template-columns:1.45fr 1fr;gap:22px;flex:1;align-items:start;min-height:0;}
 
@@ -720,8 +720,6 @@ D.cross(22,252,'#dc2626')+D.cross(70,252,'#dc2626')+D.cross(118,252,'#dc2626')+D
 {label:'Slot 4',name:'Dicas',desc:'Conteúdo educativo sem vender diretamente. Demonstra autoridade técnica antes de qualquer conversa comercial. Constrói confiança gratuitamente.'},
 {label:'Slot 5',name:'Contato',desc:'Como falar, horários, canais disponíveis. Parece óbvio — mas não ter facilita que o cliente desista antes de entrar em contato.'}],5)},
 
-,
-
 /* 41 */ {cls:'s-compare',html:`<div class="pad">
 <h2>Zona 4 — Nomes dos destaques: o que comunicam antes do clique</h2>
 <div class="compare-grid">
@@ -838,10 +836,10 @@ D.cross(22,252,'#dc2626')+D.cross(70,252,'#dc2626')+D.cross(118,252,'#dc2626')+D
 'Análise — @maysa_marcari__mcmv',
 '2.999 seguidores · Ribeirão Preto · MCMV + Alto Padrão',
 'assets/bios-boas/maysa_marcari__mcmv.png',
-D.underline(675,72,975,'#16a34a',2.5)+ // "mcmv" no handle
-D.underline(255,256,640,'#16a34a',2.5)+ // "Ribeirão Preto" bio L2
-D.circle(450,297,290,15,'#16a34a')+     // "Lançamentos-MCMV-Alto padrão" bio L4
-D.badge(1240,72,1,'good')+D.badge(1240,256,2,'good')+D.badge(1240,297,3,'good'),
+D.underline(675,52,975,'#16a34a',2.5)+
+D.underline(255,236,640,'#16a34a',2.5)+
+D.circle(450,277,290,15,'#16a34a')+
+D.badge(1240,52,1,'good')+D.badge(1240,236,2,'good')+D.badge(1240,277,3,'good'),
 [{type:'good',title:'MCMV indexado no handle',desc:'"maysa_marcari__mcmv" — qualquer busca por "MCMV" no Instagram encontra esse perfil. A palavra-chave está no campo mais indexado da plataforma.'},
 {type:'good',title:'Território explícito na bio',desc:'"Atendimento exclusivo em Ribeirão Preto" — não "toda a cidade". Quem é de RP sabe imediatamente que chegou no perfil certo.'},
 {type:'good',title:'Produto na bio com indexação dupla',desc:'"Lançamentos-MCMV-Alto padrão" — MCMV aparece no handle e na bio. Redundância de palavra-chave amplifica o alcance nas buscas.'}])},
@@ -850,10 +848,10 @@ D.badge(1240,72,1,'good')+D.badge(1240,256,2,'good')+D.badge(1240,297,3,'good'),
 'Análise — @corretorwendell',
 '2.294 seguidores · Florianópolis/SC · Campeão de vendas',
 'assets/bios-boas/corretorwendell.png',
-D.underline(310,202,740,'#16a34a',2.5)+ // "Florianópolis-SC" no display name
-D.circle(490,251,375,15,'#16a34a')+     // "Campeão de vendas 2022·2023 e 2025" bio L2
-D.underline(265,299,540,'#16a34a',2.5)+ // "+300 imóveis" bio L4
-D.badge(1240,202,1,'good')+D.badge(1240,251,2,'good')+D.badge(1240,299,3,'good'),
+D.underline(310,182,740,'#16a34a',2.5)+
+D.circle(490,231,375,15,'#16a34a')+
+D.underline(265,279,540,'#16a34a',2.5)+
+D.badge(1240,182,1,'good')+D.badge(1240,231,2,'good')+D.badge(1240,279,3,'good'),
 [{type:'good',title:'Território no nome de exibição',desc:'"Imóveis em Florianópolis-SC" no display name → indexado pelo buscador do Instagram. Qualquer busca "imóveis Florianópolis" encontra esse perfil.'},
 {type:'good',title:'Prova sequencial — 3 anos consecutivos',desc:'"Campeão de vendas 2022 · 2023 e 2025" não é pontual: é padrão. Três anos consecutivos provam consistência — não um bom mês.'},
 {type:'good',title:'+300 imóveis — prova de volume',desc:'Dado verificável de resultado. Volume concreto que responde à pergunta não dita do cliente: "esse corretor já fez isso antes?"'}])},
@@ -862,10 +860,10 @@ D.badge(1240,202,1,'good')+D.badge(1240,251,2,'good')+D.badge(1240,299,3,'good')
 'Análise — @helenamello.imoveisluxosjc',
 '13.8k seguidores · São José dos Campos · Luxo · +R$1B vendidos',
 'assets/bios-boas/helenamello.imoveisluxosjc.png',
-D.underline(385,67,950,'#16a34a',2.5)+ // "imoveisluxosjc" no handle
-D.circle(480,274,375,14,'#16a34a')+    // "+de 1B em imóveis vendidos" bio L3
-D.underline(255,297,600,'#16a34a',2.5)+// "São José dos Campos" bio L4
-D.badge(1240,67,1,'good')+D.badge(1240,274,2,'good')+D.badge(1240,297,3,'good'),
+D.underline(385,47,950,'#16a34a',2.5)+
+D.circle(480,254,375,14,'#16a34a')+
+D.underline(255,277,600,'#16a34a',2.5)+
+D.badge(1240,47,1,'good')+D.badge(1240,254,2,'good')+D.badge(1240,277,3,'good'),
 [{type:'good',title:'Handle com nicho + território: "imoveisluxosjc"',desc:'Handle funciona como SEO permanente. "Imóveis", "luxo" e "SJC" indexados em um único campo. Qualquer busca por luxo em São José dos Campos passa por esse perfil.'},
 {type:'good',title:'Prova monetária rara: "+de 1B em imóveis vendidos"',desc:'Volume em reais é o tipo de prova mais difícil de contestar. Não é número de imóveis — é o valor transacionado. Diferencia completamente de qualquer outro corretor.'},
 {type:'good',title:'Território repetido no handle e na bio',desc:'"São José dos Campos" aparece no handle (SJC) e explícito na bio. Dois pontos de indexação para o mesmo território.'}])},
@@ -874,10 +872,10 @@ D.badge(1240,67,1,'good')+D.badge(1240,274,2,'good')+D.badge(1240,297,3,'good'),
 'Análise — @anacorretora.curitiba',
 '1.963 seguidores · Curitiba/PR · Corretora desde 2015',
 'assets/bios-boas/anacorretora.curitiba.png',
-D.underline(580,67,870,'#16a34a',2.5)+ // "curitiba" no handle
-D.circle(290,228,200,14,'#d97706',2.5)+// CRECI como 1ª linha (posição errada)
-D.underline(305,254,510,'#16a34a',2.5)+// "desde 2015" bio L2
-D.badge(1240,67,1,'good')+D.badge(1240,228,2,'warn')+D.badge(1240,254,3,'good'),
+D.underline(580,47,870,'#16a34a',2.5)+
+D.circle(290,208,200,14,'#d97706',2.5)+
+D.underline(305,234,510,'#16a34a',2.5)+
+D.badge(1240,47,1,'good')+D.badge(1240,208,2,'warn')+D.badge(1240,234,3,'good'),
 [{type:'good',title:'Curitiba indexado no handle',desc:'"anacorretora.curitiba" coloca a cidade no campo mais indexado do Instagram. Qualquer busca "corretora Curitiba" passa por esse perfil antes de qualquer outra ação dela.'},
 {type:'warn',title:'CRECI ocupa a linha 1 da bio',desc:'CRECI é obrigação legal — não diferencial. Colocá-lo como primeira linha da bio desperdiça o espaço mais lido. Uma prova ou o nicho deveriam vir primeiro.'},
 {type:'good',title:'"Desde 2015" — prova temporal simples e eficaz',desc:'10 anos no mesmo mercado, em texto direto. Não é afirmação de experiência — é dado verificável com data de referência.'}])},
@@ -898,9 +896,9 @@ D.badge(1240,67,1,'good')+D.badge(1240,228,2,'warn')+D.badge(1240,254,3,'good'),
 'Análise — @washingtonlordimoveis',
 '5.726 seguidores · Belo Horizonte/MG · Bio genérica em bullets',
 'assets/bios-ruins/washingtonlordimoveis.png',
-D.circle(490,205,490,15,'#dc2626')+   // display name muito longo/genérico
-D.circle(490,272,450,80,'#dc2626')+   // toda a bio em bullets genéricos
-D.badge(1240,205,1,'bad')+D.badge(1240,272,2,'bad'),
+D.circle(490,185,490,15,'#dc2626')+
+D.circle(490,252,450,80,'#dc2626')+
+D.badge(1240,185,1,'bad')+D.badge(1240,252,2,'bad'),
 [{type:'bad',title:'Display name longo e sem filtro de nicho',desc:'"Washington Lordi Corretor de imóveis Belo Horizonte/MG." — excede 30 caracteres, mistura cargo genérico com cidade. Não filtra tipo de imóvel nem tipo de cliente.'},
 {type:'bad',title:'Bio em lista de bullets sem diferencial',desc:'• CONSULTOR IMOBILIÁRIO • VENDA | LOCAÇÃO | ADMINISTRAÇÃO • 6 ANOS • CRECI. Cada ponto é o que qualquer corretor pode escrever. Em caixa alta não cria urgência — cria panfleto. Sem nicho, sem prova real.'}])},
 
@@ -908,10 +906,10 @@ D.badge(1240,205,1,'bad')+D.badge(1240,272,2,'bad'),
 'Análise — @marcelocorretorflorianopolis',
 '1.126 seguidores · Florianópolis/SC · Bio clichê · destaques sem foco',
 'assets/bios-ruins/marcelocorretorflorianopolis.png',
-D.circle(490,282,445,16,'#dc2626')+  // "realizar seu sonho de viver bem" bio L3
-D.circle(565,490,44,44,'#dc2626')+   // destaque HUMOR
-D.circle(670,490,44,44,'#dc2626')+   // destaque NEWS
-D.badge(1240,282,1,'bad')+D.badge(1240,490,2,'bad'),
+D.circle(490,262,445,16,'#dc2626')+
+D.circle(565,470,44,44,'#dc2626')+
+D.circle(670,470,44,44,'#dc2626')+
+D.badge(1240,262,1,'bad')+D.badge(1240,470,2,'bad'),
 [{type:'bad',title:'"Realizar seu sonho de viver bem" — o clichê mais comum',desc:'Qualquer corretor em qualquer cidade pode escrever exatamente isso. Não diz que tipo de imóvel, não identifica o cliente, não entrega diferencial. Ocupa os 150 caracteres com afirmação vazia.'},
 {type:'bad',title:'HUMOR e NEWS nos destaques destroem o posicionamento',desc:'O visitante não sabe se é perfil de corretor ou criador de entretenimento. Seis destaques sem fio condutor profissional comunicam que o perfil não tem linha editorial — e linha editorial é posicionamento.'}])},
 
@@ -919,11 +917,11 @@ D.badge(1240,282,1,'bad')+D.badge(1240,490,2,'bad'),
 'Análise — @rajramalho (borderline)',
 '4.061 seguidores · Alto Padrão · 20 anos de mercado — ativos fortes na posição errada',
 'assets/bios-ruins/rajramalho.png',
-D.underline(538,202,800,'#16a34a',2.5)+ // "Alto Padrão" no display name (bom)
-D.circle(480,274,365,15,'#d97706',2.5)+ // "20 anos" bio L3 (deveria ser L1)
-D.arrow(643,259,643,220,'#d97706',2.2)+ // seta: deveria subir para L1
-D.circle(380,320,300,14,'#dc2626')+     // "Inteligência de mercado" bio L5 (vago)
-D.badge(1240,202,1,'good')+D.badge(1240,274,2,'warn')+D.badge(1240,320,3,'bad'),
+D.underline(538,182,800,'#16a34a',2.5)+
+D.circle(480,254,365,15,'#d97706',2.5)+
+D.arrow(643,239,643,200,'#d97706',2.2)+
+D.circle(380,300,300,14,'#dc2626')+
+D.badge(1240,182,1,'good')+D.badge(1240,254,2,'warn')+D.badge(1240,300,3,'bad'),
 [{type:'good',title:'"Alto Padrão" no nome de exibição — acerto real',desc:'"Raj Ramalho | Imóveis de Alto Padrão" — nicho declarado no campo mais indexado após o handle. O ICP de alto padrão se identifica antes de ler a bio.'},
 {type:'warn',title:'"20 anos no mercado" está enterrado na linha 3',desc:'É o ativo mais forte do perfil — e está em terceiro lugar, depois de "Entrepreneur" e do nome da empresa. A regra é simples: o dado mais forte vai na posição mais lida (linha 1 ou 2).'},
 {type:'bad',title:'"Inteligência de mercado" como linha final — CTA vago',desc:'Não é instrução, não é convite, não tem consequência esperada. Um CTA precisa dizer o que o cliente faz agora — e o que acontece quando ele faz.'}])},
