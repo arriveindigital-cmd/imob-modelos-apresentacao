@@ -114,6 +114,12 @@ html,body{height:100%;background:#e6e5e2;font-family:'Inter',system-ui,sans-seri
 .ig-ai-text{font-size:.8rem;font-weight:600;color:var(--text);line-height:1.35;}
 .ig-ai-desc{font-size:.71rem;color:var(--muted);display:block;font-weight:400;margin-top:2px;line-height:1.42;}
 
+/* IG PHOTO — screenshot real cropado */
+.ig-photo-wrap{overflow:hidden;position:relative;aspect-ratio:1286/797;border-radius:10px;box-shadow:0 2px 16px rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.06);background:#f0f0f0;}
+.ig-photo-wrap img{position:absolute;width:calc(100% * 3840/1286);height:auto;left:calc(-100% * 169/1286);top:calc(-100% * 125/797);pointer-events:none;display:block;}
+.ig-ann-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.ig-slide-grid2{display:grid;grid-template-columns:1.45fr 1fr;gap:22px;flex:1;align-items:start;min-height:0;}
+
 /* BIO BUILDER */
 .s-biobuilder .pad{justify-content:center;}
 .bb-title{font-size:1.6rem;font-weight:800;letter-spacing:-.035em;margin-bottom:14px;}
@@ -227,6 +233,19 @@ ${anns||''}
 </svg>`;
   const itemsHTML=items.map((it,i)=>`<div class="ig-ai ${it.type}"><div class="ig-badge ${it.type}">${i+1}</div><div><div class="ig-ai-text">${it.title}</div>${it.desc?`<span class="ig-ai-desc">${it.desc}</span>`:''}</div></div>`).join('');
   return `<div class="pad"><div class="ig-slide-title">${title}</div>${sub?`<div class="ig-slide-sub">${sub}</div>`:''}<div class="ig-slide-grid"><div class="ig-mock-wrap">${svg}</div><div class="ig-analysis-panel"><div class="ig-analysis-title">Análise</div>${itemsHTML}</div></div></div>`;
+}
+
+/* ── igPhoto: screenshot real com anotações SVG ──
+   viewBox das anotações: 0 0 1286 797
+   Origem = pixel (169,125) do original 3840×1200
+   Âncoras típicas (px na região):
+     handle y≈67 | avatar cx≈380 cy≈130 r≈60
+     display name y≈200 | bio L1 y≈228 L2≈251 L3≈274 L4≈297 L5≈320
+     botões y≈390 | destaques centers y≈490 | grid y≈600+
+*/
+function igPhoto(title,sub,imgSrc,anns,items){
+  const aiHTML=items.map((it,i)=>`<div class="ig-ai ${it.type}"><div class="ig-badge ${it.type}">${i+1}</div><div><div class="ig-ai-text">${it.title}</div>${it.desc?`<span class="ig-ai-desc">${it.desc}</span>`:''}</div></div>`).join('');
+  return `<div class="pad"><div class="ig-slide-title">${title}</div>${sub?`<div class="ig-slide-sub">${sub}</div>`:''}<div class="ig-slide-grid2"><div class="ig-photo-wrap"><img src="${imgSrc}" alt=""><svg class="ig-ann-overlay" viewBox="0 0 1286 797" preserveAspectRatio="none">${anns||''}</svg></div><div class="ig-analysis-panel"><div class="ig-analysis-title">Análise</div>${aiHTML}</div></div></div>`;
 }
 
 /* ── bioBuilder ── */
@@ -815,13 +834,53 @@ D.cross(22,252,'#dc2626')+D.cross(70,252,'#dc2626')+D.cross(118,252,'#dc2626')+D
 </div>
 </div>`},
 
-/* 52 */ {cls:'s-igprofile',html:igMock('Análise positiva — @maysa_marcari__mcmv','Especialista MCMV · 28.4k seguidores · Campinas/SP',pMaysa,annMaysa,itemsMaysa)},
+/* 52 */ {cls:'s-igprofile',html:igPhoto(
+'Análise — @maysa_marcari__mcmv',
+'2.999 seguidores · Ribeirão Preto · MCMV + Alto Padrão',
+'assets/bios-boas/maysa_marcari__mcmv.png',
+D.underline(675,72,975,'#16a34a',2.5)+ // "mcmv" no handle
+D.underline(255,256,640,'#16a34a',2.5)+ // "Ribeirão Preto" bio L2
+D.circle(450,297,290,15,'#16a34a')+     // "Lançamentos-MCMV-Alto padrão" bio L4
+D.badge(1240,72,1,'good')+D.badge(1240,256,2,'good')+D.badge(1240,297,3,'good'),
+[{type:'good',title:'MCMV indexado no handle',desc:'"maysa_marcari__mcmv" — qualquer busca por "MCMV" no Instagram encontra esse perfil. A palavra-chave está no campo mais indexado da plataforma.'},
+{type:'good',title:'Território explícito na bio',desc:'"Atendimento exclusivo em Ribeirão Preto" — não "toda a cidade". Quem é de RP sabe imediatamente que chegou no perfil certo.'},
+{type:'good',title:'Produto na bio com indexação dupla',desc:'"Lançamentos-MCMV-Alto padrão" — MCMV aparece no handle e na bio. Redundância de palavra-chave amplifica o alcance nas buscas.'}])},
 
-/* 53 */ {cls:'s-igprofile',html:igMock('Análise positiva — @corretorwendell','Top Vendas 3 anos consecutivos · 14.2k seguidores · Florianópolis/SC',pWendell,annWendell,itemsWendell)},
+/* 53 */ {cls:'s-igprofile',html:igPhoto(
+'Análise — @corretorwendell',
+'2.294 seguidores · Florianópolis/SC · Campeão de vendas',
+'assets/bios-boas/corretorwendell.png',
+D.underline(310,202,740,'#16a34a',2.5)+ // "Florianópolis-SC" no display name
+D.circle(490,251,375,15,'#16a34a')+     // "Campeão de vendas 2022·2023 e 2025" bio L2
+D.underline(265,299,540,'#16a34a',2.5)+ // "+300 imóveis" bio L4
+D.badge(1240,202,1,'good')+D.badge(1240,251,2,'good')+D.badge(1240,299,3,'good'),
+[{type:'good',title:'Território no nome de exibição',desc:'"Imóveis em Florianópolis-SC" no display name → indexado pelo buscador do Instagram. Qualquer busca "imóveis Florianópolis" encontra esse perfil.'},
+{type:'good',title:'Prova sequencial — 3 anos consecutivos',desc:'"Campeão de vendas 2022 · 2023 e 2025" não é pontual: é padrão. Três anos consecutivos provam consistência — não um bom mês.'},
+{type:'good',title:'+300 imóveis — prova de volume',desc:'Dado verificável de resultado. Volume concreto que responde à pergunta não dita do cliente: "esse corretor já fez isso antes?"'}])},
 
-/* 54 */ {cls:'s-igprofile',html:igMock('Análise positiva — @helenamello.imoveisluxosjc','Imóveis de luxo · São José dos Campos · 13 anos de mercado · 13.4k seguidores',pHelena,annHelena,itemsHelena)},
+/* 54 */ {cls:'s-igprofile',html:igPhoto(
+'Análise — @helenamello.imoveisluxosjc',
+'13.8k seguidores · São José dos Campos · Luxo · +R$1B vendidos',
+'assets/bios-boas/helenamello.imoveisluxosjc.png',
+D.underline(385,67,950,'#16a34a',2.5)+ // "imoveisluxosjc" no handle
+D.circle(480,274,375,14,'#16a34a')+    // "+de 1B em imóveis vendidos" bio L3
+D.underline(255,297,600,'#16a34a',2.5)+// "São José dos Campos" bio L4
+D.badge(1240,67,1,'good')+D.badge(1240,274,2,'good')+D.badge(1240,297,3,'good'),
+[{type:'good',title:'Handle com nicho + território: "imoveisluxosjc"',desc:'Handle funciona como SEO permanente. "Imóveis", "luxo" e "SJC" indexados em um único campo. Qualquer busca por luxo em São José dos Campos passa por esse perfil.'},
+{type:'good',title:'Prova monetária rara: "+de 1B em imóveis vendidos"',desc:'Volume em reais é o tipo de prova mais difícil de contestar. Não é número de imóveis — é o valor transacionado. Diferencia completamente de qualquer outro corretor.'},
+{type:'good',title:'Território repetido no handle e na bio',desc:'"São José dos Campos" aparece no handle (SJC) e explícito na bio. Dois pontos de indexação para o mesmo território.'}])},
 
-/* 55 */ {cls:'s-igprofile',html:igMock('Análise positiva — @anacorretora.curitiba','14 anos em Curitiba · +300 imóveis entregues · 8.7k seguidores',pAna,annAna,itemsAna)},
+/* 55 */ {cls:'s-igprofile',html:igPhoto(
+'Análise — @anacorretora.curitiba',
+'1.963 seguidores · Curitiba/PR · Corretora desde 2015',
+'assets/bios-boas/anacorretora.curitiba.png',
+D.underline(580,67,870,'#16a34a',2.5)+ // "curitiba" no handle
+D.circle(290,228,200,14,'#d97706',2.5)+// CRECI como 1ª linha (posição errada)
+D.underline(305,254,510,'#16a34a',2.5)+// "desde 2015" bio L2
+D.badge(1240,67,1,'good')+D.badge(1240,228,2,'warn')+D.badge(1240,254,3,'good'),
+[{type:'good',title:'Curitiba indexado no handle',desc:'"anacorretora.curitiba" coloca a cidade no campo mais indexado do Instagram. Qualquer busca "corretora Curitiba" passa por esse perfil antes de qualquer outra ação dela.'},
+{type:'warn',title:'CRECI ocupa a linha 1 da bio',desc:'CRECI é obrigação legal — não diferencial. Colocá-lo como primeira linha da bio desperdiça o espaço mais lido. Uma prova ou o nicho deveriam vir primeiro.'},
+{type:'good',title:'"Desde 2015" — prova temporal simples e eficaz',desc:'10 anos no mesmo mercado, em texto direto. Não é afirmação de experiência — é dado verificável com data de referência.'}])},
 
 /* 56 */ {cls:'s-insight',html:`<div class="pad">
 <div class="insight-text">Quatro perfis diferentes.<br><span class="gradtext">Um padrão:</span></div>
@@ -835,13 +894,39 @@ D.cross(22,252,'#dc2626')+D.cross(70,252,'#dc2626')+D.cross(118,252,'#dc2626')+D
 
 /* 57 */ {cls:'s-section',html:sec('Atenção','Perfis que<br>destroem o posicionamento','Quatro perfis que representam os erros mais comuns. O objetivo não é crítica — é identificar os padrões para que você não repita o mesmo caminho.')},
 
-/* 58 */ {cls:'s-igprofile',html:igMock('Análise — @sieiro.rafael','71.2k seguidores · Bio sem nicho · São Paulo/SP',pSieiro,annSieiro,itemsSieiro)},
+/* 58 */ {cls:'s-igprofile',html:igPhoto(
+'Análise — @washingtonlordimoveis',
+'5.726 seguidores · Belo Horizonte/MG · Bio genérica em bullets',
+'assets/bios-ruins/washingtonlordimoveis.png',
+D.circle(490,205,490,15,'#dc2626')+   // display name muito longo/genérico
+D.circle(490,272,450,80,'#dc2626')+   // toda a bio em bullets genéricos
+D.badge(1240,205,1,'bad')+D.badge(1240,272,2,'bad'),
+[{type:'bad',title:'Display name longo e sem filtro de nicho',desc:'"Washington Lordi Corretor de imóveis Belo Horizonte/MG." — excede 30 caracteres, mistura cargo genérico com cidade. Não filtra tipo de imóvel nem tipo de cliente.'},
+{type:'bad',title:'Bio em lista de bullets sem diferencial',desc:'• CONSULTOR IMOBILIÁRIO • VENDA | LOCAÇÃO | ADMINISTRAÇÃO • 6 ANOS • CRECI. Cada ponto é o que qualquer corretor pode escrever. Em caixa alta não cria urgência — cria panfleto. Sem nicho, sem prova real.'}])},
 
-/* 59 */ {cls:'s-igprofile',html:igMock('Análise — @washingtonlordimoveis','3 seguidores · 57k seguindo · Bio em caixa alta · sem nicho definido',pWashington,annWashington,itemsWashington)},
+/* 59 */ {cls:'s-igprofile',html:igPhoto(
+'Análise — @marcelocorretorflorianopolis',
+'1.126 seguidores · Florianópolis/SC · Bio clichê · destaques sem foco',
+'assets/bios-ruins/marcelocorretorflorianopolis.png',
+D.circle(490,282,445,16,'#dc2626')+  // "realizar seu sonho de viver bem" bio L3
+D.circle(565,490,44,44,'#dc2626')+   // destaque HUMOR
+D.circle(670,490,44,44,'#dc2626')+   // destaque NEWS
+D.badge(1240,282,1,'bad')+D.badge(1240,490,2,'bad'),
+[{type:'bad',title:'"Realizar seu sonho de viver bem" — o clichê mais comum',desc:'Qualquer corretor em qualquer cidade pode escrever exatamente isso. Não diz que tipo de imóvel, não identifica o cliente, não entrega diferencial. Ocupa os 150 caracteres com afirmação vazia.'},
+{type:'bad',title:'HUMOR e NEWS nos destaques destroem o posicionamento',desc:'O visitante não sabe se é perfil de corretor ou criador de entretenimento. Seis destaques sem fio condutor profissional comunicam que o perfil não tem linha editorial — e linha editorial é posicionamento.'}])},
 
-/* 60 */ {cls:'s-igprofile',html:igMock('Análise — @marcelocorretorflorianopolis','"Atende bem!" como diferencial · Destaques sem fio editorial · Florianópolis/SC',pMarcelo,annMarcelo,itemsMarcelo)},
-
-/* 61 */ {cls:'s-igprofile',html:igMock('Análise borderline — @rajramalho','4.6k seguidores · Tem ativos fortes — mas todos usados na posição errada',pRaj,annRaj,itemsRaj)},
+/* 60 */ {cls:'s-igprofile',html:igPhoto(
+'Análise — @rajramalho (borderline)',
+'4.061 seguidores · Alto Padrão · 20 anos de mercado — ativos fortes na posição errada',
+'assets/bios-ruins/rajramalho.png',
+D.underline(538,202,800,'#16a34a',2.5)+ // "Alto Padrão" no display name (bom)
+D.circle(480,274,365,15,'#d97706',2.5)+ // "20 anos" bio L3 (deveria ser L1)
+D.arrow(643,259,643,220,'#d97706',2.2)+ // seta: deveria subir para L1
+D.circle(380,320,300,14,'#dc2626')+     // "Inteligência de mercado" bio L5 (vago)
+D.badge(1240,202,1,'good')+D.badge(1240,274,2,'warn')+D.badge(1240,320,3,'bad'),
+[{type:'good',title:'"Alto Padrão" no nome de exibição — acerto real',desc:'"Raj Ramalho | Imóveis de Alto Padrão" — nicho declarado no campo mais indexado após o handle. O ICP de alto padrão se identifica antes de ler a bio.'},
+{type:'warn',title:'"20 anos no mercado" está enterrado na linha 3',desc:'É o ativo mais forte do perfil — e está em terceiro lugar, depois de "Entrepreneur" e do nome da empresa. A regra é simples: o dado mais forte vai na posição mais lida (linha 1 ou 2).'},
+{type:'bad',title:'"Inteligência de mercado" como linha final — CTA vago',desc:'Não é instrução, não é convite, não tem consequência esperada. Um CTA precisa dizer o que o cliente faz agora — e o que acontece quando ele faz.'}])},
 
 /* 62 */ {cls:'s-insight',html:`<div class="pad">
 <div class="insight-text">O padrão dos perfis<br>que <span class="gradtext">falham</span><br>é sempre o mesmo:</div>
