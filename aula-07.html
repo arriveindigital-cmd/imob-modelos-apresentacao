@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aula 7 · Perfil e bio — sua presença no Instagram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fafaf8;--text:#111111;--muted:rgba(17,17,17,.46);--subtle:rgba(17,17,17,.28);--border:rgba(0,0,0,.08);--surface:rgba(0,0,0,.035);--grad:linear-gradient(120deg,#f97316,#e11d48 45%,#7c3aed);--orange:#f97316;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;background:#e6e5e2;font-family:'Inter',system-ui,sans-serif;overflow:hidden;}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+.slide{position:absolute;width:min(94vw,1280px,calc((100vh - 64px)*16/9));aspect-ratio:16/9;background:var(--bg);border-radius:20px;overflow:hidden;opacity:0;transform:scale(.97) translateY(8px);transition:opacity .36s ease,transform .36s ease;pointer-events:none;box-shadow:0 32px 96px rgba(0,0,0,.2),0 2px 8px rgba(0,0,0,.1);color:var(--text);}
+.slide.active{opacity:1;transform:scale(1) translateY(0);pointer-events:auto;}
+.slide::after{content:'IMOB IN DIGITAL';position:absolute;bottom:20px;right:26px;font-size:.58rem;font-weight:700;letter-spacing:.2em;color:rgba(17,17,17,.18);pointer-events:none;}
+.pad{position:absolute;inset:0;padding:6.5% 7.5%;display:flex;flex-direction:column;}
+.gradtext{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.rule{width:44px;height:3px;background:var(--grad);border-radius:2px;}
+
+/* COVER */
+.s-cover{background:radial-gradient(ellipse at 96% 96%,rgba(124,58,237,.055) 0%,transparent 45%),radial-gradient(ellipse at 4% 4%,rgba(249,115,22,.04) 0%,transparent 38%),var(--bg);}
+.s-cover .pad{justify-content:flex-end;}
+.s-cover .eyebrow{margin-bottom:auto;}
+.s-cover .rule{margin-bottom:20px;}
+.s-cover h1{font-size:4.2rem;font-weight:800;letter-spacing:-.045em;line-height:1.02;}
+
+/* SECTION */
+.s-section{background:#111111;}
+.s-section .pad{justify-content:center;}
+.s-section .sec-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:18px;}
+.s-section .sec-rule{width:44px;height:3px;background:var(--grad);border-radius:2px;margin-bottom:24px;}
+.s-section .sec-title{font-size:3.6rem;font-weight:800;letter-spacing:-.045em;line-height:1.06;color:#fff;}
+.s-section .sec-sub{margin-top:22px;font-size:1rem;color:rgba(255,255,255,.48);max-width:68%;line-height:1.65;font-weight:400;}
+.slide.s-section::after{color:rgba(255,255,255,.12);}
+
+/* STATEMENT */
+.s-statement .pad{justify-content:center;}
+.s-statement .slabel{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.s-statement .stmt{font-size:2.7rem;font-weight:800;letter-spacing:-.04em;line-height:1.1;max-width:90%;}
+.s-statement .items{margin-top:26px;display:flex;flex-direction:column;}
+.s-statement .sitem{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid var(--border);font-size:1rem;font-weight:500;color:var(--text);line-height:1.45;}
+.s-statement .sitem:last-child{border-bottom:1px solid var(--border);}
+.s-statement .sitem .sn{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0;padding-top:3px;min-width:40px;}
+.s-statement .snote{margin-top:16px;font-size:.88rem;color:var(--muted);line-height:1.65;}
+
+/* KEY */
+.s-key .pad{justify-content:center;}
+.s-key .key-eye{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
+.s-key .key-q{font-size:3rem;font-weight:800;letter-spacing:-.04em;line-height:1.12;max-width:90%;}
+.s-key .key-sub{margin-top:26px;font-size:1rem;color:var(--muted);max-width:74%;line-height:1.65;font-weight:400;}
+
+/* COMPARE */
+.s-compare .pad{justify-content:center;}
+.s-compare h2{font-size:1.8rem;font-weight:800;letter-spacing:-.035em;margin-bottom:20px;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.compare-grid.three{grid-template-columns:1fr 1fr 1fr;}
+.ccol{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 24px;}
+.ccol .ctitle{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.ccol ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.ccol ul li{font-size:.96rem;font-weight:500;display:flex;align-items:flex-start;gap:10px;line-height:1.38;}
+.ccol ul li::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0;background:rgba(0,0,0,.2);margin-top:6px;}
+.ccol.strong{border-color:rgba(249,115,22,.25);}
+.ccol.strong ul li::before{background:var(--orange);}
+.ccol ul li em{font-style:italic;color:var(--muted);font-size:.88rem;}
+.cmp-note{margin-top:14px;font-size:.86rem;color:var(--muted);font-style:italic;text-align:center;}
+
+/* PHASES */
+.s-phases .pad{justify-content:center;}
+.s-phases h2{font-size:1.8rem;font-weight:800;letter-spacing:-.035em;margin-bottom:26px;}
+.phases-grid{display:grid;}
+.phase{padding:20px 24px;}
+.phase+.phase{border-left:1px solid var(--border);}
+.ph-label{font-size:.63rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:9px;}
+.ph-name{font-size:1.5rem;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:10px;}
+.ph-desc{font-size:.87rem;color:var(--muted);line-height:1.6;}
+
+/* LIST */
+.s-list .pad{justify-content:center;}
+.s-list .listttl{font-size:1.8rem;font-weight:800;letter-spacing:-.035em;margin-bottom:8px;}
+.s-list .ls-sub{font-size:.82rem;color:var(--muted);font-weight:400;margin-bottom:18px;line-height:1.5;}
+.s-list ol.clean{list-style:none;display:flex;flex-direction:column;}
+.s-list ol.clean li{display:flex;align-items:flex-start;gap:16px;padding:10px 0;border-top:1px solid var(--border);font-size:.92rem;font-weight:500;color:var(--text);line-height:1.4;}
+.s-list ol.clean li:last-child{border-bottom:1px solid var(--border);}
+.s-list ol.clean .n{font-size:.68rem;font-weight:800;letter-spacing:.1em;flex-shrink:0;padding-top:3px;min-width:22px;}
+.s-list .li-main{line-height:1.3;}
+.s-list .dtl{display:block;font-size:.74rem;color:var(--muted);font-weight:400;line-height:1.4;margin-top:2px;}
+
+/* INSIGHT */
+.s-insight{background:radial-gradient(ellipse at 100% 100%,rgba(124,58,237,.06) 0%,transparent 48%),var(--bg);}
+.s-insight .pad{justify-content:center;}
+.insight-text{font-size:3.4rem;font-weight:800;letter-spacing:-.045em;line-height:1.08;max-width:88%;}
+.next-label{margin-top:40px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;}
+.next-label::before{content:'→';color:var(--orange);font-size:.85rem;letter-spacing:0;}
+
+/* IG PROFILE */
+.s-igprofile .pad{padding:3.5% 5%;gap:10px;}
+.ig-slide-title{font-size:1.42rem;font-weight:800;letter-spacing:-.03em;flex-shrink:0;}
+.ig-slide-sub{font-size:.78rem;color:var(--muted);margin-top:3px;}
+.ig-slide-grid{display:grid;grid-template-columns:260px 1fr;gap:24px;flex:1;align-items:start;min-height:0;}
+.ig-mock-svg{display:block;width:260px;height:auto;border-radius:12px;box-shadow:0 2px 16px rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.06);}
+.ig-analysis-panel{display:flex;flex-direction:column;gap:8px;}
+.ig-analysis-title{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.ig-ai{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface);}
+.ig-ai.good{border-color:rgba(34,197,94,.22);background:rgba(34,197,94,.04);}
+.ig-ai.bad{border-color:rgba(220,38,38,.22);background:rgba(220,38,38,.04);}
+.ig-ai.warn{border-color:rgba(217,119,6,.22);background:rgba(217,119,6,.04);}
+.ig-badge{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;flex-shrink:0;margin-top:1px;}
+.ig-badge.good{background:rgba(34,197,94,.18);color:#15803d;}
+.ig-badge.bad{background:rgba(220,38,38,.18);color:#b91c1c;}
+.ig-badge.warn{background:rgba(217,119,6,.18);color:#92400e;}
+.ig-ai-text{font-size:.8rem;font-weight:600;color:var(--text);line-height:1.35;}
+.ig-ai-desc{font-size:.71rem;color:var(--muted);display:block;font-weight:400;margin-top:2px;line-height:1.42;}
+
+/* BIO BUILDER */
+.s-biobuilder .pad{justify-content:center;}
+.bb-title{font-size:1.6rem;font-weight:800;letter-spacing:-.035em;margin-bottom:14px;}
+.bb-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;align-items:start;}
+.bb-lines{display:flex;flex-direction:column;gap:6px;}
+.bb-line{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:center;padding:9px 12px;border-radius:9px;border:1px solid var(--border);}
+.bb-line.active{border-color:rgba(249,115,22,.3);background:rgba(249,115,22,.04);}
+.bb-line.done{border-color:rgba(34,197,94,.2);background:rgba(34,197,94,.03);}
+.bb-n{font-size:.66rem;font-weight:800;color:var(--subtle);text-align:center;}
+.bb-line.active .bb-n,.bb-line.done .bb-n{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.bb-label{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.bb-value{font-size:.84rem;font-weight:500;color:var(--subtle);}
+.bb-line.done .bb-value{color:rgba(17,17,17,.45);font-style:italic;}
+.bb-line.active .bb-value{color:var(--orange);font-weight:700;}
+.bb-right{display:flex;flex-direction:column;gap:11px;}
+.bb-card{background:#fff;border:1px solid #dbdbdb;border-radius:10px;padding:14px 16px;}
+.bb-card-handle{font-size:.7rem;font-weight:700;color:#262626;margin-bottom:9px;padding-bottom:8px;border-bottom:1px solid #efefef;}
+.bb-card-bio{font-size:.78rem;color:#262626;line-height:1.72;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;}
+.bb-note{font-size:.82rem;color:var(--muted);line-height:1.58;padding:10px 13px;border-radius:8px;border:1px solid var(--border);background:var(--surface);}
+
+/* MODELO BIO */
+.s-modelo-bio .pad{justify-content:center;}
+.mb-title{font-size:1.62rem;font-weight:800;letter-spacing:-.035em;margin-bottom:6px;}
+.mb-sub{font-size:.8rem;color:var(--muted);margin-bottom:16px;}
+.mb-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:22px;align-items:start;}
+.mb-card{background:#fff;border:1px solid #dbdbdb;border-radius:12px;padding:18px;}
+.mb-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #efefef;}
+.mb-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;font-family:'Inter',sans-serif;}
+.mb-handle{font-size:.72rem;font-weight:700;color:#262626;}
+.mb-display{font-size:.66rem;color:#737373;margin-top:1px;}
+.mb-bio{font-size:.78rem;color:#262626;line-height:1.72;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;}
+.mb-link{font-size:.72rem;color:#0095f6;margin-top:6px;}
+.mb-analysis{display:flex;flex-direction:column;gap:8px;}
+.mb-ai{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:9px;border:1px solid var(--border);background:var(--surface);}
+.mb-ln{font-size:.65rem;font-weight:800;flex-shrink:0;padding-top:2px;min-width:16px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.mb-ai-text{font-size:.82rem;font-weight:600;color:var(--text);line-height:1.3;}
+.mb-ai-desc{font-size:.72rem;color:var(--muted);display:block;margin-top:2px;font-weight:400;line-height:1.42;}
+
+/* MAPA */
+.s-mapa .pad{justify-content:center;}
+.mapa-title{font-size:1.62rem;font-weight:800;letter-spacing:-.035em;margin-bottom:16px;}
+.mapa-sub{font-size:.84rem;color:var(--muted);margin-bottom:18px;line-height:1.55;}
+.mapa-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.mapa-row{display:grid;grid-template-columns:1fr 30px 1fr;align-items:center;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);}
+.mapa-from strong{font-weight:700;color:var(--text);display:block;font-size:.84rem;}
+.mapa-from span{color:var(--muted);font-size:.72rem;}
+.mapa-arr{text-align:center;color:var(--orange);font-size:1.1rem;font-weight:800;}
+.mapa-to{font-size:.8rem;font-weight:600;color:var(--text);}
+.mapa-to small{display:block;font-size:.7rem;color:var(--muted);font-weight:400;margin-top:2px;}
+
+/* NAV */
+#ui{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.72);border:1px solid rgba(0,0,0,.1);backdrop-filter:blur(16px);padding:4px 10px;border-radius:100px;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+#ui button{background:none;border:none;font-size:.85rem;cursor:pointer;opacity:.5;padding:2px 5px;border-radius:6px;color:#111;line-height:1;}
+#ui button:hover{opacity:1;background:rgba(0,0,0,.07);}
+#counter{font-size:.62rem;color:rgba(0,0,0,.45);font-variant-numeric:tabular-nums;min-width:32px;text-align:center;font-weight:600;}
+#hint{position:fixed;top:14px;right:16px;z-index:50;font-size:.68rem;color:rgba(0,0,0,.3);letter-spacing:.04em;}
+</style>
+</head>
+<body>
+<div id="hint">← → navegar · F tela cheia</div>
+<div id="stage"></div>
+<div id="ui"><button id="prev">‹</button><span id="counter">1/1</span><button id="next">›</button></div>
+<script>
+/* ── Annotation helpers (SVG, viewBox 0 0 260 462) ── */
+const D={
+  circle:(cx,cy,rx,ry,col='#e11d48',w=2.5)=>{const ox=rx*.18,oy=ry*.18;return `<path d="M ${cx-rx},${cy} Q ${cx-rx},${cy-ry-oy} ${cx},${cy-ry} Q ${cx+rx+ox},${cy-ry} ${cx+rx},${cy} Q ${cx+rx},${cy+ry+oy} ${cx},${cy+ry} Q ${cx-rx-ox},${cy+ry} ${cx-rx},${cy}Z" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" opacity=".88"/>`},
+  arrow:(x1,y1,x2,y2,col='#e11d48',w=2.2)=>{const dx=x2-x1,dy=y2-y1,len=Math.sqrt(dx*dx+dy*dy)||1,nx=dx/len,ny=dy/len,px=-ny,py=nx,mx=(x1+dx*.45+px*14).toFixed(1),my=(y1+dy*.45+py*14).toFixed(1),h1x=(x2-nx*8-ny*6).toFixed(1),h1y=(y2-ny*8+nx*6).toFixed(1),h2x=(x2-nx*8+ny*6).toFixed(1),h2y=(y2-ny*8-nx*6).toFixed(1);return `<path d="M ${x1},${y1} Q ${mx},${my} ${x2},${y2}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/><path d="M ${h1x},${h1y} L ${x2},${y2} L ${h2x},${h2y}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`},
+  check:(x,y,col='#16a34a',w=3)=>`<path d="M ${x-10},${y} L ${x-2},${y+9} L ${x+12},${y-9}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`,
+  cross:(x,y,col='#dc2626',w=3)=>`<path d="M ${x-8},${y-8} L ${x+8},${y+8} M ${x+8},${y-8} L ${x-8},${y+8}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`,
+  underline:(x1,y,x2,col='#16a34a',w=2.3)=>`<path d="M ${x1},${y} Q ${(x1+x2)/2},${y+3} ${x2},${y}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`,
+  badge:(x,y,n,t='bad')=>{const c={good:'#16a34a',bad:'#dc2626',warn:'#d97706'},bg={good:'rgba(34,197,94,.2)',bad:'rgba(220,38,38,.2)',warn:'rgba(217,119,6,.2)'};return `<circle cx="${x}" cy="${y}" r="10" fill="${bg[t]||bg.bad}" stroke="${c[t]||c.bad}" stroke-width="1.5"/><text x="${x}" y="${y+4}" text-anchor="middle" fill="${c[t]||c.bad}" font-size="9" font-weight="800" font-family="Inter,sans-serif">${n}</text>`},
+  tag:(x,y,txt,t='bad')=>{const c={good:'#16a34a',bad:'#dc2626',warn:'#d97706'},bg={good:'rgba(34,197,94,.1)',bad:'rgba(220,38,38,.1)',warn:'rgba(217,119,6,.1)'};const w2=txt.length*5.2+14;return `<rect x="${x}" y="${y-9}" width="${w2}" height="16" rx="4" fill="${bg[t]||bg.bad}" stroke="${c[t]||c.bad}" stroke-width="1"/><text x="${x+6}" y="${y+2}" fill="${c[t]||c.bad}" font-size="8" font-weight="700" font-family="Inter,sans-serif">${txt}</text>`}
+};
+
+/* ── igMock: pure-SVG Instagram profile (viewBox 0 0 260 462) ── */
+function igMock(title,sub,p,anns,items){
+  const bl=p.bio.split('\n');
+  const bioSVG=bl.map((line,i)=>{const isLnk=line.includes('👇')||i===bl.length-1&&line.includes('link');return `<text x="12" y="${126+i*15}" font-size="9.5" fill="${isLnk?'#0095f6':'#262626'}" font-family="Inter,-apple-system,sans-serif">${line}</text>`}).join('');
+  const hl=(p.highlights||[]).slice(0,5).map((h,i)=>{const hx=22+i*48;return `<circle cx="${hx}" cy="252" r="22" fill="none" stroke="#dbdbdb" stroke-width="1"/><text x="${hx}" y="252" text-anchor="middle" dominant-baseline="middle" font-size="15">${h.icon}</text><text x="${hx}" y="279" text-anchor="middle" font-size="7" fill="#262626" font-family="Inter,-apple-system,sans-serif">${h.name}</text>`}).join('');
+  const gc=p.gridColors||['#d4c5b5','#c8bfb0','#c0b8a8','#d0c8b8','#c5bab0','#ccc5b8'];
+  const gridSVG=gc.slice(0,6).map((c,i)=>{const col=i%3,row=Math.floor(i/3),x=col*87+(col>0?2:0),y=286+row*88+(row>0?2:0);return `<rect x="${x}" y="${y}" width="${col===2?87:85}" height="86" fill="${c}"/>`}).join('');
+  const id=p.handle.replace(/[^a-z0-9]/g,'');
+  const svg=`<svg class="ig-mock-svg" viewBox="0 0 260 462" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="igr${id}" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f09433"/><stop offset="50%" stop-color="#dc2743"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs>
+<rect width="260" height="462" fill="#fff"/>
+<text x="12" y="20" font-size="10" font-weight="700" fill="#262626" font-family="Inter,-apple-system,sans-serif">@${p.handle}</text>
+<text x="235" y="20" font-size="13" fill="#262626" font-family="Inter,sans-serif">☰</text>
+<line x1="0" y1="30" x2="260" y2="30" stroke="#efefef" stroke-width="1"/>
+<circle cx="42" cy="73" r="30" fill="none" stroke="url(#igr${id})" stroke-width="2" opacity=".7"/>
+<circle cx="42" cy="73" r="26" fill="${p.avatarColor||'#f97316'}"/>
+<text x="42" y="79" text-anchor="middle" font-size="13" font-weight="800" fill="#fff" font-family="Inter,sans-serif">${p.avatarInitials||'?'}</text>
+<text x="140" y="64" text-anchor="middle" font-size="11" font-weight="700" fill="#262626" font-family="Inter,sans-serif">${p.posts}</text>
+<text x="140" y="77" text-anchor="middle" font-size="8" fill="#737373" font-family="Inter,sans-serif">posts</text>
+<text x="195" y="64" text-anchor="middle" font-size="11" font-weight="700" fill="#262626" font-family="Inter,sans-serif">${p.followers}</text>
+<text x="195" y="77" text-anchor="middle" font-size="8" fill="#737373" font-family="Inter,sans-serif">seguidores</text>
+<text x="248" y="64" text-anchor="middle" font-size="11" font-weight="700" fill="#262626" font-family="Inter,sans-serif">${p.following}</text>
+<text x="248" y="77" text-anchor="middle" font-size="8" fill="#737373" font-family="Inter,sans-serif">seguindo</text>
+<text x="12" y="108" font-size="10" font-weight="700" fill="#262626" font-family="Inter,-apple-system,sans-serif">${p.displayName}</text>
+${bioSVG}
+<rect x="12" y="198" width="148" height="22" rx="6" fill="#0095f6"/>
+<text x="86" y="213" text-anchor="middle" font-size="9" font-weight="600" fill="#fff" font-family="Inter,sans-serif">Seguir</text>
+<rect x="163" y="198" width="66" height="22" rx="6" fill="#efefef"/>
+<text x="196" y="213" text-anchor="middle" font-size="9" font-weight="600" fill="#262626" font-family="Inter,sans-serif">Mensagem</text>
+<rect x="232" y="198" width="22" height="22" rx="6" fill="#efefef"/>
+<text x="243" y="213" text-anchor="middle" font-size="9" fill="#262626" font-family="Inter,sans-serif">▾</text>
+<line x1="0" y1="228" x2="260" y2="228" stroke="#efefef" stroke-width="0.5"/>
+${hl}
+<line x1="0" y1="284" x2="260" y2="284" stroke="#efefef" stroke-width="0.5"/>
+${gridSVG}
+${anns||''}
+</svg>`;
+  const itemsHTML=items.map((it,i)=>`<div class="ig-ai ${it.type}"><div class="ig-badge ${it.type}">${i+1}</div><div><div class="ig-ai-text">${it.title}</div>${it.desc?`<span class="ig-ai-desc">${it.desc}</span>`:''}</div></div>`).join('');
+  return `<div class="pad"><div class="ig-slide-title">${title}</div>${sub?`<div class="ig-slide-sub">${sub}</div>`:''}<div class="ig-slide-grid"><div class="ig-mock-wrap">${svg}</div><div class="ig-analysis-panel"><div class="ig-analysis-title">Análise</div>${itemsHTML}</div></div></div>`;
+}
+
+/* ── bioBuilder ── */
+function bioBuilder(title,lines,activeIdx,handle,dispName,note){
+  const linesHTML=lines.map((l,i)=>{
+    const s=i<activeIdx?'done':i===activeIdx?'active':'';
+    const vStyle=i<activeIdx?'':'';
+    const vTxt=i<activeIdx?l.value:i===activeIdx?l.value:'';
+    return `<div class="bb-line ${s}"><div class="bb-n">${String(i+1).padStart(2,'0')}</div><div><div class="bb-label">${l.label}</div><div class="bb-value">${vTxt}</div></div></div>`;
+  }).join('');
+  const cardBio=lines.slice(0,activeIdx+1).map((l,i)=>{const isLnk=l.label==='CTA'||l.value.includes('👇');const isA=i===activeIdx;return `<span style="display:block;font-family:-apple-system,'Inter',sans-serif;font-size:.77rem;line-height:1.72;color:${isLnk?'#0095f6':isA?'#f97316':'rgba(38,38,38,.55)'};font-weight:${isA?'700':'400'}">${l.value}</span>`}).join('');
+  return `<div class="pad"><div class="bb-title">${title}</div><div class="bb-grid"><div class="bb-lines">${linesHTML}</div><div class="bb-right"><div class="bb-card"><div class="bb-card-handle">@${handle} · <span style="font-weight:400;color:#737373;font-size:.66rem">${dispName}</span></div><div class="bb-card-bio">${cardBio}</div></div>${note?`<div class="bb-note">${note}</div>`:''}</div></div></div>`;
+}
+
+/* ── modeloBio ── */
+function modeloBio(title,sub,handle,dispName,grad,bioLines,analysis){
+  const bioHTML=bioLines.map(l=>{const isLnk=l.includes('👇');return `<div style="font-family:-apple-system,'Inter',sans-serif;font-size:.77rem;line-height:1.72;color:${isLnk?'#0095f6':'#262626'}">${l}</div>`}).join('');
+  const initials=(dispName.split(' ').map(w=>w[0]).slice(0,2).join(''));
+  const anaHTML=analysis.map((a,i)=>`<div class="mb-ai"><div class="mb-ln">L${i+1}</div><div><div class="mb-ai-text">${a.text}</div>${a.desc?`<span class="mb-ai-desc">${a.desc}</span>`:''}</div></div>`).join('');
+  return `<div class="pad"><div class="mb-title">${title}</div>${sub?`<div class="mb-sub">${sub}</div>`:''}<div class="mb-grid"><div class="mb-card"><div class="mb-top"><div class="mb-avatar" style="background:${grad||'var(--orange)'}">${initials}</div><div><div class="mb-handle">@${handle}</div><div class="mb-display">${dispName}</div></div></div><div class="mb-bio">${bioHTML}</div><div class="mb-link">link.na.bio 👇</div></div><div class="mb-analysis">${anaHTML}</div></div></div>`;
+}
+
+/* ── mapa ── */
+function mapa(title,sub,rows){
+  return `<div class="pad"><div class="mapa-title">${title}</div>${sub?`<div class="mapa-sub">${sub}</div>`:''}<div class="mapa-grid">${rows.map(r=>`<div class="mapa-row"><div class="mapa-from"><strong>${r.from}</strong><span>${r.fromSub||''}</span></div><div class="mapa-arr">→</div><div class="mapa-to">${r.to}<small>${r.toSub||''}</small></div></div>`).join('')}</div></div>`;
+}
+
+/* ── sec / lst / ph ── */
+function sec(eye,title,sub){return `<div class="pad"><div class="sec-eye">${eye}</div><div class="sec-rule"></div><div class="sec-title">${title}</div>${sub?`<div class="sec-sub">${sub}</div>`:''}</div>`}
+function lst(title,sub,items,vis){const shown=items.slice(0,vis);return `<div class="pad"><div class="listttl">${title}</div>${sub?`<div class="ls-sub">${sub}</div>`:''}<ol class="clean">${shown.map((it,i)=>{const text=typeof it==='string'?it:it.title;const dtl=typeof it==='object'&&it.dtl?`<span class="dtl">${it.dtl}</span>`:'';return `<li><span class="n gradtext">${String(i+1).padStart(2,'0')}</span><span class="li-main">${text}${dtl}</span></li>`}).join('')}</ol></div>`}
+function ph(title,data,vis){const shown=data.slice(0,vis);return `<div class="pad"><h2>${title}</h2><div class="phases-grid" style="grid-template-columns:repeat(${shown.length},1fr)">${shown.map(p=>`<div class="phase"><div class="ph-label gradtext">${p.label}</div><div class="ph-name">${p.name}</div><div class="ph-desc">${p.desc}</div></div>`).join('')}</div></div>`}
+
+/* ── Bio lines data (Marina / generic) ── */
+const bioMarina=[
+  {label:'Identidade e nicho',value:'Especialista em primeiro imóvel · Campinas'},
+  {label:'Diferencial',value:'Do FGTS à chave, sem surpresa'},
+  {label:'Prova',value:'Top MCMV 2023 · 8 anos de mercado'},
+  {label:'Território',value:'Campinas · Zona Norte e região'},
+  {label:'CTA',value:'Fale comigo 👇'}
+];
+
+/* ── Profile data ── */
+const pGenericBad={handle:'joao.corretor.imob',displayName:'João Silva',posts:'234',followers:'412',following:'1.2k',bio:'Corretor de imóveis\nCRECI ativo\nAtendo toda a cidade\n📲 DM para mais informações',highlights:[{icon:'🏠',name:'IMOVEIS'},{icon:'📸',name:'FOTOS'},{icon:'🌎',name:'VIAGEM'}],gridColors:['#c5d5e0','#d0cec0','#c0d0d5','#d5c5c0','#c0c5d5','#d0d5c0'],avatarInitials:'🏢',avatarColor:'#9ca3af'};
+const annGenericBad=D.cross(42,73,'#dc2626',4)+D.circle(42,73,34,34,'#dc2626')+D.circle(80,156,116,34,'#dc2626')+D.circle(125,20,90,11,'#dc2626',2)+D.badge(245,73,1,'bad')+D.badge(245,156,2,'bad')+D.badge(245,20,3,'bad');
+const itemsGenericBad=[{type:'bad',title:'Logo em vez de rosto',desc:'O cliente compra de pessoas. Sem rosto visível, o primeiro passo da construção de confiança não acontece. Logo de imobiliária não substitui — elimina.'},{type:'bad',title:'Bio: cargo + requisito mínimo + generalismo + CTA vago',desc:'"CRECI ativo" é obrigação legal, não diferencial. "Atendo toda a cidade" é o posicionamento do generalista. "DM para mais informações" não diz nada.'},{type:'bad',title:'Handle sem indexação',desc:'"joao.corretor.imob" não aparece em nenhuma busca relevante — sem cidade, sem nicho, sem produto específico.'}];
+
+const pMaysa={handle:'maysa_marcari__mcmv',displayName:'Maysa Marcari | MCMV',posts:'847',followers:'28.4k',following:'312',bio:'Especialista MCMV 🏠\nTop MCMV 2023 Nacional 🏆\nCampinas e Região\nFinanciamento facilitado\nVer imóveis 👇',highlights:[{icon:'🏠',name:'Quem sou'},{icon:'⭐',name:'Resultados'},{icon:'🔑',name:'MCMV'},{icon:'💡',name:'Dicas'},{icon:'📞',name:'Contato'}],gridColors:['#d4c5b5','#c8bfb0','#c0b8a8','#d0c8b8','#c5bab0','#ccc5b8'],avatarInitials:'MM',avatarColor:'#f97316'};
+const annMaysa=D.underline(12,23,168,'#16a34a')+D.underline(110,111,148,'#16a34a')+D.circle(78,138,68,10,'#16a34a')+D.badge(245,20,1,'good')+D.badge(245,108,2,'good')+D.badge(245,138,3,'good');
+const itemsMaysa=[{type:'good',title:'MCMV em 3 pontos de indexação',desc:'Handle, nome de exibição e bio: qualquer busca por "MCMV" no Instagram encontra esse perfil via múltiplos campos indexados.'},{type:'good',title:'Premiação como prova verificável',desc:'"Top MCMV 2023 Nacional" — tem ano, tem categoria, tem âmbito. Não é afirmação. É dado com peso que o cliente pode pesquisar.'},{type:'good',title:'28.4k seguidores como consequência, não objetivo',desc:'Audiência construída com nicho claro e prova concreta. O posicionamento gera a audiência — não o contrário.'}];
+
+const pWendell={handle:'corretorwendell',displayName:'Wendell | Top Vendas Florianópolis',posts:'312',followers:'14.2k',following:'891',bio:'Corretor de imóveis · Florianópolis\nCampeão de vendas 2022 · 2023 · 2024\nDo primeiro contato à chave na mão\nFlorianópolis e Grande Florianópolis\nVer portfólio 👇',highlights:[{icon:'🏆',name:'Quem sou'},{icon:'⭐',name:'Resultados'},{icon:'🏠',name:'Imóveis'},{icon:'💡',name:'Dicas'},{icon:'📞',name:'Contato'}],gridColors:['#c8d5e0','#d0d8e4','#c0ccd8','#d4dce8','#c8d0dc','#ccd8e4'],avatarInitials:'W',avatarColor:'#0ea5e9'};
+const annWendell=D.circle(76,138,68,10,'#16a34a')+D.underline(12,168,200,'#16a34a')+D.badge(245,138,1,'good')+D.badge(245,168,2,'good')+D.check(245,108,'#16a34a');
+const itemsWendell=[{type:'good',title:'Prova sequencial — 3 anos consecutivos',desc:'"2022 · 2023 · 2024" não é pontual: é padrão. Três anos seguidos provam consistência, não um bom mês. Esse dado faz mais do que qualquer adjetivo.'},{type:'good',title:'Território específico + cidade no display name',desc:'"Florianópolis" aparece no nome de exibição e na bio. Sinaliza autoridade local para quem é de Florianópolis — filtra quem não é.'},{type:'good',title:'Diferencial concreto na bio',desc:'"Do primeiro contato à chave na mão" descreve um processo completo. É específico e verificável, diferente de "atendimento diferenciado".'}];
+
+const pHelena={handle:'helenamello.imoveisluxosjc',displayName:'Helena Mello | Luxo SJC',posts:'523',followers:'13.4k',following:'487',bio:'Imóveis de luxo · São José dos Campos\n13 anos no mercado\n+180 imóveis entregues\nSão José dos Campos e Vale\nFale comigo 👇',highlights:[{icon:'🏡',name:'Quem sou'},{icon:'⭐',name:'Resultados'},{icon:'🔑',name:'Imóveis'},{icon:'💡',name:'Dicas'},{icon:'📞',name:'Contato'}],gridColors:['#2d2420','#3d3028','#4a3c30','#282020','#342a22','#3a3020'],avatarInitials:'HM',avatarColor:'#d97706'};
+const annHelena=D.underline(12,23,200,'#16a34a')+D.underline(104,111,130,'#16a34a')+D.underline(82,129,210,'#16a34a')+D.underline(12,171,160,'#16a34a')+D.arrow(160,15,12,108,'#16a34a',1.8)+D.arrow(160,15,82,127,'#16a34a',1.8)+D.badge(245,20,1,'good')+D.badge(245,108,2,'good')+D.badge(245,128,3,'good');
+const itemsHelena=[{type:'good',title:'SJC em 3 pontos de indexação',desc:'Handle, nome de exibição e bio linha 1: "São José dos Campos" aparece em múltiplos campos. Para busca "luxo SJC", esse perfil aparece por onde o algoritmo olhar.'},{type:'good',title:'Prova dupla na bio',desc:'"13 anos" (temporal) + "+180 imóveis" (volumétrico): dois dados verificáveis na mesma bio. Não é afirmação de experiência — é prova.'},{type:'good',title:'Luxo declarado em múltiplos pontos',desc:'"Luxo" no handle, "Luxo" no nome, "imóveis de luxo" na bio. Redundância de nicho é estratégia — não descuido.'}];
+
+const pAna={handle:'anacorretora.curitiba',displayName:'Ana | Corretora Curitiba',posts:'289',followers:'8.7k',following:'1.2k',bio:'Corretora em Curitiba há 14 anos\nProcesso sem burocracia\n+300 imóveis entregues\nCuritiba · Batel e Água Verde\nAgende sua visita 👇',highlights:[{icon:'👋',name:'Sobre mim'},{icon:'⭐',name:'Clientes'},{icon:'🏠',name:'Imóveis'},{icon:'💡',name:'Dicas'},{icon:'📞',name:'Contato'}],gridColors:['#ddd5c8','#d8d0c4','#d4ccc0','#dcd4c8','#d0c8bc','#d8d0c4'],avatarInitials:'A',avatarColor:'#0d9488'};
+const annAna=D.underline(12,23,148,'#16a34a')+D.underline(66,111,130,'#16a34a')+D.underline(90,129,172,'#16a34a')+D.underline(12,155,150,'#16a34a')+D.badge(245,20,1,'good')+D.badge(245,108,2,'good')+D.badge(245,129,3,'good')+D.badge(245,155,4,'good');
+const itemsAna=[{type:'good',title:'Curitiba no handle e no nome de exibição',desc:'Dois campos indexados com a mesma cidade. Para busca "corretor Curitiba", esse perfil aparece com indexação dupla reforçada.'},{type:'good',title:'"Curitiba" também no nome de exibição',desc:'Terceiro ponto de indexação para a cidade, além do handle. A redundância geográfica é intencional e eficiente.'},{type:'good',title:'"há 14 anos" — prova temporal específica',desc:'Não "longa experiência". O número concreto com localização específica cria autoridade local mensurável.'},{type:'good',title:'+300 imóveis — prova de volume',desc:'Dado verificável de resultado. Escala que transmite consistência ao longo dos 14 anos.'}];
+
+const pSieiro={handle:'sieiro.rafael',displayName:'Rafael Sieiro',posts:'1.247',followers:'71.2k',following:'2.3k',bio:'Corretor de imóveis\nVendas | Locação | Financiamento\nSão Paulo · SP\n📱 Contato via DM',highlights:[{icon:'🏠',name:'Imóveis'},{icon:'📸',name:'Fotos'},{icon:'📊',name:'Dados'},{icon:'🎯',name:'Dicas'}],gridColors:['#d0d8e4','#c8d4e0','#ccd8e4','#d4dce8','#c8d0dc','#ccd4e0'],avatarInitials:'RS',avatarColor:'#374151'};
+const annSieiro=D.circle(80,152,112,30,'#dc2626')+D.circle(195,68,25,14,'#d97706',2)+D.arrow(195,55,130,30,'#d97706',1.8)+D.badge(245,152,1,'bad')+D.badge(245,68,2,'warn')+D.badge(245,20,3,'bad');
+const itemsSieiro=[{type:'bad',title:'Bio sem nicho, sem diferencial, sem prova',desc:'"Vendas | Locação | Financiamento" é lista de categorias. "São Paulo · SP" é território vago. Sem uma especialidade, você compete com todos os 580 mil corretores do Brasil.'},{type:'warn',title:'71.2k seguidores não validam o posicionamento',desc:'Audiência alta pode ser construída com volume de conteúdo sem nicho claro. Posicionamento é o que converte seguidores em clientes — e esse perfil não declara nenhum.'},{type:'bad',title:'Handle e display name sem indexação',desc:'"sieiro.rafael" não aparece em nenhuma busca de produto ou território. O campo mais estratégico do Instagram desperdiçado com nome próprio.'}];
+
+const pWashington={handle:'washingtonlordimoveis',displayName:'Washington Lordi Imóveis',posts:'7',followers:'3',following:'57k',bio:'VENDA | LOCAÇÃO | FINANCIAMENTO\nENTRE EM CONTATO VIA MENSAGEM',highlights:[],gridColors:['#efefef','#e8e8e8','#f0f0f0','#e5e5e5','#eaeaea','#f0f0f0'],avatarInitials:'WL',avatarColor:'#6b7280'};
+const annWashington=D.circle(195,68,25,14,'#dc2626')+D.circle(248,68,20,14,'#dc2626')+D.circle(80,135,112,22,'#dc2626')+D.arrow(195,55,130,20,'#dc2626',1.8)+D.badge(245,68,1,'bad')+D.badge(245,135,2,'bad')+D.tag(60,42,'growth hack','bad');
+const itemsWashington=[{type:'bad',title:'3 seguidores / 57 mil seguindo — ratio público',desc:'O Instagram mostra esse número para qualquer visitante. O primeiro que chega vê imediatamente que o perfil não tem presença orgânica real. O growth hack falhou — e ficou registrado.'},{type:'bad',title:'Bio como lista de serviços em caixa alta',desc:'"VENDA | LOCAÇÃO | FINANCIAMENTO" cobre o que 100% dos corretores fazem. Em caixa alta não cria urgência — cria impressão de panfleto de imóvel. Sem nicho, sem prova, sem diferencial.'},{type:'bad',title:'CTA sem consequência esperada',desc:'"ENTRE EM CONTATO VIA MENSAGEM" — mensagem sobre o quê? O que acontece depois? CTA vago é invisible — o cliente não sabe o próximo passo.'}];
+
+const pMarcelo={handle:'marcelocorretorflorianopolis',displayName:'Marcelo Corretor',posts:'156',followers:'2.1k',following:'3.4k',bio:'Florianópolis e região\nParceiro Serviços · CRECI\nAtende bem! 🏠',highlights:[{icon:'🏠',name:'APTOS'},{icon:'🏡',name:'CASAS'},{icon:'😂',name:'HUMOR'},{icon:'📰',name:'NEWS'},{icon:'💡',name:'DICAS'}],gridColors:['#dde8f0','#d8e4ec','#d4e0e8','#dce8f0','#d0dce8','#d8e4ec'],avatarInitials:'MC',avatarColor:'#6b7280'};
+const annMarcelo=D.circle(64,155,56,10,'#dc2626')+D.cross(130,252,'#dc2626')+D.circle(130,252,22,22,'#dc2626')+D.cross(178,252,'#dc2626')+D.circle(178,252,22,22,'#dc2626')+D.badge(245,155,1,'bad')+D.badge(245,108,2,'bad')+D.badge(245,252,3,'bad');
+const itemsMarcelo=[{type:'bad',title:'"Atende bem!" como diferencial — o erro mais generoso',desc:'Qualquer profissional em qualquer área pode escrever isso. É o mínimo esperado de qualquer prestador de serviço. Colocar como argumento principal comunica: não tenho nada específico.'},{type:'bad',title:'Bio perde os 150 caracteres em cargo genérico e requisito',desc:'"Parceiro Serviços · CRECI" não diferencia, não posiciona, não filtra. CRECI é obrigação legal — ocupar os caracteres mais estratégicos do perfil com isso é desperdício total.'},{type:'bad',title:'HUMOR e NEWS nos destaques destroem a linha editorial',desc:'O visitante não sabe se é perfil de corretor ou de criador de conteúdo de entretenimento. Seis destaques sem fio condutor comunicam que o perfil não sabe o que é.'}];
+
+const pRaj={handle:'rajramalho',displayName:'Raj Ramalho',posts:'412',followers:'4.6k',following:'892',bio:'Corretor imobiliário · Alto padrão\nEspecialista em investimentos\nSão Paulo · 25 anos de mercado\nDM para informações',highlights:[{icon:'🏠',name:'Sobre mim'},{icon:'⭐',name:'Imóveis'},{icon:'💡',name:'Dicas'},{icon:'📞',name:'Contato'}],gridColors:['#d0e0d4','#c8dcd0','#ccd8cc','#d4e4d8','#c8d8cc','#ccdcd0'],avatarInitials:'RR',avatarColor:'#059669'};
+const annRaj=D.underline(12,158,175,'#d97706')+D.arrow(175,158,240,130,'#d97706',1.8)+D.tag(150,122,'→ linha 1','warn')+D.badge(245,158,1,'warn')+D.badge(245,20,2,'bad')+D.cross(240,193,'#dc2626');
+const itemsRaj=[{type:'warn',title:'"25 anos de mercado" — ativo na posição errada',desc:'A prova mais forte está na linha 3, não na linha 1. O visitante precisa chegar lá para encontrá-la. A regra é simples: o ativo mais forte vai na posição mais visível.'},{type:'bad',title:'Display name e handle sem indexação',desc:'"rajramalho" não aparece em nenhuma busca de produto, nicho ou território. Com 25 anos de mercado, a credencial deveria estar no nome de exibição, não perdida no meio da bio.'},{type:'bad',title:'CTA: "DM para informações"',desc:'Informações sobre o quê? É o CTA mais vago possível. Um DM sem contexto não prepara o cliente para a conversa — e não diferencia o tipo de atendimento que ele vai receber.'}];
+
+const pMarina={handle:'marinasouza.mcmv',displayName:'Marina Souza | MCMV Campinas',posts:'184',followers:'3.2k',following:'412',bio:'Especialista em primeiro imóvel · Campinas\nDo FGTS à chave, sem surpresa\nTop MCMV 2023 · 8 anos de mercado\nCampinas · Zona Norte e região\nFale comigo 👇',highlights:[{icon:'👋',name:'Sobre mim'},{icon:'⭐',name:'Clientes'},{icon:'🏠',name:'Imóveis'},{icon:'💡',name:'Dicas MCMV'},{icon:'📞',name:'Contato'}],gridColors:['#ead5c0','#e8d0b8','#e4ccb4','#ecd8c4','#e0ccb0','#e8d4bc'],avatarInitials:'MS',avatarColor:'#f97316'};
+const annMarina=D.check(20,126,'#16a34a')+D.check(20,141,'#16a34a')+D.check(20,156,'#16a34a')+D.check(20,171,'#16a34a')+D.check(20,186,'#16a34a');
+const itemsMarina=[{type:'good',title:'Linha 1: nicho + cidade — identificação imediata',desc:'"Especialista em primeiro imóvel · Campinas" — o ICP se reconhece em dois segundos.'},{type:'good',title:'Linha 2: diferencial extraído da dor silenciosa',desc:'"Do FGTS à chave, sem surpresa" — a dor do ICP é exatamente o medo da burocracia e das surpresas.'},{type:'good',title:'Linha 3: prova com dado duplo',desc:'"Top MCMV 2023 · 8 anos" — premiação com ano + tempo de mercado. Duas provas numa linha.'},{type:'good',title:'Bio construída do posicionamento — não inventada',desc:'Cada linha veio de um elemento estratégico definido nas aulas 3 a 6. Não há invenção — há conversão.'}];
+
+/* ── Slides ── */
+const slides=[
+
+/* 01 */ {cls:'s-cover',html:`<div class="pad">
+<div class="eyebrow">Módulo 2 · Aula 7</div>
+<div class="rule" style="margin-top:auto;margin-bottom:20px"></div>
+<h1>Perfil e bio:<br>como seu <span class="gradtext">posicionamento</span><br>vira presença</h1>
+</div>`},
+
+/* 02 */ {cls:'s-statement',html:`<div class="pad">
+<div class="slabel">O momento em que tudo se torna visível</div>
+<div class="stmt">Três a seis segundos.<br>É o tempo que alguém leva<br>para decidir se fica ou vai embora.</div>
+<div class="items">
+<div class="sitem"><span class="sn">O que ele vê</span>Uma foto. Um nome. Cinco linhas de texto. Nada do que você construiu nas últimas quatro aulas.</div>
+<div class="sitem"><span class="sn">O que decide</span>Confiança preliminar — baseada em sinais visuais e textuais processados antes de qualquer palavra ser lida conscientemente.</div>
+<div class="sitem"><span class="sn">O problema</span>Um posicionamento que existe só no seu caderno não é posicionamento. É intenção. O perfil é onde ele fica visível.</div>
+</div>
+</div>`},
+
+/* 03 */ {cls:'s-compare',html:`<div class="pad">
+<h2>O que você construiu nas aulas 3–6 vs. o que o cliente vê no perfil</h2>
+<div class="compare-grid">
+<div class="ccol">
+<div class="ctitle">Invisível — documentos estratégicos</div>
+<ul>
+<li>Negócio definido — tipo de imóvel, território, processo</li>
+<li>ICP mapeado — gatilho, dores, nível de consciência</li>
+<li>Benchmark — espaço vazio no mercado</li>
+<li>Posicionamento declarado — atributo único, prova, mensagem central, tom de voz</li>
+</ul>
+</div>
+<div class="ccol strong">
+<div class="ctitle">Visível — os 5 campos do perfil</div>
+<ul>
+<li>Foto de perfil — a primeira impressão visual</li>
+<li>Nome de exibição — 30 caracteres de SEO</li>
+<li>Bio — 150 caracteres, 5 linhas, toda a estratégia comprimida</li>
+<li>Destaques — conteúdo permanente, primeiro portfólio</li>
+<li>Grid — identidade visual antes de qualquer post ser aberto</li>
+</ul>
+</div>
+</div>
+<div class="cmp-note">Tudo que foi construído nas aulas 3–6 converge no perfil. Esta aula ensina como fazer essa conversão.</div>
+</div>`},
+
+/* 04 */ {cls:'s-key',html:`<div class="pad">
+<div class="key-eye">Por que o perfil importa diferente de qualquer post</div>
+<div class="key-q">Um post aparece, performa e <span class="gradtext">some no algoritmo.</span><br>O perfil está lá 24 horas por dia.</div>
+<div class="key-sub">Ele recebe visitas de pessoas que você nem sabe que chegaram — quem viu um Reels, quem veio de um comentário, quem buscou no Instagram. E ao contrário de um post, o perfil não tem segunda chance de primeira impressão. Ele está sempre no mesmo estado para qualquer visitante que chega agora.</div>
+</div>`},
+
+/* 05 */ {cls:'s-section',html:sec('O sistema','O perfil como<br>sistema — 5 zonas','Cada zona prepara o terreno para a próxima. Quando uma contradiz a anterior, o visitante sente a inconsistência — mesmo sem conseguir nomear o que está errado.')},
+
+/* 06 */ {cls:'s-phases',html:`<div class="pad">
+<h2>A sequência que o olho percorre — e o que cada zona comunica</h2>
+<div class="phases-grid" style="grid-template-columns:repeat(5,1fr)">
+<div class="phase"><div class="ph-label gradtext">Zona 1</div><div class="ph-name">Foto de perfil</div><div class="ph-desc">Impressão visual pura — sem texto, sem contexto. Processa antes de qualquer palavra.</div></div>
+<div class="phase"><div class="ph-label gradtext">Zona 2</div><div class="ph-name">Nome de exibição</div><div class="ph-desc">Identidade + SEO. Único campo indexado pelo algoritmo de busca do Instagram.</div></div>
+<div class="phase"><div class="ph-label gradtext">Zona 3</div><div class="ph-name">A bio</div><div class="ph-desc">150 caracteres onde vive todo o posicionamento — nicho, diferencial, prova, território, ação.</div></div>
+<div class="phase"><div class="ph-label gradtext">Zona 4</div><div class="ph-name">Destaques</div><div class="ph-desc">Único conteúdo permanente. Não desaparece. Recebe qualquer visitante a qualquer hora.</div></div>
+<div class="phase"><div class="ph-label gradtext">Zona 5</div><div class="ph-name">Grid</div><div class="ph-desc">Percebido como bloco visual único — não post a post. Identidade antes de qualquer legenda.</div></div>
+</div>
+</div>`},
+
+/* 07 */ {cls:'s-section',html:sec('Zona 1 de 5','Foto<br>de perfil','A foto é processada antes de qualquer palavra ser lida. É o único elemento visual puro do perfil — e aparece em três tamanhos muito diferentes na plataforma.')},
+
+/* 08 */ {cls:'s-statement',html:`<div class="pad">
+<div class="slabel">O problema que ninguém testa</div>
+<div class="stmt">Sua foto aparece<br>em três tamanhos.<br>O menor tem <span class="gradtext">40 pixels.</span></div>
+<div class="items">
+<div class="sitem"><span class="sn">No perfil</span>Grande, legível — você vê bem o rosto, o fundo, a expressão.</div>
+<div class="sitem"><span class="sn">Na busca</span>Médio — menor, mas ainda reconhecível. Aparece nos resultados de pesquisa do Instagram.</div>
+<div class="sitem"><span class="sn">Nos comentários</span>40 pixels de diâmetro — o tamanho de uma moeda pequena na tela do celular. É aqui que você aparece com mais frequência: em cada comentário, notificação, feed de quem te segue.</div>
+</div>
+<div class="snote">Teste agora: imagine sua foto atual com 40px de diâmetro. Ainda dá para ver claramente um rosto humano, olhando para frente, de forma profissional?</div>
+</div>`},
+
+/* 09 */ {cls:'s-compare',html:`<div class="pad">
+<h2>Zona 1 — Foto: enquadramento e olhar</h2>
+<div class="compare-grid">
+<div class="ccol">
+<div class="ctitle">O que não funciona</div>
+<ul>
+<li>Foto de corpo inteiro — a pessoa fica pequena demais no círculo</li>
+<li>Muito espaço ao redor — o rosto fica pequeno e ilegível a 40px</li>
+<li>Olhar completamente de lado — cria distância, parece desatento</li>
+<li>Perfil completo — o visitante não vê os olhos, não há conexão</li>
+<li><em>Resultado: irreconhecível nos comentários, distante no perfil</em></li>
+</ul>
+</div>
+<div class="ccol strong">
+<div class="ctitle">O que funciona</div>
+<ul>
+<li>Ombro para cima — rosto preenchendo a maior parte do círculo</li>
+<li>Rosto como elemento dominante da composição</li>
+<li>Olhar direto para a câmera — equivalente visual de olhar nos olhos</li>
+<li>Olhar levemente de lado ainda funciona — transmite segurança</li>
+<li><em>Resultado: reconhecível a 40px, presença imediata a qualquer tamanho</em></li>
+</ul>
+</div>
+</div>
+</div>`},
+
+/* 10 */ {cls:'s-compare',html:`<div class="pad">
+<h2>Zona 1 — Foto: fundo e iluminação</h2>
+<div class="compare-grid">
+<div class="ccol">
+<div class="ctitle">O que não funciona</div>
+<ul>
+<li>Fundo poluído — escritório bagunçado, carro, evento, paisagem</li>
+<li>Fundo poluído compete com o rosto pela atenção do olho</li>
+<li>Luz de teto direta — sombras escuras no rosto, efeito caveira</li>
+<li>Flash frontal — imagem chapada, sem profundidade, sem vida</li>
+<li>Ambiente muito escuro — escurece a foto, ilegível a 40px</li>
+</ul>
+</div>
+<div class="ccol strong">
+<div class="ctitle">O que funciona</div>
+<ul>
+<li>Fundo limpo — branco, cinza claro, bege neutro, parede lisa</li>
+<li>Ambiente arquitetônico controlado e limpo também funciona</li>
+<li>Iluminação natural de janela bem usada — resultado imediato</li>
+<li>Iluminação de estúdio — melhor resultado, não é obrigatório</li>
+<li>Não precisa ser de fotógrafo — precisa ser <em>intencional</em></li>
+</ul>
+</div>
+</div>
+</div>`},
+
+/* 11 */ {cls:'s-compare',html:`<div class="pad">
+<h2>Zona 1 — Foto: expressão e roupa por nicho</h2>
+<div class="compare-grid">
+<div class="ccol">
+<div class="ctitle">Corretor de primeiro imóvel / MCMV</div>
+<ul>
+<li>Sorriso aberto — transmite acessibilidade e parceria</li>
+<li>O cliente quer sentir que pode perguntar sem se sentir julgado</li>
+<li>Business casual — blazer, camisa social. Terno completo cria distância desnecessária</li>
+<li>A foto precisa dizer: "sou parceiro, não sou formal demais"</li>
+</ul>
+</div>
+<div class="ccol strong">
+<div class="ctitle">Corretor de alto padrão / investimento</div>
+<ul>
+<li>Sorriso leve ou expressão neutra confiante — transmite autoridade</li>
+<li>O cliente quer sentir que está em boas mãos — não que é amigo</li>
+<li>Blazer estruturado ou terno bem ajustado — combina com o universo</li>
+<li>A foto precisa dizer: "conheço esse mercado melhor do que você"</li>
+</ul>
+</div>
+</div>
+<div class="cmp-note">A expressão é uma decisão estratégica, não de gosto pessoal. Precisa combinar com o tom de voz do posicionamento definido na aula 6.</div>
+</div>`},
+
+/* 12 */ {cls:'s-list',html:lst('Os erros mais comuns na foto de perfil','Cada um tem uma razão específica para prejudicar — não é questão estética',[
+{title:'Logo da imobiliária',dtl:'Marca, não pessoa. Imóvel é uma das decisões mais importantes da vida. As pessoas compram de pessoas — não de logos. O primeiro passo da confiança não acontece.'},
+{title:'Foto de imóvel como avatar',dtl:'Você coloca o produto onde deveria estar a pessoa. O visitante não sabe com quem está interagindo. É como ligar para uma empresa e não saber com quem está falando.'},
+{title:'Foto casual — evento, viagem, selfie',dtl:'Comunica que o perfil não está sendo levado a sério como ferramenta de negócio. Mesmo que você seja competente, a foto sinaliza que não pensou em como se apresenta.'},
+{title:'Foto em grupo',dtl:'O visitante não sabe qual é você. É desconfortante e parece descuido. Convida o cliente a trabalhar para descobrir quem você é.'},
+{title:'Avatar ou ilustração',dtl:'Cria distância — o cliente compra de pessoas, não de personagens. Aumenta a barreira de confiança sem nenhum benefício de posicionamento.'}
+],5)},
+
+/* 13 */ {cls:'s-igprofile',html:igMock('Análise — foto de perfil: o que errar em cada campo','Perfil real com os erros mais comuns mapeados',pGenericBad,annGenericBad,itemsGenericBad)},
+
+/* 14 */ {cls:'s-key',html:`<div class="pad">
+<div class="key-eye">O teste antes de publicar</div>
+<div class="key-q">Reduza mentalmente sua foto para <span class="gradtext">40 pixels</span> de diâmetro. Ainda dá para ver um rosto humano, olhando para frente, de forma profissional?</div>
+<div class="key-sub">Se a resposta for não — você perdeu a primeira impressão no lugar onde aparece com mais frequência na plataforma. O perfil grande é onde as pessoas chegam. Os 40 pixels são onde você aparece enquanto elas navegam.</div>
+</div>`},
+
+/* 15 */ {cls:'s-section',html:sec('Zona 2 de 5','Nome<br>de exibição','30 caracteres. O único campo do Instagram que o algoritmo de busca indexa. Cada caractere aqui vale mais do que em qualquer outro campo do perfil.')},
+
+/* 16 */ {cls:'s-key',html:`<div class="pad">
+<div class="key-eye">O único campo de SEO que você tem</div>
+<div class="key-q">Quando alguém busca "corretor MCMV Campinas" no Instagram, o algoritmo lê o <span class="gradtext">nome de exibição</span> — não a bio, não as legendas.</div>
+<div class="key-sub">Se o seu nome de exibição for só "João Silva", você não aparece quando alguém busca "corretor Campinas". Se for "João Silva | MCMV Campinas", você aparece. Essa diferença separa o corretor que é encontrado do corretor que espera ser lembrado por quem já o conhece.<br><br>A maioria dos corretores desperdiça esse campo colocando apenas o nome próprio — que já está no handle, já está em todo o conteúdo, e não acrescenta nada em termos de descoberta.</div>
+</div>`},
+
+/* 17 */ {cls:'s-statement',html:`<div class="pad">
+<div class="slabel">A primeira pergunta ao construir o nome de exibição</div>
+<div class="stmt">Não: "o que quero que<br>as pessoas saibam?"<br><br>Mas: <span class="gradtext">"como meu cliente ideal<br>busca no Instagram?"</span></div>
+<div class="snote">Se ele digita "corretor alto padrão BH", você precisa ter "alto padrão BH" no nome de exibição. Se digita "imóveis Brooklin SP", você precisa ter "Brooklin SP" lá. O nome de exibição é construído com o vocabulário do cliente — não com o vocabulário do mercado imobiliário.</div>
+</div>`},
+
+/* 18 */ {cls:'s-phases',html:ph('Os 4 modelos de nome de exibição — qual usar',
+[{label:'Modelo 1',name:'Especialidade + Cidade',desc:'"Ana Lima | Corretora Curitiba" / "Marcos | Imóveis Brooklin SP". Funciona para a maioria dos posicionamentos — nicho claro + filtro geográfico.'},
+{label:'Modelo 2',name:'Produto + Cidade',desc:'"Maysa | MCMV Campinas" / "Rafael | Lançamentos Floripa". Para nicho de produto muito específico — o cliente que busca "MCMV Campinas" já sabe o que quer.'},
+{label:'Modelo 3',name:'Resultado ou Público',desc:'"Carla | Primeiro Imóvel SP" / "Felipe | Investidores Imob SP". Para públicos com identidade forte — só entra quem se reconhece na leitura.'},
+{label:'Modelo 4',name:'Credencial + Nicho',desc:'"Wendell | Top Vendas Florianópolis" / "Helena | 20 anos · Luxo SJC". Para quando a prova é tão forte que merece o campo mais visível do perfil.'}],4)},
+
+/* 19 */ {cls:'s-compare',html:`<div class="pad">
+<h2>Zona 2 — Erros que destroem o potencial do nome de exibição</h2>
+<div class="compare-grid">
+<div class="ccol">
+<div class="ctitle">O que não fazer — e por quê</div>
+<ul>
+<li><strong>Só o nome próprio</strong> — não é encontrável por busca, não acrescenta informação para quem chega de outra forma</li>
+<li><strong>CRECI no nome</strong> — requisito mínimo legal ocupando os 30 caracteres mais estratégicos do perfil</li>
+<li><strong>Nome da imobiliária</strong> — se você sair, o posicionamento vai junto. O nome de exibição precisa ser seu</li>
+<li><strong>Emojis no lugar de palavras</strong> — emojis não são indexados pelo algoritmo. São invisíveis para o buscador</li>
+</ul>
+</div>
+<div class="ccol strong">
+<div class="ctitle">O que fazer</div>
+<ul>
+<li>Palavra-chave que o cliente usa ao buscar — não que soa mais profissional para você</li>
+<li>Cidade ou região específica — não "Sul do Brasil" ou "todo SP"</li>
+<li>Nicho ou produto em texto, não emoji — "MCMV" não em 🏠</li>
+<li>Dentro de 30 caracteres — contar sempre antes de publicar</li>
+</ul>
+</div>
+</div>
+</div>`},
+
+/* 20 */ {cls:'s-key',html:`<div class="pad">
+<div class="key-eye">Redundância intencional — handle + nome de exibição</div>
+<div class="key-q">"@anacorretora.curitiba" com nome de exibição "Ana | Corretora Curitiba" — <span class="gradtext">Curitiba em dois campos indexados.</span></div>
+<div class="key-sub">Para quem busca "corretor Curitiba", esse perfil aparece em dois pontos de indexação simultaneamente. Redundância não é descuido — é estratégia. Quando os dois campos têm a mesma palavra-chave, a indexação é reforçada e a visibilidade na busca aumenta.</div>
+</div>`},
+
+/* 21 */ {cls:'s-section',html:sec('Zona 3 de 5','A bio','150 caracteres. Menos do que dois tweets. O espaço onde você precisa comunicar quem você é, para quem, por que você é diferente, onde atua, por que acreditar em você e o que fazer agora.')},
+
+/* 22 */ {cls:'s-key',html:`<div class="pad">
+<div class="key-eye">A verdade sobre a bio que precisa ser dita antes de qualquer framework</div>
+<div class="key-q"><span class="gradtext">Bio vaga</span> é sintoma de <span class="gradtext">posicionamento vago.</span></div>
+<div class="key-sub">Se você sentar para escrever a bio e não sabe o que colocar, o problema não é a bio. É que o trabalho das aulas 3 a 6 ainda não está finalizado. Volte para lá primeiro.<br><br>Se o posicionamento está claro, a bio é consequência. Cada linha surge naturalmente do que você já definiu. Não da inspiração do momento.</div>
+</div>`},
+
+/* 23 */ {cls:'s-igprofile',html:igMock('O padrão que não funciona — análise linha por linha','A bio mais comum do Instagram imobiliário — e por que é invisível',{handle:'corretor.joao.silva',displayName:'João Silva Corretor',posts:'312',followers:'1.8k',following:'2.4k',bio:'Corretor de imóveis | CRECI ativo\nAtendo toda a cidade\n📲 DM para mais informações',highlights:[{icon:'🏠',name:'Imóveis'},{icon:'📸',name:'Fotos'},{icon:'✈️',name:'Viagens'}],gridColors:['#d0d8e4','#ccd4e0','#c8d0dc','#d4dce8','#c8d4e0','#ccd8e4'],avatarInitials:'JS',avatarColor:'#6b7280'},
+D.circle(80,126,112,10,'#dc2626')+D.circle(80,141,112,10,'#dc2626')+D.circle(80,156,112,10,'#dc2626')+D.badge(245,126,1,'bad')+D.badge(245,141,2,'bad')+D.badge(245,156,3,'bad'),
+[{type:'bad',title:'"Corretor de imóveis | CRECI ativo"',desc:'Cargo genérico que 580 mil corretores compartilham + requisito mínimo legal. Dois campos — nenhum diferencia, nenhum filtra, nenhum posiciona.'},{type:'bad',title:'"Atendo toda a cidade"',desc:'O posicionamento do generalista. Para nenhum cliente específico você é a escolha óbvia. Parece não fechar portas — na prática, fecha todas elas.'},{type:'bad',title:'"DM para mais informações"',desc:'Informações sobre o quê? O CTA mais vago possível não prepara o cliente para a conversa, não diz o que acontece depois, não diferencia o atendimento.'}])},
+
+/* 24 */ {cls:'s-biobuilder',html:bioBuilder('Linha 1 — Identidade e nicho',bioMarina,0,'marinasouza.mcmv','Marina Souza | MCMV Campinas','A linha 1 funciona como filtro. Quem é do nicho se reconhece imediatamente. Quem não é percebe que não é o lugar certo — e isso é desejável. Você não quer ser seguido por quem nunca vai comprar de você.')},
+
+/* 25 */ {cls:'s-compare',html:`<div class="pad">
+<h2>Linha 1 — Identidade genérica vs. identidade com nicho</h2>
+<div class="compare-grid">
+<div class="ccol">
+<div class="ctitle">Genérico — ninguém se reconhece</div>
+<ul>
+<li>"Corretor de imóveis" — é o que todos os 580 mil são</li>
+<li>"Especialista imobiliário" — o que diferencia?</li>
+<li>"Consultor de imóveis" — mais sofisticado, igualmente vago</li>
+<li>Resultado: o visitante certo não se reconhece, o errado também não é filtrado</li>
+</ul>
+</div>
+<div class="ccol strong">
+<div class="ctitle">Com nicho — filtro imediato</div>
+<ul>
+<li>"Especialista em MCMV" — quem busca MCMV se reconhece</li>
+<li>"Primeiro imóvel em Florianópolis" — casais jovens de Fpolis se reconhecem</li>
+<li>"Imóveis de luxo no Brooklin SP" — comprador de alto padrão se reconhece</li>
+<li>Resultado: o cliente certo para, o errado segue em frente — os dois economizam tempo</li>
+</ul>
+</div>
+</div>
+<div class="cmp-note">O vocabulário da linha 1 precisa ser o vocabulário do cliente, não o que soa mais sofisticado para você.</div>
+</div>`},
+
+/* 26 */ {cls:'s-biobuilder',html:bioBuilder('Linha 2 — O diferencial',bioMarina,1,'marinasouza.mcmv','Marina Souza | MCMV Campinas','A linha 2 é onde a maioria falha: tentando parecer diferente com adjetivos em vez de com especificidade. "Atendimento diferenciado" não é diferencial — qualquer prestador de serviço pode escrever isso.')},
+
+/* 27 */ {cls:'s-compare',html:`<div class="pad">
+<h2>Linha 2 — Afirmação vs. diferencial específico</h2>
+<div class="compare-grid">
+<div class="ccol">
+<div class="ctitle">Afirmação — qualquer um pode declarar</div>
+<ul>
+<li>"Atendimento diferenciado" — diferente como?</li>
+<li>"Compromisso com o cliente" — isso não é diferencial, é expectativa</li>
+<li>"Dedicada ao seu sonho" — bonito, vazio de substância</li>
+<li><em>Não prova nada, não específica nada, não diferencia nada</em></li>
+</ul>
+</div>
+<div class="ccol strong">
+<div class="ctitle">Diferencial específico — difícil de copiar</div>
+<ul>
+<li>"Do FGTS à entrega das chaves, sem surpresa"</li>
+<li>"Processo de compra transparente do primeiro contato ao registro"</li>
+<li>"Análise de rentabilidade antes de qualquer visita"</li>
+<li><em>Descreve um processo, implica uma metodologia, é verificável</em></li>
+</ul>
+</div>
+</div>
+<div class="cmp-note">Como encontrar o diferencial: volte para o atributo único que você definiu na aula 6 — é o que vai para a linha 2.</div>
+</div>`},
+
+/* 28 */ {cls:'s-biobuilder',html:bioBuilder('Linha 3 — A prova',bioMarina,2,'marinasouza.mcmv','Marina Souza | MCMV Campinas','Esta é a linha mais negligenciada e a mais poderosa. A diferença entre afirmação e prova parece óbvia quando explicada — mas quase todo corretor cai na armadilha da afirmação.')},
+
+/* 29 */ {cls:'s-compare',html:`<div class="pad">
+<h2>Linha 3 — Adjetivo vs. dado verificável</h2>
+<div class="compare-grid">
+<div class="ccol">
+<div class="ctitle">Afirmação — sem peso</div>
+<ul>
+<li>"Muito experiente" — não tem como verificar, não tem como comparar</li>
+<li>"Referência no mercado" — quem disse? Como medir?</li>
+<li>"Atendimento de excelência" — expectativa, não diferencial</li>
+<li>"Profissional dedicada" — adjetivo vazio</li>
+</ul>
+</div>
+<div class="ccol strong">
+<div class="ctitle">Prova — dado com peso</div>
+<ul>
+<li>"14 anos atuando em Curitiba" — número + localização</li>
+<li>"Campeão de vendas 2022 · 2023 · 2024" — prova sequencial</li>
+<li>"+180 famílias atendidas" — volume com contexto</li>
+<li>"Top MCMV 2023 Nacional" — premiação com ano e âmbito</li>
+</ul>
+</div>
+</div>
+<div class="cmp-note">Quando você tem mais de uma prova, use a mais forte aqui. Reserve as demais para os destaques e para o conteúdo.</div>
+</div>`},
+
+/* 30 */ {cls:'s-biobuilder',html:bioBuilder('Linha 4 — O território',bioMarina,3,'marinasouza.mcmv','Marina Souza | MCMV Campinas','Localização específica faz duas coisas: filtra quem não é do território e sinaliza autoridade local para quem é. A tentação de escrever algo amplo para não fechar portas dilui o posicionamento.')},
+
+/* 31 */ {cls:'s-biobuilder',html:bioBuilder('Linha 5 — O CTA',bioMarina,4,'marinasouza.mcmv','Marina Souza | MCMV Campinas','CTA é instrução com consequência esperada. "Me manda uma DM" não tem consequência esperada. "Agende sua visita pelo link 👇" tem instrução clara, consequência esperada, e orienta o olhar para o link.')},
+
+/* 32 */ {cls:'s-biobuilder',html:bioBuilder('As 5 linhas — bio completa da Marina',bioMarina,5,'marinasouza.mcmv','Marina Souza | MCMV Campinas','Repare: cada linha foi extraída diretamente de um elemento de posicionamento. Linha 1 veio do ICP. Linha 2 veio do diferencial e da dor silenciosa. Linha 3 da prova. Linha 4 do território. Não houve invenção — houve conversão.')},
+
+/* 33 */ {cls:'s-modelo-bio',html:modeloBio('Modelo Especialista — para quem tem nicho vertical claro','Abre com a especialidade declarada, entrega o diferencial, prova na terceira linha, território na quarta, CTA na quinta.',
+'marinasouza.mcmv','Marina Souza | MCMV Campinas','linear-gradient(135deg,#f97316,#e11d48)',
+['Especialista em primeiro imóvel · Campinas','Do FGTS à chave, sem surpresa','Top MCMV 2023 · 8 anos de mercado','Campinas · Zona Norte e região','Fale comigo 👇'],
+[{text:'Identidade + nicho — filtro imediato',desc:'O ICP se reconhece em menos de 2 segundos.'},
+{text:'Diferencial extraído da dor silenciosa',desc:'A dor do ICP é o medo de surpresa no processo.'},
+{text:'Prova dupla: premiação + tempo de mercado',desc:'Dois dados verificáveis em uma linha.'},
+{text:'Território específico — autoridade local',desc:'"Zona Norte e região" sinaliza domínio daquela praça.'},
+{text:'CTA claro com consequência esperada',desc:'O cliente sabe o que vai acontecer ao clicar.'}])},
+
+/* 34 */ {cls:'s-modelo-bio',html:modeloBio('Modelo Território — autoridade geográfica como diferencial principal','A localização é o diferencial, então aparece na linha 1. Funciona quando o tempo no mesmo lugar é o ativo mais forte.',
+'anacorretora.curitiba','Ana Lima | Corretora Curitiba','linear-gradient(135deg,#0d9488,#0891b2)',
+['Corretora em Curitiba há 14 anos','Processo de compra sem burocracia','+300 imóveis entregues na cidade','Curitiba · Batel e Água Verde','Agende sua visita 👇'],
+[{text:'Tempo + território na linha 1',desc:'"há 14 anos em Curitiba" — prova temporal localizada, a mais forte que ela tem.'},
+{text:'Diferencial focado na dor do ICP',desc:'Burocracia é a dor central de quem compra o primeiro imóvel.'},
+{text:'Prova de volume',desc:'+300 imóveis na cidade — consistência ao longo dos 14 anos.'},
+{text:'Território específico com bairros',desc:'Batel e Água Verde: quem mora ali sabe que ela conhece.'},
+{text:'CTA com consequência esperada',desc:'Agendar uma visita — o próximo passo está claro.'}])},
+
+/* 35 */ {cls:'s-compare',html:`<div class="pad">
+<h2>Modelo Resultado vs. Modelo Autoridade</h2>
+<div class="compare-grid">
+<div class="ccol strong">
+<div class="ctitle">Modelo Resultado — abre com o que o cliente ganha</div>
+<ul>
+<li><strong>L1</strong> — "Ajudo famílias a sair do aluguel com segurança"</li>
+<li><strong>L2</strong> — Corretor em Florianópolis · 12 anos</li>
+<li><strong>L3</strong> — Mais de 400 contratos assinados</li>
+<li><strong>L4</strong> — Florianópolis e região metropolitana</li>
+<li><strong>L5</strong> — Ver imóveis disponíveis 👇</li>
+<li><em>Funciona quando o resultado para o cliente é o ativo mais forte</em></li>
+</ul>
+</div>
+<div class="ccol strong">
+<div class="ctitle">Modelo Autoridade — prova ocupa a linha 1</div>
+<ul>
+<li><strong>L1</strong> — Campeão de vendas 2022 · 2023 · 2024</li>
+<li><strong>L2</strong> — Corretor de imóveis em Florianópolis</li>
+<li><strong>L3</strong> — Do primeiro contato à chave na mão</li>
+<li><strong>L4</strong> — Florianópolis e Grande Florianópolis</li>
+<li><strong>L5</strong> — Ver portfólio 👇</li>
+<li><em>Funciona quando a credencial é tão forte que merece o campo mais visível</em></li>
+</ul>
+</div>
+</div>
+<div class="cmp-note">O modelo certo é o que coloca seu ativo mais forte na posição mais visível — linha 1. Qual é o ativo mais forte que você tem?</div>
+</div>`},
+
+/* 36 */ {cls:'s-key',html:`<div class="pad">
+<div class="key-eye">Modelo Minimalista + tom de voz</div>
+<div class="key-q">Quando o nicho é tão específico que dispensa explicação — uma linha forte e uma prova já fecham o posicionamento.</div>
+<div class="key-sub"><strong style="font-weight:700">Exemplo:</strong><br>"Imóveis de luxo em São José dos Campos<br>13 anos · mais de 180 imóveis entregues<br>Fale comigo 👇"<br><br>138 caracteres. Dentro do limite. Sem ruído.<br><br><strong style="font-weight:700">Tom de voz na bio:</strong> a forma como você escreve também posiciona. "Especialista em consultoria imobiliária personalizada" transmite formalidade. "Ajudo famílias a comprar o primeiro imóvel sem estresse" transmite proximidade. O tom de voz definido na aula 6 precisa aparecer também no estilo de escrita — não só no conteúdo.</div>
+</div>`},
+
+/* 37 */ {cls:'s-section',html:sec('Zona 4 de 5','Destaques','O único conteúdo do Instagram que não desaparece depois de 24 horas. Permanente. Fixo. Recebendo qualquer visitante, independente de quando chegou.')},
+
+/* 38 */ {cls:'s-igprofile',html:igMock('O erro mais comum nos destaques — álbum de família público','O que a maioria dos corretores usa vs. o que deveria estar lá',
+{handle:'marceloiob.floripa',displayName:'Marcelo · Florianópolis',posts:'98',followers:'1.4k',following:'2.1k',bio:'Corretor de imóveis\nFlorianópolis · SC',highlights:[{icon:'🏖️',name:'VIAGEM'},{icon:'🎉',name:'FESTA'},{icon:'👨‍👩‍👧',name:'FAMÍLIA'},{icon:'⚽',name:'ESPORTE'},{icon:'📅',name:'2023'}],gridColors:['#d0d8e4','#c8d4e0','#ccd8e4','#d4dce8','#c8d0dc','#ccd4e0'],avatarInitials:'MI',avatarColor:'#6b7280'},
+D.cross(22,252,'#dc2626')+D.cross(70,252,'#dc2626')+D.cross(118,252,'#dc2626')+D.cross(166,252,'#dc2626')+D.cross(214,252,'#dc2626'),
+[{type:'bad',title:'Destaques pessoais não são vitrine profissional',desc:'Um visitante que chega pela primeira vez olha esses destaques e não extrai nenhuma informação útil sobre sua especialidade, resultados ou como você pode ajudar.'},{type:'bad',title:'A pergunta certa não é "o que quero compartilhar?"',desc:'É: "o que o visitante que chegou no meu perfil pela primeira vez precisa saber nos próximos 30 segundos para decidir que quer continuar me acompanhando?"'},{type:'bad',title:'Destaques não são para você — são para o cliente',desc:'Conteúdo pessoal misturado com profissional comunica que o perfil não tem uma linha editorial definida. E linha editorial é posicionamento.'}])},
+
+/* 39 */ {cls:'s-key',html:`<div class="pad">
+<div class="key-eye">O que destaques fazem que posts não fazem</div>
+<div class="key-q">Os destaques ficam <span class="gradtext">fixos no topo do perfil</span> — presentes para qualquer pessoa que chega, independente de quando chegou.</div>
+<div class="key-sub">Enquanto posts competem no algoritmo e stories expiram em 24 horas, os destaques não têm data de validade. São o primeiro portfólio que qualquer visitante encontra antes de rolar o grid, antes de ler qualquer legenda.<br><br>O Instagram exibe os destaques da esquerda para a direita, com o mais recentemente atualizado à esquerda. O destaque que você atualiza com mais frequência fica sempre na posição mais vista. Essa lógica é a chave para decidir qual destaque atualizar com mais regularidade.</div>
+</div>`},
+
+/* 40 */ {cls:'s-phases',html:ph('Os 5 slots dos destaques — função de cada um',
+[{label:'Slot 1 — À esquerda',name:'Quem sou',desc:'Trajetória, por que esse nicho, como funciona seu processo. Não currículo — apresentação humana. O mais atualizado: sempre à esquerda, primeiro a ser visto.'},
+{label:'Slot 2',name:'Resultados',desc:'Depoimentos específicos (não "ótima, recomendo!"), fotos de entrega de chave, casos atendidos. Um depoimento específico vale mais do que dez afirmações suas.'},
+{label:'Slot 3',name:'Imóveis',desc:'Portfolio ativo — disponíveis agora, lançamentos recentes. Atualizar com frequência: mantém relevante e sobe para a esquerda naturalmente.'},
+{label:'Slot 4',name:'Dicas',desc:'Conteúdo educativo sem vender diretamente. Demonstra autoridade técnica antes de qualquer conversa comercial. Constrói confiança gratuitamente.'},
+{label:'Slot 5',name:'Contato',desc:'Como falar, horários, canais disponíveis. Parece óbvio — mas não ter facilita que o cliente desista antes de entrar em contato.'}],5)},
+
+,
+
+/* 41 */ {cls:'s-compare',html:`<div class="pad">
+<h2>Zona 4 — Nomes dos destaques: o que comunicam antes do clique</h2>
+<div class="compare-grid">
+<div class="ccol">
+<div class="ctitle">Nomes que prejudicam</div>
+<ul>
+<li><strong>"HUMOR"</strong> — comunica que o perfil tem entretenimento sem foco profissional</li>
+<li><strong>"2023"</strong> — data como nome comunica que o conteúdo envelhece e não é cuidado</li>
+<li><strong>"TUDO"</strong> — nome vago que não diz nada sobre o que está dentro</li>
+<li><strong>"NOVIDADES"</strong> — poderia ser de qualquer tipo de perfil</li>
+<li><em>O nome do destaque é o que o visitante lê antes de clicar — se não diz nada, ele não clica</em></li>
+</ul>
+</div>
+<div class="ccol strong">
+<div class="ctitle">Nomes que funcionam</div>
+<ul>
+<li><strong>"Quem sou"</strong> — conteúdo claro, perfeito para o primeiro destaque</li>
+<li><strong>"Clientes"</strong> — depoimentos e entregas de chave — prova social direta</li>
+<li><strong>"MCMV"</strong> — nome do nicho como destaque indexa a especialidade visualmente</li>
+<li><strong>"Dicas MCMV"</strong> — combina nicho + tipo de conteúdo em duas palavras</li>
+<li><em>O nome ideal diz exatamente o que está dentro em 1-2 palavras</em></li>
+</ul>
+</div>
+</div>
+<div class="cmp-note">As capas dos destaques também importam — precisam ter identidade visual coerente com o grid e com a foto de perfil.</div>
+</div>`},
+
+/* 42 */ {cls:'s-key',html:`<div class="pad">
+<div class="key-eye">A ordem que o Instagram impõe — e como usar a seu favor</div>
+<div class="key-q">O Instagram exibe o destaque <span class="gradtext">mais recentemente atualizado à esquerda</span> — na posição mais vista.</div>
+<div class="key-sub">O destaque "Imóveis disponíveis" deveria ser atualizado semanalmente — e sobe automaticamente para a posição mais vista. Já "Quem sou" não precisa ser atualizado com frequência, mas precisa estar sempre correto.<br><br>Estratégia: atualize "Imóveis" com cada novo portfólio. Mantenha "Clientes" com depoimentos recentes. O algoritmo trabalha a favor de quem atualiza conteúdo permanente com frequência.</div>
+</div>`},
+
+/* 43 */ {cls:'s-section',html:sec('Zona 5 de 5','Grid','O grid é percebido como bloco visual único — não post a post. Antes de qualquer legenda ser lida, antes de qualquer vídeo ser aberto, o visitante já tomou uma decisão sobre o que o perfil é.')},
+
+/* 44 */ {cls:'s-statement',html:`<div class="pad">
+<div class="slabel">O grid como identidade antes da leitura</div>
+<div class="stmt">O visitante vê o grid<br>como bloco — e decide<br><span class="gradtext">em dois segundos</span><br>se o perfil tem identidade.</div>
+<div class="items">
+<div class="sitem"><span class="sn">O que ele vê</span>Cores predominantes, tipo de conteúdo, consistência visual — tudo isso antes de clicar em qualquer post.</div>
+<div class="sitem"><span class="sn">O que processa</span>Existe um padrão? Esse perfil sabe o que é? Vou encontrar conteúdo relevante aqui?</div>
+<div class="sitem"><span class="sn">A regra</span>Nove posts formam a primeira impressão visual completa. A consistência desses nove diz mais do que qualquer legenda individual.</div>
+</div>
+</div>`},
+
+/* 45 */ {cls:'s-compare',html:`<div class="pad">
+<h2>Zona 5 — Grid: o que destrói vs. o que comunica posicionamento</h2>
+<div class="compare-grid">
+<div class="ccol">
+<div class="ctitle">O que destrói a identidade visual</div>
+<ul>
+<li>Mix de fotos pessoais e profissionais sem separação</li>
+<li>Múltiplas paletas de cores — cada post parece de um perfil diferente</li>
+<li>Alternância aleatória de formatos sem ritmo — sem fio condutor</li>
+<li>Qualidade de imagem muito variada — foto escura ao lado de estúdio profissional</li>
+<li>Artes de parceiras e imobiliárias com templates conflitantes</li>
+</ul>
+</div>
+<div class="ccol strong">
+<div class="ctitle">O que comunica posicionamento</div>
+<ul>
+<li>Paleta de 2-3 cores que se repete — qualquer post é reconhecível como seu</li>
+<li>Presença do rosto com frequência — humaniza o perfil profissional</li>
+<li>Tipo de conteúdo consistente com ritmo definido</li>
+<li>Qualidade visual uniforme — não precisa ser fotógrafo, precisa ser intencional</li>
+<li>Não precisa ser "bonito" no sentido estético — precisa ser <em>reconhecível</em></li>
+</ul>
+</div>
+</div>
+</div>`},
+
+/* 46 */ {cls:'s-key',html:`<div class="pad">
+<div class="key-eye">A regra do grid</div>
+<div class="key-q">Você não precisa de um grid <span class="gradtext">perfeito.</span><br>Precisa de um grid <span class="gradtext">reconhecível.</span></div>
+<div class="key-sub">Um visitante que chegou hoje e voltar em três semanas precisa saber que está no mesmo perfil sem olhar para o nome. Se a identidade visual mudou ou não tem padrão, o perfil não cria reconhecimento.<br><br>A regra prática: escolha 2-3 cores que representam seu posicionamento e mantenha-as nos elementos visuais de todos os posts. Isso já é suficiente para criar consistência.</div>
+</div>`},
+
+/* 47 */ {cls:'s-section',html:sec('Conversão','De aulas 3–6<br>ao perfil','Cada elemento do posicionamento que você construiu ao longo do módulo encontra um campo específico no perfil. Não há invenção — há conversão direta.')},
+
+/* 48 */ {cls:'s-mapa',html:mapa('Cada decisão estratégica vai para um campo do perfil','Mapa completo: do posicionamento às 5 zonas',[
+{from:'Nicho/produto',fromSub:'Aula 3 — seu negócio',to:'Nome de exibição + Bio L1',toSub:'Palavras-chave que o ICP usa para buscar'},
+{from:'Território',fromSub:'Aula 3 — onde você atua',to:'Handle + Bio L4',toSub:'Cidade/bairro em campos indexados'},
+{from:'Dor principal do ICP',fromSub:'Aula 4 — o que trava a compra',to:'Bio L2 — o diferencial',toSub:'A dor silenciosa virou sua proposta'},
+{from:'Vocabulário do ICP',fromSub:'Aula 4 — como ele fala',to:'Bio L1 + Nome de exibição',toSub:'Use as palavras dele, não as do mercado'},
+{from:'Atributo único',fromSub:'Aula 6 — o que só você faz',to:'Bio L2 — diferencial específico',toSub:'Processo, metodologia ou ponto de vista'},
+{from:'Prova',fromSub:'Aula 6 — o que comprova',to:'Bio L3 + Destaque "Clientes"',toSub:'Dado verificável, premiação, volume'},
+{from:'Tom de voz',fromSub:'Aula 6 — como você fala',to:'Estilo da bio + Foto de perfil',toSub:'Expressão e linguagem coerentes'},
+{from:'Mensagem central',fromSub:'Aula 6 — o que você quer ser',to:'Nome + Bio L1 + Grid (identidade)',toSub:'A soma de todos os campos alinhados'}
+])},
+
+/* 49 */ {cls:'s-list',html:`<div class="pad"><div class="listttl">Checklist antes de publicar o perfil</div><div class="ls-sub">Sete perguntas. Se alguma resposta for não — o campo precisa ser revisto antes de publicar.</div><ol class="clean">
+<li><span class="n gradtext">01</span><span class="li-main">A foto mostra um rosto reconhecível a 40px?<span class="dtl">Teste reduzindo mentalmente para o tamanho de um avatar de comentário no Instagram.</span></span></li>
+<li><span class="n gradtext">02</span><span class="li-main">O nome de exibição contém a palavra-chave que meu ICP usa para buscar?<span class="dtl">Se contém só o nome próprio, o campo mais estratégico está desperdiçado.</span></span></li>
+<li><span class="n gradtext">03</span><span class="li-main">A bio linha 1 filtra o ICP — meu cliente ideal se reconhece imediatamente?<span class="dtl">Se a linha 1 poderia ser de qualquer corretor, precisa ser reescrita.</span></span></li>
+<li><span class="n gradtext">04</span><span class="li-main">Existe pelo menos um dado verificável na bio (número, ano, premiação)?<span class="dtl">Afirmação não prova. Dado verifica. A prova precisa estar na bio.</span></span></li>
+<li><span class="n gradtext">05</span><span class="li-main">Os destaques têm nomes que comunicam o que está dentro sem precisar clicar?<span class="dtl">Se o nome não diz o que contém, o visitante não clica.</span></span></li>
+<li><span class="n gradtext">06</span><span class="li-main">O grid tem paleta visual reconhecível nos últimos 9 posts?<span class="dtl">Olhe para o grid como bloco. Existe um padrão de cores? Existe consistência?</span></span></li>
+<li><span class="n gradtext">07</span><span class="li-main">Todos os campos dizem a mesma coisa sobre quem você é?<span class="dtl">Foto, nome, bio, destaques e grid precisam ser coerentes — não contraditórios.</span></span></li>
+</ol></div>`},
+
+/* 50 */ {cls:'s-section',html:sec('Análise','Exemplos reais<br>comentados','Quatro perfis que funcionam. Três que não funcionam. Um borderline com ativos fortes usados na posição errada. Análise campo a campo, sem filtro.')},
+
+/* 51 */ {cls:'s-statement',html:`<div class="pad">
+<div class="slabel">O que você vai ver agora</div>
+<div class="stmt">Perfis reais.<br>Análise campo<br>a campo — sem filtro.</div>
+<div class="items">
+<div class="sitem"><span class="sn">Por que reais</span>Exemplos inventados são confortáveis. Exemplos reais mostram o que o mercado de fato está fazendo — e onde estão os espaços vazios que você pode ocupar.</div>
+<div class="sitem"><span class="sn">Como olhar</span>Observe o handle, o nome de exibição e a bio como campos indexáveis. Depois os destaques. Depois o grid. Cada campo comunica algo — ou desperdiça a oportunidade.</div>
+<div class="sitem"><span class="sn">O que levar</span>O padrão dos perfis que funcionam e o padrão dos que falham. Eles são consistentes — não aleatórios.</div>
+</div>
+</div>`},
+
+/* 52 */ {cls:'s-igprofile',html:igMock('Análise positiva — @maysa_marcari__mcmv','Especialista MCMV · 28.4k seguidores · Campinas/SP',pMaysa,annMaysa,itemsMaysa)},
+
+/* 53 */ {cls:'s-igprofile',html:igMock('Análise positiva — @corretorwendell','Top Vendas 3 anos consecutivos · 14.2k seguidores · Florianópolis/SC',pWendell,annWendell,itemsWendell)},
+
+/* 54 */ {cls:'s-igprofile',html:igMock('Análise positiva — @helenamello.imoveisluxosjc','Imóveis de luxo · São José dos Campos · 13 anos de mercado · 13.4k seguidores',pHelena,annHelena,itemsHelena)},
+
+/* 55 */ {cls:'s-igprofile',html:igMock('Análise positiva — @anacorretora.curitiba','14 anos em Curitiba · +300 imóveis entregues · 8.7k seguidores',pAna,annAna,itemsAna)},
+
+/* 56 */ {cls:'s-insight',html:`<div class="pad">
+<div class="insight-text">Quatro perfis diferentes.<br><span class="gradtext">Um padrão:</span></div>
+<div style="margin-top:28px;display:flex;flex-direction:column;gap:9px">
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;min-width:88px;padding-top:2px">Nicho claro</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">Nenhum tenta falar com todo mundo. Cada um tem um ICP específico que se reconhece na primeira leitura.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;min-width:88px;padding-top:2px">Prova real</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">Todos têm pelo menos um dado verificável — número, ano, premiação — na bio ou no nome de exibição. Nenhum usa só adjetivos.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;min-width:88px;padding-top:2px">Redundância</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">A mesma palavra-chave em dois ou três campos: handle, nome e bio dizem a mesma coisa em formatos diferentes.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;min-width:88px;padding-top:2px">Coerência</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">Foto, nome, bio, destaques e grid contam a mesma história. Cada campo reforça o anterior — nenhum contradiz.</span></div>
+</div>
+</div>`},
+
+/* 57 */ {cls:'s-section',html:sec('Atenção','Perfis que<br>destroem o posicionamento','Quatro perfis que representam os erros mais comuns. O objetivo não é crítica — é identificar os padrões para que você não repita o mesmo caminho.')},
+
+/* 58 */ {cls:'s-igprofile',html:igMock('Análise — @sieiro.rafael','71.2k seguidores · Bio sem nicho · São Paulo/SP',pSieiro,annSieiro,itemsSieiro)},
+
+/* 59 */ {cls:'s-igprofile',html:igMock('Análise — @washingtonlordimoveis','3 seguidores · 57k seguindo · Bio em caixa alta · sem nicho definido',pWashington,annWashington,itemsWashington)},
+
+/* 60 */ {cls:'s-igprofile',html:igMock('Análise — @marcelocorretorflorianopolis','"Atende bem!" como diferencial · Destaques sem fio editorial · Florianópolis/SC',pMarcelo,annMarcelo,itemsMarcelo)},
+
+/* 61 */ {cls:'s-igprofile',html:igMock('Análise borderline — @rajramalho','4.6k seguidores · Tem ativos fortes — mas todos usados na posição errada',pRaj,annRaj,itemsRaj)},
+
+/* 62 */ {cls:'s-insight',html:`<div class="pad">
+<div class="insight-text">O padrão dos perfis<br>que <span class="gradtext">falham</span><br>é sempre o mesmo:</div>
+<div style="margin-top:28px;display:flex;flex-direction:column;gap:9px">
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#dc2626;min-width:88px;padding-top:2px">Generalismo</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">Tentam falar com todo mundo — e não chegam com força em ninguém. "Toda a cidade", "qualquer produto", "todos os perfis de cliente".</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#dc2626;min-width:88px;padding-top:2px">Sem prova</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">Afirmações que qualquer pessoa pode fazer: "atendo bem", "experiente", "comprometido". Nenhum dado, nenhuma premiação, nenhum número verificável.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#dc2626;min-width:88px;padding-top:2px">Desperdício</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">CRECI na bio, nome próprio no handle, emojis no nome de exibição. Os campos mais estratégicos ocupados com o que menos diferencia.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#dc2626;min-width:88px;padding-top:2px">Descontinuidade</span><span style="font-size:.96rem;line-height:1.4;font-weight:500">Foto fala de uma coisa, bio de outra, destaques de outra. O perfil não tem fio condutor — cada campo parece de um profissional diferente.</span></div>
+</div>
+</div>`},
+
+/* 63 */ {cls:'s-section',html:sec('Aplicação','Construção ao vivo:<br>Marina','Você acompanhou a construção da bio da Marina linha por linha. Agora veja o perfil completo montado — e como cada campo da bio se conecta com os outros elementos do sistema.')},
+
+/* 64 */ {cls:'s-statement',html:`<div class="pad">
+<div class="slabel">O contexto da Marina</div>
+<div class="stmt">Corretora MCMV<br>em Campinas.<br>8 anos de mercado.<br><span class="gradtext">Top MCMV 2023 Nacional.</span></div>
+<div class="items">
+<div class="sitem"><span class="sn">O ICP</span>Casais e famílias de primeira viagem com renda entre 2 e 8 salários mínimos, que usarão FGTS. A barreira não é querer — é o medo da burocracia e das surpresas no processo.</div>
+<div class="sitem"><span class="sn">O diferencial</span>Acompanhar cada etapa do financiamento pessoalmente — da simulação à entrega da chave. O cliente nunca fica sem resposta no processo.</div>
+<div class="sitem"><span class="sn">O que a bio precisa fazer</span>Identificar o ICP (L1), entregar o diferencial (L2), provar a credencial (L3), marcar o território (L4), orientar a ação (L5).</div>
+</div>
+</div>`},
+
+/* 65 */ {cls:'s-igprofile',html:igMock('Perfil completo — Marina Souza | MCMV Campinas','Cada linha da bio veio de um elemento de posicionamento. Não há invenção — há conversão.',pMarina,annMarina,itemsMarina)},
+
+/* 66 */ {cls:'s-compare',html:`<div class="pad">
+<h2>Bio da Marina — de onde veio cada linha</h2>
+<div class="compare-grid">
+<div class="ccol">
+<div class="ctitle">A linha da bio</div>
+<ul>
+<li><strong>L1:</strong> "Especialista em primeiro imóvel · Campinas"</li>
+<li><strong>L2:</strong> "Do FGTS à chave, sem surpresa"</li>
+<li><strong>L3:</strong> "Top MCMV 2023 · 8 anos de mercado"</li>
+<li><strong>L4:</strong> "Campinas · Zona Norte e região"</li>
+<li><strong>L5:</strong> "Fale comigo 👇"</li>
+</ul>
+</div>
+<div class="ccol strong">
+<div class="ctitle">A origem estratégica</div>
+<ul>
+<li>Nicho (Aula 3) + vocabulário do ICP (Aula 4)</li>
+<li>Dor silenciosa do ICP: medo de burocracia e surpresas</li>
+<li>Prova dupla: premiação com ano + tempo de mercado</li>
+<li>Território específico com área de domínio local</li>
+<li>CTA com consequência esperada clara</li>
+</ul>
+</div>
+</div>
+<div class="cmp-note">Nenhuma linha foi inventada. Cada uma veio diretamente de um elemento definido nas aulas 3–6. Posicionamento convertido em presença.</div>
+</div>`},
+
+/* 67 */ {cls:'s-key',html:`<div class="pad">
+<div class="key-eye">O que o perfil da Marina comunica antes de qualquer post</div>
+<div class="key-q">Qualquer família buscando<br>primeiro imóvel em Campinas<br><span class="gradtext">já sabe que chegou no lugar certo</span><br>antes de ler a primeira legenda.</div>
+<div class="key-sub">Isso é posicionamento funcionando. Não precisa de um post que convença — o perfil já convenceu. O conteúdo reforça o que o perfil declarou. E cada novo seguidor que chega já foi filtrado pela bio — é alguém que se reconheceu naquelas cinco linhas e decidiu ficar.</div>
+</div>`},
+
+/* 68 */ {cls:'s-section',html:sec('Prática','Teste do<br>seu perfil','O framework é simples. A aplicação é onde a maioria adia. As próximas perguntas existem para que você não adie.')},
+
+/* 69 */ {cls:'s-compare',html:`<div class="pad">
+<h2>O antes e o depois — o que o visitante experimenta</h2>
+<div class="compare-grid">
+<div class="ccol">
+<div class="ctitle">Antes — perfil sem posicionamento</div>
+<ul>
+<li>Foto: logo ou selfie casual</li>
+<li>Handle/Nome: só nome próprio. Nada para indexar.</li>
+<li>"Corretor de imóveis · CRECI ativo · DM para mais informações"</li>
+<li>Destaques: viagem, família, 2022 — não fala ao cliente</li>
+<li>Grid: mix de imóveis, selfies, eventos — sem padrão visual</li>
+<li><em>Resultado: sai sem saber o que o perfil é. Nunca compra.</em></li>
+</ul>
+</div>
+<div class="ccol strong">
+<div class="ctitle">Depois — perfil com posicionamento</div>
+<ul>
+<li>Foto: rosto claro, expressão coerente com o tom de voz</li>
+<li>Nome de exibição com nicho e cidade — aparece na busca</li>
+<li>Bio: identidade + diferencial + prova + território + CTA</li>
+<li>Destaques: Quem sou · Clientes · Imóveis · Dicas · Contato</li>
+<li>Grid com paleta consistente — reconhecível sem ler o nome</li>
+<li><em>Resultado: o ICP se reconhece, confia antes do primeiro DM.</em></li>
+</ul>
+</div>
+</div>
+</div>`},
+
+/* 70 */ {cls:'s-list',html:lst('As 7 perguntas do teste — responda agora','Abra seu perfil e responda uma a uma. Anote o que precisa mudar.',[
+{title:'A foto: reconhecível a 40px com rosto claro e profissional?',dtl:'Abra o Instagram no celular e olhe seu avatar no feed ou nos comentários — esse é o tamanho real.'},
+{title:'O nome de exibição tem a palavra-chave que meu ICP usa para buscar?',dtl:'Se contém só o nome próprio, abra "Editar perfil" e revise agora.'},
+{title:'A bio linha 1 identifica o nicho de forma que o ICP se reconhece em 2 segundos?',dtl:'Mostre para alguém do seu público-alvo e pergunte: você se sente representado?'},
+{title:'Existe pelo menos um dado verificável (número, ano, premiação) na bio?',dtl:'Se a bio tem só adjetivos e cargos, não tem prova. Identifique o dado mais forte e coloque.'},
+{title:'Os nomes dos destaques comunicam o que está dentro sem precisar clicar?',dtl:'Leia os nomes sem clicar. Você sabe o que cada um tem? Se não — reescreva.'},
+{title:'Os últimos 9 posts do grid têm uma paleta visual reconhecível?',dtl:'Olhe para o grid como bloco, não post a post. Tem um padrão de cores? Tem consistência?'},
+{title:'Todos os campos dizem a mesma coisa sobre quem você é?',dtl:'Se a foto diz "acessível" e a bio diz "alto padrão formal", há contradição. Escolha um caminho e alinhe tudo.'}
+],7)},
+
+/* 71 */ {cls:'s-key',html:`<div class="pad">
+<div class="key-eye">O prazo e o que vem a seguir</div>
+<div class="key-q">O perfil é o único elemento do Instagram que você pode <span class="gradtext">atualizar completamente em 48 horas.</span></div>
+<div class="key-sub">Não precisa de campanha, não depende de algoritmo, não precisa de aprovação. A foto nova pode ser tirada amanhã. O nome de exibição é alterado em dois cliques. A bio cabe em 150 caracteres.<br><br><strong style="font-weight:700">Antes da próxima aula:</strong><br>1. Responda as 7 perguntas do teste com seu perfil aberto<br>2. Identifique o campo que mais contradiz seu posicionamento<br>3. Corrija esse campo primeiro — não tente mudar tudo de uma vez<br><br>Na próxima aula: GPT Imob DNA — aplicando o posicionamento na produção de conteúdo.</div>
+</div>`},
+
+/* 72 */ {cls:'s-section',html:sec('Fechamento','O que a aula entregou','Você entrou com posicionamento no papel. Sai com um sistema para torná-lo visível.')},
+
+/* 73 */ {cls:'s-statement',html:`<div class="pad">
+<div class="slabel">O que você construiu nessa aula</div>
+<div class="stmt">Cinco zonas.<br>Um sistema.<br><span class="gradtext">Uma decisão de apresentar<br>quem você é.</span></div>
+<div class="items">
+<div class="sitem"><span class="sn">As 5 zonas</span>Foto, nome de exibição, bio, destaques e grid — cada um com função específica e critérios claros de construção e avaliação.</div>
+<div class="sitem"><span class="sn">O framework de bio</span>Cinco linhas com origem estratégica: identidade, diferencial, prova, território e ação. Conversão do que foi definido nas aulas 3–6 — não invenção.</div>
+<div class="sitem"><span class="sn">8 análises reais</span>Quatro perfis que funcionam, três que falham, um borderline — com o padrão por trás de cada grupo identificado e mapeado.</div>
+</div>
+</div>`},
+
+/* 74 */ {cls:'s-insight',html:`<div class="pad">
+<div class="insight-text">Posicionamento que existe<br>só no caderno<br><span class="gradtext">não é posicionamento.</span><br>É intenção.</div>
+<div class="next-label">Próxima aula — GPT Imob DNA: aplicando o posicionamento no conteúdo</div>
+</div>`}
+
+];
+
+/* ── Render ── */
+const stage=document.getElementById('stage');
+let cur=0;
+function render(){
+  stage.innerHTML='';
+  slides.forEach((s,i)=>{
+    const el=document.createElement('div');
+    el.className='slide '+s.cls+(i===cur?' active':'');
+    el.innerHTML=s.html;
+    stage.appendChild(el);
+  });
+  document.getElementById('counter').textContent=`${cur+1} / ${slides.length}`;
+}
+function go(d){cur=Math.max(0,Math.min(slides.length-1,cur+d));render();}
+document.getElementById('prev').onclick=()=>go(-1);
+document.getElementById('next').onclick=()=>go(1);
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')go(1);
+  else if(e.key==='ArrowLeft')go(-1);
+  else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+});
+render();
+</script>
+</body>
+</html>
